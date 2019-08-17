@@ -1,4 +1,14 @@
-------Users------
+drop table user_interests;
+drop table user_details;
+drop table user_appearance_pref;
+drop table user_appearance;
+drop table user_details_pref;
+drop table messages;
+drop table chat_junc;
+drop table matches;
+drop table match_junc;
+drop table chatrooms;
+drop table users;
 
 CREATE TABLE users (
 user_id SERIAL PRIMARY KEY,
@@ -67,26 +77,6 @@ ethnicity_pref TEXT,
 intro_extro_pref INTEGER
 );
 
------matches-----
-
-create table match_junc (
-    match_junc_id serial primary key,
-    likes BOOLEAN,
-    
-);
-
-create table matches (
-    match_id serial primary key,
-    match_junc_id int references match_junc(match_junc_id),
-    swiper_id int references users(user_id),
-    swiped_id int references users(user_id),
-    likes BOOLEAN,
-    date_swiped timestamp
-);
-
-------chat------
-
-
 create table chatrooms (
     chatroom_id serial primary key,
     date_created timestamp
@@ -98,7 +88,24 @@ create table messages(
     chatroom_id int references chatrooms(chatroom_id),
     content text,
     timestamp_sent timestamp,
-    read BOOLEAN 
+    read BOOLEAN  
 );
 
+create table chat_junc (
+    junc_id serial primary key,
+    chatroom_id int references chatrooms(chatroom_id),
+    user_id int references users(user_id)
+);
 
+create table match_junc (
+    match_junc_id serial primary key
+);
+
+create table matches (
+    match_id serial primary key,
+    match_junc_id int references match_junc(match_junc_id),
+    swiper_id int references users(user_id),
+    swiped_id int references users(user_id),
+    likes BOOLEAN,
+    date_swiped timestamp
+);
