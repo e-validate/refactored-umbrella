@@ -23,15 +23,12 @@ massive(CONNECTION_STRING).then(db => app.set('db', db)).catch(err => console.lo
 app.get(`/api/users/potential`, userController.getPotentialMatches)
 
 
-<<<<<<< HEAD
 app.get('/api/users/potential', userController.getPotentialMatches)
-=======
 //session endpoints 
 app.post('/api/login', sessionController.login);
 app.post('/api/register', sessionController.register);
 app.delete('/api/logout', sessionController.logout);
 app.get('/api/user', authmw, sessionController.getUser);
->>>>>>> master
 
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`))
