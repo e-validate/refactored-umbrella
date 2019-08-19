@@ -1,25 +1,31 @@
 import axios from 'axios'
-import {GET_ALL_USERS} from '../actionTypes'
+import {GET_POTENTIAL_MATCHES} from './actionTypes'
 
 const initialState = {
-  allUsers: [],
+  potentialMatches: [],
   error: false
 }
 
-export const getAllUsers(){
-  return{
-    type: GET_ALL_USERS,
-    payload: axios.get(`/api/users/all`).then(res => res.data)
+export function getPotentialMatches(){
+  let data = axios.get('/api/users/potential')
+  .then(res => {console.log('aaron', res.data)
+    return res.data})
+    console.log("aaron")
+  return {
+    type: GET_POTENTIAL_MATCHES,
+    payload: data
+    
   }
 }
 
 
-export default function(state = initialState, action) {
+export default function userReducer(state = initialState, action){
+  console.log("action", action)
   let {type, payload} = action
-  switch (type) {
-    case GET_ALL_USERS + "_FULFILLED" :
-      return{...state, allUsers: payload, error: false }
-    case GET_ALL_USERS + "_REJECTED" :
-      return{...state, error: payload}  
+  switch(type){
+    case GET_POTENTIAL_MATCHES + "_FULFILLED" : 
+      return{...state, potentialMatches: payload}
+    default: 
+      return state
   }
 }
