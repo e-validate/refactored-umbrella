@@ -1,4 +1,4 @@
-import axios from 'axios';
+ import axios from 'axios';
 import {LOGIN, REGISTER, GET_USER, LOGOUT} from './actionTypes';
 
 const intialState = {
