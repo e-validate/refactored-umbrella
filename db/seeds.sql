@@ -141,32 +141,16 @@ values (3,1,true);
 insert into matches (swiper_id, swiped_id, likes)
 values (1,3,true);
 
+insert into match_junc (likes)
+values ((select likes from matches 
+         where match_id = (select max(match_id) from matches)
+         and likes = 'true'
+         and likes is not 'false'
+        ));
+        
+update matches 
+set match_junc_id = (select max(match_junc_id) from match_junc);
 
-select * from users 
-where user_id = (select DISTINCT(user_id) from matches 
-NATURAL join users
-where swiped_id = 1
-and user_id = 2)
-
-case 
-    when (select likes from matches 
-            where user_id = 1   
-            )  = 'true'
-    then(
-        insert into match_junc(likes)
-        values ('true')
-        )
-    when (select likes from matches 
-            where user_id = 1   
-            ) = 'true'
-    then(
-        update matches 
-        set match_junc_id = 
-        (
-        select max(match_junc_id) from match_junc
-        )
-        )
-end;
 
 update matches
 set likes = false

@@ -98,7 +98,8 @@ create table chat_junc (
 );
 
 create table match_junc (
-    match_junc_id serial primary key
+    match_junc_id serial primary key,
+    likes boolean
 );
 
 create table matches (

@@ -1,4 +1,16 @@
 ------Users------
+drop table user_interests;
+drop table user_details;
+drop table user_appearance_pref;
+drop table user_appearance;
+drop table user_details_pref;
+drop table messages;
+drop table chat_junc;
+drop table matches;
+drop table match_junc;
+drop table chatrooms;
+drop table users;
+drop table pref_counter;
 
 CREATE TABLE users (
 user_id SERIAL PRIMARY KEY,
@@ -71,7 +83,7 @@ intro_extro_pref INTEGER
 
 create table match_junc (
     match_junc_id serial primary key,
-    likes BOOLEAN,
+    likes BOOLEAN
     
 );
 
@@ -92,6 +104,12 @@ create table chatrooms (
     date_created timestamp
 );
 
+create table chat_junc (
+chat_junc_id serial primary key,
+chatroom_id int REFERENCES chatrooms(chatroom_id),
+user_id int REFERENCES users(user_id)
+);
+
 create table messages(
     messages_id serial primary key,
     sender_id int references users(user_id),
@@ -102,3 +120,79 @@ create table messages(
 );
 
 
+-----compare-----
+
+create table pref_counter(
+pref_counter_id serial PRIMARY KEY,
+users_id int REFERENCES users(user_id),
+comparing_users_id int REFERENCES users(user_id),
+user_interests_counter int, 
+user_appearance_counter int, 
+user_details_counter int 
+);
+
+
+
+
+
+
+
+
+
+-- select *  from pref_counter
+-- where (select sports from user_interests
+-- where users_id) = (select sports from user_interests
+-- where comparing_users_id = i 
+
+-- create or replace function test(id int, column_name text )
+-- returns integer as $$
+-- declare
+-- counter INTEGER =0;
+-- incr integer = 0; 
+-- i integer = (select count(user_id) from users);
+-- m text = (select column_name from user_interests where user_id = id);
+-- n text = (select column_name from user_interests where user_id = incr and user_id != id);
+
+-- begin
+-- if(n!=m) then
+
+-- end if;
+-- while incr < i loop
+-- incr = incr + 1;
+-- update pref_counter set user_interests_counter =  user_interests_counter + counter 
+-- where incr = comparing_user_id.pref_counter
+-- -- (select comparing_users_id from pref_counter where comparing_users_id = incra);
+-- end loop;
+-- return counter ;
+-- end;
+-- $$LANGUAGE plpgsql;
+
+-- select test(1, 'sports');
+-- select test(1, 'arts');
+-- select test(1, 'music');
+
+-- sports,
+-- arts,
+-- music,
+-- books,
+-- movies,
+-- outdoors,
+-- food,
+-- pets,
+-- netflix,
+-- traveling,
+-- tech,
+-- fashion,
+-- fitness,
+-- gaming,
+-- politics, 
+-- select sports from user_interests where user_id  = 3 and user_id != 1;
+
+
+
+-- select * from pref_counter;
+
+
+
+
+   
