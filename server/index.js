@@ -1,12 +1,15 @@
-require("dotenv").config();
-const express = require("express");
-const session = require("express-session");
-const massive = require("massive");
-const userController = require("./controllers/userController");
-const sessionController = require("./controllers/sessionController");
-const authmw = require("./middleware/authCheck");
-const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
-const app = express();
+require("dotenv").config()
+const express = require('express');
+const session = require('express-session');
+const massive = require('massive');
+const userController = require('./controllers/userController');
+const sessionController = require('./controllers/sessionController');
+const authmw = require('./middleware/authCheck');
+const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
+
+const app = express()
+
+//Socket
 
 const bodyParser = require("body-parser");
 
@@ -14,8 +17,6 @@ const bodyParser = require("body-parser");
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const socketController = require("./controllers/socketController");
-
-
 
 app.use(
   session({
@@ -56,6 +57,6 @@ app.post('/api/savemessage', socketController.saveMesssage)
 
 
 // SERVER instead of APP
-server.listen(4000, () => console.log("Best LESSON EVER! Sockets are cool"));
+ server.listen(4000, () => console.log("Best LESSON EVER! Sockets are cool"));
 
 

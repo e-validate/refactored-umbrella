@@ -2,11 +2,13 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import promiseMiddleware from 'redux-promise-middleware'
 import userReducer from './reducers/userReducer'
 import messageReducer from './reducers/messageReducer'
+import sessionReducer from './reducers/sessionReducer';
 
 
 const rootReducer = combineReducers({
   user: userReducer,
-  messages: messageReducer
+  messages: messageReducer,
+  session: sessionReducer
 })
 
 // standard export, comment back in before hosting

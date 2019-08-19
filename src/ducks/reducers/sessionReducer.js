@@ -1,7 +1,7 @@
  import axios from 'axios';
 import {LOGIN, REGISTER, GET_USER, LOGOUT} from './actionTypes';
 
-const intialState = {
+const initialState = {
     user: {},
     redirect: false,
     error: false
@@ -10,7 +10,7 @@ const intialState = {
 export const login = (email, password) => {
     let data = axios
     .post('/api/login', {email, password})
-    .then(req => res.data);
+    .then(res => res.data);
     return {
         type: LOGIN, 
         payload: data
@@ -43,7 +43,7 @@ export const getUser = () => {
 };
 
 
-export default function(state = intialState) {
+export default function sessionReducer(state = initialState, action) {
     let {type, payload} = action;
     switch(type) {
         case LOGIN + '_FULFILLED':
@@ -89,6 +89,8 @@ export default function(state = intialState) {
             error: payload,
             redirect: true
         };
+        default:
+        return state
     }
 }
 
