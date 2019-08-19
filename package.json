@@ -42,5 +42,10 @@
       "last 1 safari version"
     ]
   },
+<<<<<<< HEAD
   "proxy": "http://localhost:5432"
+=======
+  "proxy": "http://localhost:5432", 
+  "main": "server/index.js"
+>>>>>>> master
 }
