@@ -1,0 +1,38 @@
+.login_container {
+    /* background-image: url('https://images.unsplash.com/photo-1437624155766-b64bf17eb2ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'); */
+    /* background-image: url('https://images.unsplash.com/photo-1514632595-4944383f2737?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'); */
+    /* background-size: cover;  */
+    /* background-position: center ; */
+    /* background-image: url('https://images.unsplash.com/photo-1518104593124-ac2e82a5eb9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'); */
+    
+    height: 400px;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_inputs {
+    margin-top: 20px;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow:  1px 1px 2px 2px #ccc;
+}
+
+.login_button {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 15px;
+    background: #04dbac;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow:  1px 1px 2px 2px #ccc;
+}
+
+.link_to_register {
+    margin-top: 20px;
+    color: #04dbac;
+}
+

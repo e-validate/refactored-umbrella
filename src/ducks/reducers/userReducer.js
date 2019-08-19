@@ -22,6 +22,7 @@ export default function userReducer(state = initialState, action){
   let {type, payload} = action
   switch(type){
     case GET_POTENTIAL_MATCHES + "_FULFILLED" : 
+      payload = Object.keys(payload)
       return{...state, potentialMatches: payload}
     case GET_POTENTIAL_MATCHES + "_REJECTED" : 
       return{...state, error: true}  
