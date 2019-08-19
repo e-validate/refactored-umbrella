@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
-import './SocketView.css';
+import './socketview.css';
 const socket = io.connect('http://localhost:4000');
 
 export default class SocketView extends Component {
