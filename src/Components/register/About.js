@@ -11,18 +11,6 @@ class About extends Component {
         }
     }
 
-    female = () => {
-        this.setState({
-            selected: !this.state.femaleSelected
-        })
-    }
-
-    male = () => {
-        this.setState({
-            selected: !this.state.maleSelected
-        })
-    }
-
     
     render() {
         let {feet, inches, color} = this.state
@@ -54,17 +42,9 @@ class About extends Component {
                     </select>
                 </div>
 
-                <div className='gender_container'>
-                    <label className='form_labels' id='gender'>Gender:</label>
-                
-                    <div className='radio-toolbar'>
-                        <input type="radio" name='gender'id='male'/><label for='male' className='male_label'><i className="fas fa-male"></i> Male</label>
-                        <input type='radio' name='gender' id='female'/><label for='female' className='female_label'><i type='radio' className="fas fa-female"></i> Female</label>
-                    </div>
-                </div>
-
                 <div className='image_container'><label className='form_labels' id='profile_image'>Profile Image:</label><input  id='profile_image' className='form_input' placeholder='Enter URL'/></div>
-            
+                <div className='image_container'><label className='form_labels' id='profile_image'>Profile Image:</label><input  id='profile_image' className='form_input' placeholder='Enter URL'/></div>
+                <div className='image_container'><label className='form_labels' id='profile_image'>Profile Image:</label><input  id='profile_image' className='form_input' placeholder='Enter URL'/></div>
                     <div className='form_one_button_container'>
                         <button className='skip-button'>Skip</button>
                         <button className='next-button'>Next</button>
