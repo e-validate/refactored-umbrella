@@ -11,6 +11,7 @@
   margin-top: 75px;
   background: white;
   padding: 10px 10px 10px 10px;
+  margin-bottom: 75px;
 }
 
 .Profile_Img {
@@ -44,12 +45,17 @@
   margin-top: 10px;
 }
 
-.Profile_User {
+.Profile_User:nth-child(2) {
   font-weight: bolder;
   font-size: 20pt;
 }
 
-.Profile_User:nth-child(odd) {
+.Profile_User > span {
+  font-size: 14pt;
+  font-weight: normal;
+}
+
+.Profile_User {
   font-weight: bold;
   font-size: 17pt;
 }
@@ -72,7 +78,6 @@ img {
   padding-top: 20px;
   line-height: 20pt;
 }
-
 
 button {
   background: lightgrey;

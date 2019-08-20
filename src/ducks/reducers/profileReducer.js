@@ -8,10 +8,7 @@ const initialState = {
 };
 
 export function getCurrentUser(id) {
-  let data = axios.get(`/api/profiles/${id}`).then(res => {
-    console.log("profile reducer", res.data);
-    return res.data;
-  });
+  let data = axios.get(`/api/profiles/${id}`).then(res => res.data);
   return {
     type: GET_CURRENT_USER,
     payload: data
