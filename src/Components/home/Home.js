@@ -14,6 +14,7 @@ class Home extends Component{
     let {getPotentialMatches} = this.props
     await getPotentialMatches()
     this.setCompatability(this.props.potentialMatches)
+    console.log(this.props);
   }
   
   setCompatability = (arr) => {
