@@ -3,4 +3,19 @@
 // db.add_matches([dislike, swiper_id, swiped_id]) in that order
 // we are only going to need one function for this 
 
-
+module.exports = {
+  async dislike (req, res){
+    let {id} = req.session.id
+    let {swipedId} = req.params
+    const db = req.app.get('db')
+    let data = await db.add_matches(false, id, swipedId)
+    res.send(data)
+  },
+  async like(req, res){
+    let {id} = req.session.id
+    let {swipedId} = req.params
+    const db = req.app.get('db')
+    let data = await db.add_matches(true, id, swipedId)
+    res.send(data)
+  }
+}
