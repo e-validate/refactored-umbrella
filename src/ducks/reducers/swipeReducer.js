@@ -7,7 +7,8 @@ const initialState = {
 
 export function swipeRight(id){
   console.log('swipeRight')
-  let data = axios.post(`/api/swipe/right/${id}`).then(res => res.data)
+  axios.post(`/api/swipe/right/${id}`).then(res => res.data)
+  axios.get()
   return{
     type: SWIPE_RIGHT, 
     payload: data
