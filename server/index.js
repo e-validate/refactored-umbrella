@@ -50,8 +50,8 @@ app.delete("/api/logout", sessionController.logout);
 app.get("/api/user", authmw, sessionController.getUser);
 
 // Like endPoints
-app.post("/api/swipe/left/:id", likeController.dislike)
-app.post("/api/swipe/right/:id", likeController.like)
+app.post("/api/swipe/left/:swipedId", likeController.dislike)
+app.post("/api/swipe/right/:swipedId", likeController.like)
 
 
 
