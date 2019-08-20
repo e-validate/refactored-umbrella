@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import "./Profiles.css";
 import { connect } from "react-redux";
 import { getCurrentUser } from "./../../ducks/reducers/profileReducer";
-import MatchedUserProfile from "./MatchedUserProfile";
+// import MatchedUserProfile from "./MatchedUserProfile";
 
 class CurrentUserProfile extends Component {
   componentDidMount() {
-    this.props.getCurrentUser(15);
+    this.props.getCurrentUser(1);
   }
 
   render() {
