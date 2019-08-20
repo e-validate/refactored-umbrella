@@ -8,6 +8,11 @@ export const LOGOUT = 'LOGOUT';
 export const SWIPE_RIGHT = "SWIPE_RIGHT"
 export const SWIPE_LEFT = "SWIPE_LEFT"
 
+//form action types
+export const ADD_USER_APPEARANCE = 'ADD_USER_APPEARANCE';
+export const ADD_USER_DETAILS_INTERESTS = 'ADD_USER_DETAILS_INTERESTS';
+export const ADD_USER_PREF = 'ADD_USER_PREF';
+
 
 
 
