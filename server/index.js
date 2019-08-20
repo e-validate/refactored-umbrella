@@ -26,12 +26,15 @@ app.use(
   })
 );
 
+app.use(bodyParser());
+
 massive(CONNECTION_STRING).then(db => {
-    app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`))
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(express.json());
+  app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`))
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.json());
     app.set("db", db)
     app.use( express.static( `${__dirname}/../build` ) );
+    server.listen(4000, () => console.log("Sockets are cool"));
   })
   .catch(err => console.log("err", err));
 
@@ -57,6 +60,6 @@ app.post('/api/savemessage', socketController.saveMesssage)
 
 
 // SERVER instead of APP
-server.listen(4000, () => console.log("Best LESSON EVER! Sockets are cool"));
+ 
 
 
