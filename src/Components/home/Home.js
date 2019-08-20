@@ -1,22 +1,35 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getPotentialMatches} from '../../ducks/reducers/userReducer'
+import Swipe from 'react-easy-swipe'
 
 class Home extends Component{
   constructor(){
     super()
     this.state = {
-      matchesWithCompatability:[]
+      matchesWithCompatability:[],
     }
   }
   
   async componentDidMount(){
     let {getPotentialMatches} = this.props
     await getPotentialMatches()
-    this.setCompatability(this.props.potentialMatches)
-    console.log(this.props);
+    this.setCompatability(this.props.potentialMatches)    
   }
   
+  onSwipeStart(event){
+    console.log("Start Swiping...", event)
+  }
+
+  onSwipeMove(position, event){
+    console.log(`Moved ${position.x} pizels horizontally`, event)
+    console.log(`Moved ${position.y} pizels vertically`, event)
+  }
+
+  onSwipeEnd(event){
+    console.log("End Swiping...", event)
+  }
+
   setCompatability = (arr) => {
     for(let i = 0; i < arr.length; i++){
       let user1 = {
@@ -116,18 +129,35 @@ class Home extends Component{
         this.setState({matchesWithCompatability: [...this.state.matchesWithCompatability, currentUser]})
       }
   }
+
+  // SwipeRight(){
+  //   console.log('right')
+  // }
+
+  // SwipeLeft(){
+    //   console.log('left')
+    // }
+        swipeLeft = () => {
+          console.log('left')
+        }
+      
+        swipeRight =() => {
+          console.log('right')
+        }
   
   render(){
-    console.log('this.state', this.state)
     const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
-    console.log('comp', compatable)
     return(
       <div>
         {compatable.length ? (
           <div>
-            <image src={compatable[0].image1} />
-            <p>{compatable[0].name}</p>
-
+            {compatable.slice(0, 1).map(profile => 
+              <Swipe key={`swipeId-${profile.user_id}`} onSwipeLeft={this.swipeLeft} onSwipeRight={this.swipeRight}>
+                {profile.name}
+                {profile.age}
+                <img src={profile.image1}/>
+              </Swipe>
+              )}
           </div>
         ):(
           <div>Loading...</div>
