@@ -139,6 +139,58 @@ user_details_counter int
 
 
 
+-- select *  from pref_counter
+-- where (select sports from user_interests
+-- where users_id) = (select sports from user_interests
+-- where comparing_users_id = i 
+
+-- create or replace function test(id int, column_name text )
+-- returns integer as $$
+-- declare
+-- counter INTEGER =0;
+-- incr integer = 0; 
+-- i integer = (select count(user_id) from users);
+-- m text = (select column_name from user_interests where user_id = id);
+-- n text = (select column_name from user_interests where user_id = incr and user_id != id);
+
+-- begin
+-- if(n!=m) then
+
+-- end if;
+-- while incr < i loop
+-- incr = incr + 1;
+-- update pref_counter set user_interests_counter =  user_interests_counter + counter 
+-- where incr = comparing_user_id.pref_counter
+-- -- (select comparing_users_id from pref_counter where comparing_users_id = incra);
+-- end loop;
+-- return counter ;
+-- end;
+-- $$LANGUAGE plpgsql;
+
+-- select test(1, 'sports');
+-- select test(1, 'arts');
+-- select test(1, 'music');
+
+-- sports,
+-- arts,
+-- music,
+-- books,
+-- movies,
+-- outdoors,
+-- food,
+-- pets,
+-- netflix,
+-- traveling,
+-- tech,
+-- fashion,
+-- fitness,
+-- gaming,
+-- politics, 
+-- select sports from user_interests where user_id  = 3 and user_id != 1;
+
+
+
+-- select * from pref_counter;
 
 
 

@@ -4,6 +4,7 @@ const session = require('express-session');
 const massive = require('massive');
 const userController = require('./controllers/userController');
 const sessionController = require('./controllers/sessionController');
+const profileController = require("./controllers/profileController");
 const authmw = require('./middleware/authCheck');
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
 
@@ -39,6 +40,7 @@ massive(CONNECTION_STRING).then(db => {
   .catch(err => console.log("err", err));
 
 app.get(`/api/users/potential`, userController.getPotentialMatches);
+app.get(`/api/profiles/:id`, profileController.getCurrentUser);
 
 // session endpoints
 app.post("/api/login", sessionController.login);
