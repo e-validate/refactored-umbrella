@@ -1,13 +1,9 @@
-import React from 'react';
-import './App.css';
-import Home from './Components/home/Home'
+import React from "react";
+import "./App.css";
+import routes from "./routes";
 
 function App() {
-  return (
-    <div className="App">
-      <Home />
-    </div>
-  );
+  return <div className="App">{routes}</div>;
 }
 
 export default App;
