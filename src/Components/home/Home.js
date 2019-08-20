@@ -130,30 +130,35 @@ class Home extends Component{
       }
   }
 
-  onSwipeRight(){
+  // SwipeRight(){
+  //   console.log('right')
+  // }
 
-  }
-
-  onSeipeLeft(){
-    
-  }
+  // SwipeLeft(){
+    //   console.log('left')
+    // }
+        swipeLeft = () => {
+          console.log('left')
+        }
+      
+        swipeRight =() => {
+          console.log('right')
+        }
   
   render(){
-    console.log('this.state', this.state)
     const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
-    console.log('comp', compatable)
     return(
       <div>
         {compatable.length ? (
-          <ul>
-            {compatable.map(profile => 
-              <Swipe key={`swipeId-${profile.user_id}`} onSwipeStart={this.onSwipeStart} onSwipeMove={this.onSwipeMove} onSwipeEnd={this.onSwipeEnd}>
+          <div>
+            {compatable.slice(0, 1).map(profile => 
+              <Swipe key={`swipeId-${profile.user_id}`} onSwipeLeft={this.swipeLeft} onSwipeRight={this.swipeRight}>
                 {profile.name}
                 {profile.age}
                 <img src={profile.image1}/>
               </Swipe>
               )}
-          </ul>
+          </div>
         ):(
           <div>Loading...</div>
         )}
