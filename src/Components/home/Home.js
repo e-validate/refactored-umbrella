@@ -150,6 +150,7 @@ class Home extends Component{
               <Swipe key={`swipeId-${profile.user_id}`} onSwipeStart={this.onSwipeStart} onSwipeMove={this.onSwipeMove} onSwipeEnd={this.onSwipeEnd}>
                 {profile.name}
                 {profile.age}
+                <img src={profile.image1}/>
               </Swipe>
               )}
           </ul>

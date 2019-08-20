@@ -5,6 +5,7 @@ const massive = require('massive');
 const userController = require('./controllers/userController');
 const sessionController = require('./controllers/sessionController');
 const profileController = require("./controllers/profileController");
+const likeController = require('./controllers/likeController')
 const authmw = require('./middleware/authCheck');
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
 
@@ -47,6 +48,12 @@ app.post("/api/login", sessionController.login);
 app.post("/api/register", sessionController.register);
 app.delete("/api/logout", sessionController.logout);
 app.get("/api/user", authmw, sessionController.getUser);
+
+// Like endPoints
+app.post("/api/swipe/left/:id", likeController.dislike)
+app.post("/api/swipe/right/:id", likeController.like)
+
+
 
 io.on("connection", socket => {
   // When a client connects run this function
