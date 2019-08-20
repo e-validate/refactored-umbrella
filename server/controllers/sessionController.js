@@ -1,9 +1,8 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const saltRounds = 10;
 
 module.exports = {
     async login(req, res) {
-        console.log(req);
         const db = req.app.get('db');
         let {email, password} = req.body;
         let [existingUser] = await db.users.get_user_email(email);
@@ -12,7 +11,7 @@ module.exports = {
         if(result) {
             req.session.user = {
                 email: existingUser.email,
-                id: existingUser.id,
+                id: existingUser.user_id,
                 loggedIn: true
             };
             res.send(req.session.user)
@@ -26,7 +25,7 @@ module.exports = {
         let salt = await bcrypt.genSalt(saltRounds);
         let hash = await bcrypt.hash(password, salt);
         let [user] = await db.users.add_user_login([name, email, hash]);
-        req.session.user = {name: user.name, id: user.id, loggedIn: true};
+        req.session.user = {name: user.name, id: user.user_id, loggedIn: true};
         res.send(req.session.user);
     },
     logout(req, res) {
