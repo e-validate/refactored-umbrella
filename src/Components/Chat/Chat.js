@@ -27,10 +27,15 @@ class Chat extends Component {
             this.setState({
                 chatMessages: [...this.state.chatMessages, message]
             });
-            this.props.saveMessage('2','ja;sldkfj;alskj')
+            console.log(this.props);
+            this.props.saveMessage('2', this.state.message)
         });
 
         this.sendMessage = this.sendMessage.bind(this);
+    }
+
+    componentDidMount(){
+        this.joinRoom()
     }
 
     joinRoom() {
@@ -49,12 +54,13 @@ class Chat extends Component {
         console.log('chat props',this.props)
         return (
             <div className='chat'>
-                <button onClick={this.joinRoom}>Join the Room</button>
+                {/* <button className="send-message" onClick={this.joinRoom}>Join the Room</button> */}
                 <input
+                 className="input-send-message"
                     value={this.state.message}
                     onChange={e => this.setState({ message: e.target.value })}
                 />
-                <button onClick={this.sendMessage}>Send</button>
+                <button className="send-message" onClick={this.sendMessage}>Send</button>
 
                 {this.state.chatMessages.map(message => (
                     <div>{message}</div>

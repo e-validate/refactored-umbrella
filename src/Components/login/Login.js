@@ -27,6 +27,7 @@ class Login extends Component {
     }
 
     login = () => {
+        console.log(this.state);
         this.props.login(this.state.email, this.state.password)
         .catch(() => {
             alert('Invalid email or password. Please try again.');
