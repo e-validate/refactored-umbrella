@@ -28,10 +28,10 @@ class About extends Component {
         let {feet, inches, color} = this.state
         return (
             <div>
-                <h1 className='about_you'>About You</h1>
+                <h1 className='about_you_header'>About You</h1>
                 <div className='form_container'>
 
-                <label id='age' className='form_labels'>Age: <input className='form_input' placeholder='Enter age'/></label>
+                <label id='age' className='form_labels'>Age:<input className='form_input' placeholder='Enter age'/></label>
 
                 <div className='height_container'>
                     <label id='height' className='form_labels'>Height: </label>

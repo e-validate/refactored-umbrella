@@ -1,14 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
-
 body {
-  font-family: 'Lexend Deca', sans-serif;
-  color: #0D1F2D;
-  color: #546A7B;
+  color: #383838;
 }
 
-.about_you {
+.about_you_header {
   text-align: center;
   text-decoration: underline;
+  color: #04dbac;
 }
 
 .form_container {
@@ -20,8 +17,9 @@ body {
   margin-top: 20px;
 }
 
-#height, #hair_color, #gender, #profile_image, #ethnicity, #description {
+#height, #hair_color, #gender, #profile_image, #ethnicity, #description, #religion {
   margin-top: 20px;
+  font-family: 'Lexend Deca', sans-serif;
 }
 
 .height_container, .hair_color_container, .gender_container {
@@ -37,24 +35,29 @@ body {
 select {
   padding: 3px;
   margin-right: 5px;
-  border: 1px solid #444;
+  border: 1px solid #383838;
   border-radius: 4px;
-  opacity: .7;
+  width: 80px;
 }
 
 .form_input {
-    width: 100px;
+    width: 80px;
     padding: 5px 10px; 
     border-radius: 4px;
+    color: #383838;
+    border: 1px solid #383838;
 }
 
+.form_input::placeholder {
+  font-size: 15px;
+}
 
-  .radio-toolbar label {
+.radio-toolbar label {
     display: inline-block;
-    color: gray;
+    color: #383838;
     padding: 5px 10px; 
     font-size: 16px;
-    border: .5px solid gray;
+    border: .5px solid #383838;
     border-radius: 4px;
 }
 
@@ -70,22 +73,20 @@ select {
 }
 
 .male_label {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .radio-toolbar .female_label:hover, .radio-toolbar input[type="radio"]:checked + .female_label {
-  background-color: #D79B8F;
-  border-color: gray;
+  background-color: #D1345b;
+  border-color: #383838;
   color: white;
 }
 
 .radio-toolbar .male_label:hover, .radio-toolbar input[type="radio"]:checked + .male_label  {
-  background-color: #546A7B;
+  background-color: #3b5593;
   color: white;
-  border-color: gray;
+  border-color: #383838;;
 }
-
-
 
 
 .form_one_button_container {
@@ -96,18 +97,35 @@ select {
   margin-top: 50px;
 }
 
-.skip-button, .next-button { 
-  background: white;
-  color: gray;
+.skip-button, .next-button, .interests_button { 
+  background: #04dbac;
   padding: 5px 10px; 
   font-size: 16px;
-  border: .5px solid #546A7B;
+  color: #383838;
+  font-family: 'Lexend Deca', sans-serif;
+  border: none;
   border-radius: 4px;
 }
 
+.preferences_div {
+  margin-bottom: 20px;
+}
+
+.skip-button:hover, .next-button:hover, .interests_button:hover {
+  background: gray;
+  color: white;
+}
+
+.preferences_button {
+  margin-bottom: 20px;
+}
+
+.interests_button {
+  margin-top: 20px;
+}
 
 .description {
-  border: .5px solid gray;
+  border: .5px solid #383838;
   border-radius: 4px;
 }
 
@@ -119,9 +137,10 @@ select {
 
 .intro_extro {
   display: flex;
-  margin-right: 20px;
   align-items: center;
+  width: 80vw;
   margin-top: 20px;
+  font-size: 20px;
 }
 
 .slider {
@@ -139,6 +158,8 @@ select {
   width: 20px;
   height: 20px;
   border-radius: 50%; 
-  background: #546A7B;
+  background: #383838;
   cursor: pointer;
 }
+
+
