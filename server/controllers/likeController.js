@@ -6,6 +6,7 @@
 module.exports = {
   async dislike (req, res){
     console.log('dislike hit')
+    console.log(req.sesson);
     let {id} = req.session
     let {swipedId} = req.params
     const db = req.app.get('db')
