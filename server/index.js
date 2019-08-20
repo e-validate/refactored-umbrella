@@ -4,6 +4,7 @@ const session = require('express-session');
 const massive = require('massive');
 const userController = require('./controllers/userController');
 const sessionController = require('./controllers/sessionController');
+const profileController = require("./controllers/profileController");
 const authmw = require('./middleware/authCheck');
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
 
@@ -26,16 +27,20 @@ app.use(
   })
 );
 
+app.use(bodyParser());
+
 massive(CONNECTION_STRING).then(db => {
-    app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`))
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(express.json());
+  app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`))
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.json());
     app.set("db", db)
     app.use( express.static( `${__dirname}/../build` ) );
+    server.listen(4000, () => console.log("Sockets are cool"));
   })
   .catch(err => console.log("err", err));
 
 app.get(`/api/users/potential`, userController.getPotentialMatches);
+app.get(`/api/profiles/:id`, profileController.getCurrentUser);
 
 // session endpoints
 app.post("/api/login", sessionController.login);
@@ -57,6 +62,6 @@ app.post('/api/savemessage', socketController.saveMesssage)
 
 
 // SERVER instead of APP
- server.listen(4000, () => console.log("Best LESSON EVER! Sockets are cool"));
+ 
 
 

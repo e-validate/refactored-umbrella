@@ -16,8 +16,8 @@ module.exports = {
         const db = req.app.get("db");
         // let { id } = req.session.admin;
         // let { chatroom_id, content} = req.body;
-        let messages = db.add_messages([
-        9, 7, 'iuhkjfhalkjhn'
+        let messages = db.add_message([
+        9, 1, 'iuhkjfhalkjhn'
             ]);
         res.send(messages)
     },
