@@ -5,7 +5,8 @@ const massive = require('massive');
 const userController = require('./controllers/userController');
 const sessionController = require('./controllers/sessionController');
 const profileController = require("./controllers/profileController");
-const likeController = require('./controllers/likeController')
+const likeController = require('./controllers/likeController');
+const formController = require('./controllers/formController');
 const authmw = require('./middleware/authCheck');
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
 
@@ -49,9 +50,14 @@ app.post("/api/register", sessionController.register);
 app.delete("/api/logout", sessionController.logout);
 app.get("/api/user", authmw, sessionController.getUser);
 
+//form endpoints 
+app.post('/api/addUserAppearance', formController.addUserAppearance);
+app.post('/api/addUserDetailsAndInterests', formController.addUserDetailsAndInterests);
+app.post('/api/addPref', formController.addUserPreferences);
+
 // Like endPoints
-app.post("/api/swipe/left/:id", likeController.dislike)
-app.post("/api/swipe/right/:id", likeController.like)
+app.post("/api/swipe/left/:swipedId", likeController.dislike)
+app.post("/api/swipe/right/:swipedId", likeController.like)
 
 
 

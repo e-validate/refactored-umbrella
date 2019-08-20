@@ -1,8 +1,6 @@
 insert into user_appearance_pref (
 age_min,
 age_max,
-min_height,
-max_height,
 hair_color_pref,
 user_id 
 )

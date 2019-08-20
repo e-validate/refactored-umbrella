@@ -5,17 +5,21 @@
 
 module.exports = {
   async dislike (req, res){
-    let {id} = req.session.id
+    console.log('dislike hit')
+    let {id} = req.session.user
     let {swipedId} = req.params
     const db = req.app.get('db')
-    let data = await db.add_matches(false, id, swipedId)
+    let data = await db.swipes.add_matches(false, id, swipedId)
     res.send(data)
   },
   async like(req, res){
-    let {id} = req.session.id
+    console.log('like hit')
+    console.log("session", req.session)
+    let {id} = req.session.user
+    console.log("param", req.params)
     let {swipedId} = req.params
     const db = req.app.get('db')
-    let data = await db.add_matches(true, id, swipedId)
+    let data = await db.swipes.add_matches([true, +id, +swipedId])
     res.send(data)
   }
 }

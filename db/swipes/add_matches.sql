@@ -4,7 +4,7 @@ values ($1,$2,$3);
 insert into match_junc (likes)
 values ((select likes from matches 
             where match_id = (select max(match_id) from matches)  
-             ))
+             ));
 
 update matches set match_junc_id = (
     select max(match_junc_id) from match_junc)
@@ -20,23 +20,29 @@ do
     $do$
         begin 
             if exists (select match_junc_id from matches 
-            where swiped_id = $3
+            where swiped_id = $2
             and  likes = true
-            and swiper_id = $2)
+            and swiper_id = $3)
         then 
             update matches 
                 set match_junc_id = ( select match_junc_id from matches where swiped_id = $3 and  likes = true and swiper_id = $2)
                     where (swiper_id = $2 and swiped_id = $3)
                         or (swiper_id = $3 and swiped_id =$2);
+                        insert into chatrooms (date_created) values (now());
+                        insert into chat_junc (chatroom_id, user_id)
+                    values ((select max(chatroom_id) from chatrooms), $2);   
+                insert into chat_junc (chatroom_id, user_id)
+                    values ((select max(chatroom_id) from chatrooms), $3);   
         else
             update matches set match_junc_id = ( select max(match_junc_id) from match_junc)
                 where match_id = (select max(match_id) from matches);
-                insert into chat_junc (chatroom_id, user_id)
-                    values ((select max(chatroom_id) from chatrooms), $2);   
-                insert into chat_junc (chatroom_id, user_id)
-                    values ((select max(chatroom_id) from chatrooms), $3);
         end if;
     end
 $do$;
+
+
+
+
+
 
 

@@ -5,7 +5,7 @@ const initialState = {
   chatRoom: 0
 }
 
-export function swipeRight(){
+export function swipeRight(id){
   console.log('swipeRight')
   let data = axios.post(`/api/swipe/right/${id}`).then(res => res.data)
   return{

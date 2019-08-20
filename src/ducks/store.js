@@ -4,13 +4,15 @@ import userReducer from './reducers/userReducer'
 import messageReducer from './reducers/messageReducer'
 import sessionReducer from './reducers/sessionReducer';
 import profileReducer from "./reducers/profileReducer";
+import swipeReducer from './reducers/swipeReducer'
 
 
 const rootReducer = combineReducers({
   user: userReducer,
   messages: messageReducer,
   session: sessionReducer,
-  profiles: profileReducer
+  profiles: profileReducer,
+  swipe: swipeReducer
 })
 
 // standard export, comment back in before hosting

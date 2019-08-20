@@ -11,6 +11,8 @@ import Preferences from "./Components/register/Preferences";
 import Inbox from "./Components/inbox/inbox";
 import ChatDisplay from "./Components/chatDisplay/ChatDisplay";
 
+
+
 export default (
   <Switch>
     <Route exact path="/" component={Home} />
