@@ -1,0 +1,87 @@
+.CurrentUserProfile {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background: lightgray;
+  font-family: "Lexend Deca", sans-serif;
+}
+
+.Profile-Container {
+  width: 60vw;
+  margin-top: 75px;
+  background: white;
+  padding: 10px 10px 10px 10px;
+  margin-bottom: 75px;
+}
+
+.Profile_Img {
+  display: flex;
+  width: 100%;
+}
+
+.Profile_Img > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.Profile_Img > div > div {
+  background: yellow;
+  height: 50%;
+  display: flex;
+  border-left: 10px solid white;
+}
+
+.Profile_Img > div > div:nth-child(2) {
+  background: blue;
+  height: 50%;
+  display: flex;
+  border-top: 10px solid white;
+}
+
+.Profile_User,
+.Profile_Info_Short {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.Profile_User:nth-child(2) {
+  font-weight: bolder;
+  font-size: 20pt;
+}
+
+.Profile_User > span {
+  font-size: 14pt;
+  font-weight: normal;
+}
+
+.Profile_User {
+  font-weight: bold;
+  font-size: 17pt;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.Border {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+  margin: 0 auto;
+}
+
+.Profile_Desc {
+  text-align: justify;
+  padding-top: 20px;
+  line-height: 20pt;
+}
+
+button {
+  background: lightgrey;
+  padding: 7px;
+  border-radius: 20px;
+  border: none;
+}
