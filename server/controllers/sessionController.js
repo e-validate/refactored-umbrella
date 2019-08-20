@@ -3,6 +3,7 @@ const saltRounds = 10;
 
 module.exports = {
     async login(req, res) {
+        console.log(req);
         const db = req.app.get('db');
         let {email, password} = req.body;
         let [existingUser] = await db.users.get_user_email(email);
