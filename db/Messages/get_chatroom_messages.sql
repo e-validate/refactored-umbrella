@@ -1,2 +1,2 @@
 select * from messages 
-where chatroom_id = $1
+where chatroom_id = $1;

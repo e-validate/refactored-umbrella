@@ -7,8 +7,10 @@ drop table messages;
 drop table chat_junc;
 drop table matches;
 drop table match_junc;
+drop table pref_counter;
 drop table chatrooms;
 drop table users;
+
 
 CREATE TABLE users (
 user_id SERIAL PRIMARY KEY,
