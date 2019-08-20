@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getPotentialMatches} from '../../ducks/reducers/userReducer'
+import {swipeLeft, swipeRight} from "../../ducks/reducers/swipeReducer"
 import Swipe from 'react-easy-swipe'
 
 class Home extends Component{
@@ -8,6 +9,7 @@ class Home extends Component{
     super()
     this.state = {
       matchesWithCompatability:[],
+      counter: 0
     }
   }
   
@@ -127,32 +129,32 @@ class Home extends Component{
         }
         let currentUser = {...arr[i], compatability: compatabilityCounter}
         this.setState({matchesWithCompatability: [...this.state.matchesWithCompatability, currentUser]})
-      }
+    }
   }
 
-  // SwipeRight(){
-  //   console.log('right')
-  // }
-
-  // SwipeLeft(){
-    //   console.log('left')
-    // }
-        swipeLeft = () => {
-          console.log('left')
-        }
+   actionSwipeLeft = () => {
+      console.log('left')
+    }
       
-        swipeRight =() => {
-          console.log('right')
-        }
-  
-  render(){
-    const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
+    
+
+    actionSwipeRight= (id) => {
+       let {swipeRight} = this.props
+         console.log('right')
+         swipeRight(id)
+         this.setState({counter: this.state.counter+= 1})
+       }
+    
+    render(){
+      const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
+      console.log('this', compatable)
     return(
       <div>
         {compatable.length ? (
           <div>
             {compatable.slice(0, 1).map(profile => 
-              <Swipe key={`swipeId-${profile.user_id}`} onSwipeLeft={this.swipeLeft} onSwipeRight={this.swipeRight}>
+              <Swipe key={`swipeId-${profile.user_id}`} onSwipeLeft={() => this.actionSwipeLeft(profile.user_id)} onSwipeRight={() =>{ this.actionSwipeRight(profile.user_id)
+              compatable.splice(0, 1)} }>
                 {profile.name}
                 {profile.age}
                 <img src={profile.image1}/>
@@ -173,4 +175,4 @@ class Home extends Component{
   }
 }
 
-export default connect(mapStateToProps, {getPotentialMatches})(Home)
+export default connect(mapStateToProps, {getPotentialMatches, swipeLeft, swipeRight})(Home)
