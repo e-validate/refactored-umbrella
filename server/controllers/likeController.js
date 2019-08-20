@@ -12,6 +12,10 @@ module.exports = {
     res.send(data)
   },
   async like(req, res){
-    
+    let {id} = req.session.id
+    let {swipedId} = req.params
+    const db = req.app.get('db')
+    let data = await db.add_matches(true, id, swipedId)
+    res.send(data)
   }
 }
