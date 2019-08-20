@@ -1,9 +1,12 @@
 insert into user_appearance (
+age,
+height_ft,
+height_in,
 hair_color, 
 image1, 
 image2, 
-image3, 
-age, 
+image3,  
 user_id
 )
-values ($1,$2,$3,$4,$5,(select max(user_id) from users));
+
+values ($1,$2,$3,$4,$5,$6,$7 (select max(user_id) from users));
