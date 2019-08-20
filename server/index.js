@@ -57,6 +57,6 @@ app.post('/api/savemessage', socketController.saveMesssage)
 
 
 // SERVER instead of APP
- server.listen(4000, () => console.log("Best LESSON EVER! Sockets are cool"));
+server.listen(4000, () => console.log("Best LESSON EVER! Sockets are cool"));
 
 
