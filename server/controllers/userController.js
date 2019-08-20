@@ -28,13 +28,9 @@
 // get the potential matches 
 
 module.exports = {
-    getPotentialMatches (req, res){
-      console.log('Controller Hit')
-     // let {id} = req.session
-     console.log(req.session)
+    async getPotentialMatches (req, res){
      const db = req.app.get('db')
-     let data = db.get_users_potential_matches()
-     console.log('data', data)
+     let data = await db.get_users_potential_matches()
      res.send(data)
    }
   }
