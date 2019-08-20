@@ -7,25 +7,24 @@ const initialState = {
 }
 
 export function getPotentialMatches(){
-  let data = axios.get('/api/users/potential')
-  .then(res => {console.log('aaron', res.data)
-    return res.data})
-    console.log("aaron")
+  console.log('before axios call')
+  let data = axios.get(`/api/users/potential`)
+  .then(res => res.data)
+  console.log('data', data)
   return {
     type: GET_POTENTIAL_MATCHES,
     payload: data
-    
   }
 }
 
 
 export default function userReducer(state = initialState, action){
-  console.log("action", action)
   let {type, payload} = action
   switch(type){
     case GET_POTENTIAL_MATCHES + "_FULFILLED" : 
-      payload = Object.keys(payload)
       return{...state, potentialMatches: payload}
+    case GET_POTENTIAL_MATCHES + "_REJECTED" : 
+      return{...state, error: true}  
     default: 
       return state
   }
