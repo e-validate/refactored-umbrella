@@ -1,21 +1,35 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getPotentialMatches} from '../../ducks/reducers/userReducer'
+import Swipe from 'react-easy-swipe'
 
 class Home extends Component{
   constructor(){
     super()
     this.state = {
-      matchesWithCompatability:[]
+      matchesWithCompatability:[],
     }
   }
   
   async componentDidMount(){
     let {getPotentialMatches} = this.props
     await getPotentialMatches()
-    this.setCompatability(this.props.potentialMatches)
+    this.setCompatability(this.props.potentialMatches)    
   }
   
+  onSwipeStart(event){
+    console.log("Start Swiping...", event)
+  }
+
+  onSwipeMove(position, event){
+    console.log(`Moved ${position.x} pizels horizontally`, event)
+    console.log(`Moved ${position.y} pizels vertically`, event)
+  }
+
+  onSwipeEnd(event){
+    console.log("End Swiping...", event)
+  }
+
   setCompatability = (arr) => {
     for(let i = 0; i < arr.length; i++){
       let user1 = {
@@ -115,6 +129,14 @@ class Home extends Component{
         this.setState({matchesWithCompatability: [...this.state.matchesWithCompatability, currentUser]})
       }
   }
+
+  onSwipeRight(){
+
+  }
+
+  onSeipeLeft(){
+    
+  }
   
   render(){
     console.log('this.state', this.state)
@@ -123,11 +145,14 @@ class Home extends Component{
     return(
       <div>
         {compatable.length ? (
-          <div>
-            <image src={compatable[0].image1} />
-            <p>{compatable[0].name}</p>
-
-          </div>
+          <ul>
+            {compatable.map(profile => 
+              <Swipe key={`swipeId-${profile.user_id}`} onSwipeStart={this.onSwipeStart} onSwipeMove={this.onSwipeMove} onSwipeEnd={this.onSwipeEnd}>
+                {profile.name}
+                {profile.age}
+              </Swipe>
+              )}
+          </ul>
         ):(
           <div>Loading...</div>
         )}
