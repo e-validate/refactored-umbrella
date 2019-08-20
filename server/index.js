@@ -56,8 +56,8 @@ app.post('/api/addUserDetailsAndInterests', formController.addUserDetailsAndInte
 app.post('/api/addPref', formController.addUserPreferences);
 
 // Like endPoints
-app.post("/api/swipe/left/:id", likeController.dislike)
-app.post("/api/swipe/right/:id", likeController.like)
+app.post("/api/swipe/left/:swipedId", likeController.dislike)
+app.post("/api/swipe/right/:swipedId", likeController.like)
 
 
 
