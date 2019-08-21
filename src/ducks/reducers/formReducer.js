@@ -34,3 +34,43 @@ export const addUserPref = (age_min, age_max, hair_color_pref, gender_pref, reli
     }
 }
 
+export default function formReducer(state = initialState, action) {
+    let {type, payload} = action;
+    switch(type) {
+        case ADD_USER_APPEARANCE + '_FULFILLED':
+        return {
+            ...state,
+            formDetails: payload,
+            error: false
+        }
+        case ADD_USER_APPEARANCE + '_REJECTED':
+        return {
+            ...state,
+            error: payload
+        }
+        case ADD_USER_DETAILS_INTERESTS + '_FULFILLED':
+        return {
+            ...state,
+            formDetails: payload,
+            error: false
+        }
+        case ADD_USER_DETAILS_INTERESTS + '_REJECTED':
+        return {
+            ...state,
+            error: payload
+        }
+        case ADD_USER_PREF + '_FULFILLED':
+        return {
+            ...state,
+            formDetails: payload,
+            error: false
+        }
+        case ADD_USER_PREF + '_REJECTED':
+        return {
+            ...state,
+            error: payload
+        }
+        default: 
+        return state
+    }
+}
