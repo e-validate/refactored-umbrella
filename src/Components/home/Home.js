@@ -151,6 +151,7 @@ class Home extends Component{
     render(){
       const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
       console.log('this', compatable)
+      console.log(this.props.user);
     return(
       <div>
         {compatable.length ? (
