@@ -34,5 +34,10 @@ module.exports = {
     },
     getUser(req, res) {
         res.send(req.session.user);
+    },
+    async getUserDetails(req, res) {
+        let {id} = req.params
+        const db = req.app.get('db')
+        let user = await db.get_all_data_for_user
     }
 }
