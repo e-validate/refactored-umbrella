@@ -29,6 +29,7 @@ export const getDetails = (id) => {
 }
 
 export const register = (name, email, password) => {
+    console.log(name, email, password);
     let data = axios
     .post('/api/register', {name, email, password})
     .then(res => res.data);
