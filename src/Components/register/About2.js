@@ -3,7 +3,6 @@ import './about.css';
 import {connect} from 'react-redux';
 import {addUserDetailsAndInterests} from './../../ducks/reducers/formReducer';
 import {Link} from 'react-router-dom';
-
 class About2 extends Component {
     constructor() {
         super()
@@ -34,7 +33,6 @@ class About2 extends Component {
             description: ''
         }
     }
-
     flipInterestDisplay = () => {
         this.setState({
             display: !this.state.display
@@ -59,6 +57,12 @@ class About2 extends Component {
     }
 
 
+    checked = () => {
+    }
+    handleSubmit = () => {
+        let {gender, religion, ethnicity, intro_extro, description, sports, arts, music, books, movies, outdoors, food, pets, netflix, traveling, tech, fashion, fitness, gaming, politics} = this.state
+        this.props.addUserDetailsAndInterests(gender, religion, ethnicity, intro_extro, description, sports, arts, music,books, movies, outdoors, food, pets, netflix, traveling, tech, fashion, fitness, gaming, politics)
+    }
     render() {
         let {religions, races, display, interest, gender, description, intro_extro} = this.state
         return (
@@ -66,7 +70,6 @@ class About2 extends Component {
                 <h1 className='about_you_header'>More About You</h1>
                 
                 <div className='form_container'>
-
                     <div className='gender_container'>
                         <label className='form_labels' id='gender'>Gender:</label>
                     
@@ -85,9 +88,6 @@ class About2 extends Component {
                             }
                         </select>
                     </div>
-
-
-
                     <div>
                         <label className='form_labels' id='ethnicity'>Ethnicity: </label>
                         <select id='ethnicity' name='ethnicity' onChange={this.handleChange}>
@@ -113,7 +113,6 @@ class About2 extends Component {
                     }) : 
                   <div>{null}</div>
                 }
-
                 <label id='description' className='form_labels'>Description:</label>
                 <textarea onChange={this.handleChange} className='description' cols='30' rows='10' placeholder='Tell us about yourself' name='description' value={description} type='text'/>
                 

@@ -1,0 +1,33 @@
+.swiped_left {
+  animation-name: css_left;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes css_left {
+  from {
+    transform: rotate(0deg) translate(0px);
+  }
+  to {
+    transform: rotate(-90deg) translate(-3000px);
+  }
+}
+
+.swiped_right {
+  animation-name: css_right;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes css_right {
+  from {
+    transform: rotate(0deg) translate(0px);
+  }
+  to {
+    transform: rotate(90deg) translate(3000px);
+  }
+}

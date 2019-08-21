@@ -5,13 +5,13 @@ import {swipeLeft, swipeRight} from "../../ducks/reducers/swipeReducer"
 import {getDetails} from '../../ducks/reducers/sessionReducer'
 import Swipe from 'react-easy-swipe'
 
-class Home extends Component{
-  constructor(){
-    super()
+class Home extends Component {
+  constructor() {
+    super();
     this.state = {
-      matchesWithCompatability:[],
+      matchesWithCompatability: [],
       counter: 0
-    }
+    };
   }
   
   async componentDidMount(){
@@ -84,8 +84,10 @@ class Home extends Component{
       swipeLeft(id)
       this.setState({counter: this.state.counter +=1})
     }
-      
-    
+  };
+  actionSwipeLeft = () => {
+    console.log("left");
+  };
 
     actionSwipeRight= (id) => {
        let {swipeRight} = this.props
@@ -107,16 +109,15 @@ class Home extends Component{
               compatable.splice(0,1)}}>
                 {profile.name}
                 {profile.age}
-                <img src={profile.image1}/>
+                <img src={profile.image1} />
               </Swipe>
-              )}
+            ))}
           </div>
-        ):(
+        ) : (
           <div>Loading...</div>
         )}
       </div>
-      )
-    }
+    );
   }
     
     function mapStateToProps(state){
