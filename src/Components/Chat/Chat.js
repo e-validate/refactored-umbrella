@@ -53,9 +53,9 @@ class Chat extends Component {
     }
 
     render() {
-        if(!this.props.user.id){
-            this.props.getUser()
-        }
+        // if(!this.props.session.id){
+        //     this.props.getUser()
+        // }
         console.log('chat props',this.props)
         return (
             <div className='chat'>
@@ -78,7 +78,7 @@ class Chat extends Component {
 function mapStateToProps(state){
     return{
        ...state.messages,
-       user: state.user
+       session: state.session
     }
 }
 
