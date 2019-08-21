@@ -23,19 +23,23 @@ export default class Profile extends Component {
     console.log("props in profile", this.props);
     return (
       <div>
-        <div className="Profile_Img">
-          <div>
-            <div>  <img id="right_top" src={profile.image1 || defaultImg1} alt={profile.name} /></div>
-            <div className="right_bottom">  <img id="right_top" src={profile.image2 || defaultImg2} alt={profile.name} /></div>
+        <div className="main_profile_image_container">
+          <div className='sub_profile_container'>
+              <img id='profile_image_one' className='profile_image' src={profile.image1 || defaultImg1} alt={profile.name} />
+              <img  id='profile_image_two' className='profile_image' src={profile.image2 || defaultImg2} alt={profile.name} />
           </div>
-          <div>
-            <div className="left_img">  <img id="right_top" src={profile.image3 || defaultImg3} alt={profile.name} /></div>
-            <div  className="left_img">  <img id="right_top" src={profile.image4 || defaultImg4} alt={profile.name} /></div>
+
+          <div className='sub_profile_container'>
+              <img  id='profile_image_three'className='profile_image' src={profile.image3 || defaultImg3} alt={profile.name} />
+              <img  id='profile_image_four' className='profile_image' src={profile.image4 || defaultImg4} alt={profile.name} />
           </div>
         </div>
+        
+        
         <div className="Profile_User">
           {profile.name}, <span>{profile.age}</span>
         </div>
+
         <div className="Border" />
         <div className="Profile_Desc">{profile.description}</div>
         <div className="Border" />
