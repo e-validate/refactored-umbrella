@@ -8,6 +8,7 @@ const profileController = require("./controllers/profileController");
 const likeController = require('./controllers/likeController');
 const formController = require('./controllers/formController');
 const authmw = require('./middleware/authCheck');
+const initSession = require("./middleware/initSession");
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
 
 const app = express()
@@ -30,6 +31,7 @@ app.use(
 );
 
 app.use(bodyParser());
+app.use(initSession);
 
 massive(CONNECTION_STRING).then(db => {
   app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`))
@@ -72,8 +74,8 @@ io.on("connection", socket => {
   socket.on("message to server", payload =>
   socketController.sendMessageToRoom(payload, io));
 });
-
 app.post('/api/savemessage', socketController.saveMesssage)
+app.get('api/messages/:chatroom_id', socketController.getChatroomMessages)
 
 
 // SERVER instead of APP

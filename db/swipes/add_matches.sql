@@ -1,5 +1,5 @@
-insert into matches (likes, swiper_id, swiped_id)
-values ($1,$2,$3);
+insert into matches (likes, swiper_id, swiped_id, date_swiped)
+values ($1,$2,$3, now());
 
 insert into match_junc (likes)
 values ((select likes from matches 
