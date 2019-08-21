@@ -8,6 +8,7 @@ const profileController = require("./controllers/profileController");
 const likeController = require('./controllers/likeController');
 const formController = require('./controllers/formController');
 const authmw = require('./middleware/authCheck');
+const initSession = require("./middleware/initSession");
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
 
 const app = express()
@@ -30,6 +31,7 @@ app.use(
 );
 
 app.use(bodyParser());
+app.use(initSession);
 
 massive(CONNECTION_STRING).then(db => {
   app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`))
@@ -49,6 +51,7 @@ app.post("/api/login", sessionController.login);
 app.post("/api/register", sessionController.register);
 app.delete("/api/logout", sessionController.logout);
 app.get("/api/user", authmw, sessionController.getUser);
+app.get('/api/user/details/:id', sessionController.getUserDetails)
 
 //form endpoints 
 app.post('/api/addUserAppearance', formController.addUserAppearance);
@@ -58,6 +61,7 @@ app.post('/api/addPref', formController.addUserPreferences);
 // Like endPoints
 app.post("/api/swipe/left/:swipedId", likeController.dislike)
 app.post("/api/swipe/right/:swipedId", likeController.like)
+app.get('/api/swipe/:swipedId', likeController.chatRoomOnLike)
 
 
 
@@ -70,8 +74,8 @@ io.on("connection", socket => {
   socket.on("message to server", payload =>
   socketController.sendMessageToRoom(payload, io));
 });
-
 app.post('/api/savemessage', socketController.saveMesssage)
+app.get('api/messages/:chatroom_id', socketController.getChatroomMessages)
 
 
 // SERVER instead of APP

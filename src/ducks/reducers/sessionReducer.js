@@ -1,10 +1,11 @@
 import axios from 'axios';
-import {LOGIN, REGISTER, GET_USER, LOGOUT} from './actionTypes';
+import {LOGIN, REGISTER, GET_USER, LOGOUT, GET_USER_DETAILS} from './actionTypes';
 
 const initialState = {
     user: {},
     redirect: false,
-    error: false
+    error: false,
+    details: []
 }
 
 export const login = (email, password) => {
@@ -17,7 +18,18 @@ export const login = (email, password) => {
     };
 };
 
+export const getDetails = (id) => {
+    let data = axios
+    .get(`/api/user/details/${id}`)
+    .then(res => res.data)
+    return { 
+        type: GET_USER_DETAILS,
+        payload: data
+    }
+}
+
 export const register = (name, email, password) => {
+    console.log(name, email, password);
     let data = axios
     .post('/api/register', {name, email, password})
     .then(res => res.data);
@@ -46,6 +58,18 @@ export const getUser = () => {
 export default function sessionReducer(state = initialState, action) {
     let {type, payload} = action;
     switch(type) {
+        case GET_USER_DETAILS + '_FULFILLED': 
+            return{
+                ...state, 
+                error: false,
+                redirect: false,
+                details: payload
+            }
+        case GET_USER_DETAILS + "_REJECTED" :
+            return{
+                ...state,
+                error: payload
+            }
         case LOGIN + '_FULFILLED':
         return {
             ...state,
