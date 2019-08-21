@@ -11,27 +11,26 @@ export default class Profile extends Component {
       defaultImg2:
         "https://images.unsplash.com/photo-1535911062114-764574491173",
       defaultImg3:
-        "https://images.unsplash.com/photo-1523772721666-22ad3c3b6f90"
+        "https://images.unsplash.com/photo-1523772721666-22ad3c3b6f90",
+      defaultImg4:
+        "https://images.unsplash.com/photo-1516469727881-f4458e7cee17"
     };
   }
 
   render() {
     let { profile } = this.props;
-    let { defaultImg1, defaultImg2, defaultImg3 } = this.state;
+    let { defaultImg1, defaultImg2, defaultImg3, defaultImg4 } = this.state;
     console.log("props in profile", this.props);
     return (
       <div>
         <div className="Profile_Img">
           <div>
-            <img src={profile.image1 || defaultImg1} alt={profile.name} />
+            <div>  <img id="right_top" src={profile.image1 || defaultImg1} alt={profile.name} /></div>
+            <div className="right_bottom">  <img id="right_top" src={profile.image2 || defaultImg2} alt={profile.name} /></div>
           </div>
           <div>
-            <div>
-              <img src={profile.image2 || defaultImg2} alt={profile.name} />
-            </div>
-            <div>
-              <img src={profile.image3 || defaultImg3} alt={profile.name} />
-            </div>
+            <div className="left_img">  <img id="right_top" src={profile.image3 || defaultImg3} alt={profile.name} /></div>
+            <div  className="left_img">  <img id="right_top" src={profile.image4 || defaultImg4} alt={profile.name} /></div>
           </div>
         </div>
         <div className="Profile_User">

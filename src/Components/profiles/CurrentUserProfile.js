@@ -11,7 +11,7 @@ class CurrentUserProfile extends Component {
     let { getUser, getCurrentUser } = this.props;
     await getUser();
     let { id } = this.props.user;
-    await getCurrentUser(1);
+    await getCurrentUser(id);
   }
 
   render() {
