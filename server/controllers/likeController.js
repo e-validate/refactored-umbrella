@@ -5,21 +5,24 @@
 
 module.exports = {
   async dislike (req, res){
-    console.log('dislike hit')
     let {id} = req.session.user
     let {swipedId} = req.params
     const db = req.app.get('db')
-    let data = await db.swipes.add_matches(false, id, swipedId)
+    let data = await db.swipes.add_matches([false, +id, +swipedId])
     res.send(data)
   },
   async like(req, res){
-    console.log('like hit')
-    console.log("session", req.session)
     let {id} = req.session.user
-    console.log("param", req.params)
     let {swipedId} = req.params
     const db = req.app.get('db')
     let data = await db.swipes.add_matches([true, +id, +swipedId])
     res.send(data)
+  },
+  async chatRoomOnLike(req,res){
+    let {id} = req.session.user
+    let {swipedId} = req.params
+    const db = req.app.get('db')
+    let data = await db.Messages.get_match_chatroom(id, swipedId)
+    res.send(data).catch(err => console.log('error', err))
   }
 }

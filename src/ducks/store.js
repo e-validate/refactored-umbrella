@@ -4,7 +4,8 @@ import userReducer from './reducers/userReducer'
 import messageReducer from './reducers/messageReducer'
 import sessionReducer from './reducers/sessionReducer';
 import profileReducer from "./reducers/profileReducer";
-import swipeReducer from './reducers/swipeReducer'
+import swipeReducer from './reducers/swipeReducer';
+import formReducer from './reducers/formReducer';
 
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   messages: messageReducer,
   session: sessionReducer,
   profiles: profileReducer,
-  swipe: swipeReducer
+  swipe: swipeReducer,
+  form: formReducer
 })
 
 // standard export, comment back in before hosting

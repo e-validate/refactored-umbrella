@@ -132,8 +132,11 @@ class Home extends Component{
     }
   }
 
-   actionSwipeLeft = () => {
+   actionSwipeLeft = (id) => {
       console.log('left')
+      let {swipeLeft} = this.props
+      swipeLeft(id)
+      this.setState({counter: this.state.counter +=1})
     }
       
     
@@ -153,8 +156,9 @@ class Home extends Component{
         {compatable.length ? (
           <div>
             {compatable.slice(0, 1).map(profile => 
-              <Swipe key={`swipeId-${profile.user_id}`} onSwipeLeft={() => this.actionSwipeLeft(profile.user_id)} onSwipeRight={() =>{ this.actionSwipeRight(profile.user_id)
-              compatable.splice(0, 1)} }>
+              <Swipe key={`swipeId-${profile.user_id}`} onSwipeLeft={() =>{ this.actionSwipeLeft(profile.user_id)
+            compatable.splice(0,1)}} onSwipeRight={() =>{ this.actionSwipeRight(profile.user_id)
+              compatable.splice(0,1)}}>
                 {profile.name}
                 {profile.age}
                 <img src={profile.image1}/>
