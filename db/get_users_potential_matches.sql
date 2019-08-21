@@ -6,7 +6,7 @@ NATURAL JOIN user_appearance_pref
 NATURAL JOIN user_details_pref
 where user_id not in (
     select swiped_id from matches 
-    where swiper_id = 12
+    where swiper_id = $1
     ) 
-    and user_id != 12
+    and user_id != $1
 ;

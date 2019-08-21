@@ -14,11 +14,11 @@ module.exports = {
 
     async saveMesssage(req,res) {
         const db = req.app.get("db");
-        // let { id } = req.session.admin;
-        // let { chatroom_id, content} = req.body;
+        let { id } = req.session.user;
+        let { chatroom_id, content} = req.body;
         let messages = db.add_message([
-        9, 1, 'iuhkjfhalkjhn'
-            ]);
+            id, chatroom_id,content
+            ]); 
         res.send(messages)
     },
     leaveRoom() {}

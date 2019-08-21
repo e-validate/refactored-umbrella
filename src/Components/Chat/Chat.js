@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client'; 
 import {saveMessage} from '../../ducks/reducers/messageReducer';
+import {getUser} from '../../ducks/reducers/sessionReducer';
 import {connect} from 'react-redux'
 
 // connect to server
@@ -35,6 +36,7 @@ class Chat extends Component {
     }
 
     componentDidMount(){
+        this.props.getUser()
         this.joinRoom()
     }
 
@@ -72,8 +74,9 @@ class Chat extends Component {
 
 function mapStateToProps(state){
     return{
-       ...state.messages
+       ...state.messages,
+       admin: state.admin
     }
 }
 
-export default connect(mapStateToProps, {saveMessage})(Chat);
+export default connect(mapStateToProps, {saveMessage, getUser})(Chat);
