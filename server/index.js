@@ -49,6 +49,7 @@ app.post("/api/login", sessionController.login);
 app.post("/api/register", sessionController.register);
 app.delete("/api/logout", sessionController.logout);
 app.get("/api/user", authmw, sessionController.getUser);
+app.get('/api/user/details/:id', sessionController.getUserDetails)
 
 //form endpoints 
 app.post('/api/addUserAppearance', formController.addUserAppearance);
