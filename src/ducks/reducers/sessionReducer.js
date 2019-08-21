@@ -5,7 +5,7 @@ const initialState = {
     user: {},
     redirect: false,
     error: false,
-    details: {}
+    details: []
 }
 
 export const login = (email, password) => {
@@ -63,6 +63,11 @@ export default function sessionReducer(state = initialState, action) {
                 error: false,
                 redirect: false,
                 details: payload
+            }
+        case GET_USER_DETAILS + "_REJECTED" :
+            return{
+                ...state,
+                error: payload
             }
         case LOGIN + '_FULFILLED':
         return {

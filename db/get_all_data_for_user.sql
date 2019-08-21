@@ -1,7 +1,12 @@
-select * from users 
-NATURAL JOIN user_details 
-NATURAL JOIN user_interests
-NATURAL JOIN user_appearance
-NATURAL JOIN user_appearance_pref
-NATURAL JOIN user_details_pref
-where user_id = $1;
+select * from users u
+JOIN user_details us
+on us.user_id = u.user_id
+JOIN user_interests ui
+on ui.user_id = u.user_id
+JOIN user_appearance ua
+on ua.user_id = u.user_id
+JOIN user_appearance_pref uap
+on uap.user_id = u.user_id
+JOIN user_details_pref udp
+on udp.user_id = u.user_id
+where u.user_id = $1;

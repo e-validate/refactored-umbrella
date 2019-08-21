@@ -36,8 +36,12 @@ module.exports = {
         res.send(req.session.user);
     },
     async getUserDetails(req, res) {
+        console.log('details hit')
+        console.log("params", req.params)
         let {id} = req.params
         const db = req.app.get('db')
-        let user = await db.get_all_data_for_user
+        let data = await db.get_all_data_for_user(+id)
+        res.send(data)
+        console.log("data", data)
     }
 }

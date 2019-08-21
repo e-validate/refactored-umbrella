@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getPotentialMatches} from '../../ducks/reducers/userReducer'
 import {swipeLeft, swipeRight} from "../../ducks/reducers/swipeReducer"
+import {getDetails} from '../../ducks/reducers/sessionReducer'
 import Swipe from 'react-easy-swipe'
 
 class Home extends Component{
@@ -14,60 +15,18 @@ class Home extends Component{
   }
   
   async componentDidMount(){
-    let {getPotentialMatches} = this.props
+    let {getPotentialMatches, getDetails} = this.props
+    console.log("CDM", this.props.user)
     await getPotentialMatches()
-    this.setCompatability(this.props.potentialMatches)    
+    await getDetails(this.props.user.id)  
+    this.setCompatability(this.props.potentialMatches)  
   }
 
 
   setCompatability = (arr) => {
     console.log("user", this.props)
     for(let i = 0; i < arr.length; i++){
-      let user1 = {
-        user_id: 12,
-          user_appearance_id: 12,
-          name: "Kristina",
-          email: 2,
-          password: 2,
-          user_details_id: 12,
-          religion: "mormon",
-          ethnicity: "white",
-          description: "my name is kristina",
-          gender: "female",
-          intro_extro: 6,
-          user_interests_id: 12,
-          sports: true,
-          arts: false,
-          music: true,
-          books: false,
-          movies: true,
-          outdoors: false,
-          food: false,
-          pets: true,
-          netflix: true,
-          traveling: true,
-          tech: true,
-          fashion: false,
-          fitness: true,
-          gaming: false,
-          politics: true,
-          hair_color: "brown",
-          image1: "https://tse2.mm.bing.net/th?id=OIP.gkbT_J7jAwS-6zUxEdP7wAHaFY&pid=Api&P=0&w=224&h=163",
-          image2: 1,
-          image3: 1,
-          age: 25,
-          age_min: 18,
-          age_max: 100,
-          min_height: 55,
-          max_height: 60,
-          hair_color_pref: "brown",
-          user_details_pref: 12,
-          gender_pref: "male",
-          religion_pref: "mormon",
-          ethnicity_pref: "white",
-          intro_extro_pref: 5
-        }
-        
+      let user1 = this.props.details        
         let user2 = arr[i]
         let compatabilityCounter = 0
         if(user1.ethnicity_pref === user2.ethnicity){
@@ -166,4 +125,4 @@ class Home extends Component{
   }
 }
 
-export default connect(mapStateToProps, {getPotentialMatches, swipeLeft, swipeRight})(Home)
+export default connect(mapStateToProps, {getDetails,getPotentialMatches, swipeLeft, swipeRight})(Home)
