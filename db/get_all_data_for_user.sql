@@ -1,4 +1,3 @@
-
 select * from users u
 JOIN user_details us
 on us.user_id = u.user_id
