@@ -18,21 +18,10 @@ class Home extends Component{
     await getPotentialMatches()
     this.setCompatability(this.props.potentialMatches)    
   }
-  
-  onSwipeStart(event){
-    console.log("Start Swiping...", event)
-  }
 
-  onSwipeMove(position, event){
-    console.log(`Moved ${position.x} pizels horizontally`, event)
-    console.log(`Moved ${position.y} pizels vertically`, event)
-  }
-
-  onSwipeEnd(event){
-    console.log("End Swiping...", event)
-  }
 
   setCompatability = (arr) => {
+    console.log("user", this.props)
     for(let i = 0; i < arr.length; i++){
       let user1 = {
         user_id: 12,
@@ -80,7 +69,6 @@ class Home extends Component{
         }
         
         let user2 = arr[i]
-        console.log('user', user2)
         let compatabilityCounter = 0
         if(user1.ethnicity_pref === user2.ethnicity){
           compatabilityCounter +=1
@@ -133,7 +121,6 @@ class Home extends Component{
   }
 
    actionSwipeLeft = (id) => {
-      console.log('left')
       let {swipeLeft} = this.props
       swipeLeft(id)
       this.setState({counter: this.state.counter +=1})
@@ -143,7 +130,6 @@ class Home extends Component{
 
     actionSwipeRight= (id) => {
        let {swipeRight} = this.props
-         console.log('right')
          swipeRight(id)
          this.setState({counter: this.state.counter+= 1})
        }
@@ -176,7 +162,8 @@ class Home extends Component{
     
     function mapStateToProps(state){
   return{
-    ...state.user
+    ...state.user,
+    ...state.session
   }
 }
 
