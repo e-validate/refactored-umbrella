@@ -5,10 +5,8 @@
 
 module.exports = {
   async dislike (req, res){
-    console.log('dislike hit')
     let {id} = req.session.user
     let {swipedId} = req.params
-    console.log("id", id, swipedId)
     const db = req.app.get('db')
     let data = await db.swipes.add_matches([false, +id, +swipedId])
     res.send(data)

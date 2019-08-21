@@ -58,6 +58,7 @@ app.post('/api/addPref', formController.addUserPreferences);
 // Like endPoints
 app.post("/api/swipe/left/:swipedId", likeController.dislike)
 app.post("/api/swipe/right/:swipedId", likeController.like)
+app.get('/api/swipe/:swipedId', likeController.chatRoomOnLike)
 
 
 
