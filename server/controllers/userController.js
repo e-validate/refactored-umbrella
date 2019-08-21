@@ -29,8 +29,9 @@
 
 module.exports = {
     async getPotentialMatches (req, res){
+     let {id} = req.session.user      
      const db = req.app.get('db')
-     let data = await db.get_users_potential_matches()
+     let data = await db.get_users_potential_matches(id)
      res.send(data)
    }
   }
