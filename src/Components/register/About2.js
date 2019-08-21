@@ -9,7 +9,7 @@ class About2 extends Component {
         this.state = {
             religions: ['Agnostic', 'Atheist', 'Buddhism', 'Christians', 'Judaism', 'Islam', 'Spiritual', 'Taoism', 'Other'],
             races: ['African American', 'Asian', 'Hispanic', 'Native American', 'Pacific Islander', 'White', 'Other'],
-            interest: ['Arts', 'Books', 'Outdoors', 'Fitness', 'Music', 'Movies', 'Food', 'Pets', 'Netflix', 'Traveling', 'Politics', 'Tech', 'Fashion', 'Gaming'],
+            interest: ['arts', 'books', 'outdoors', 'fitness', 'music', 'movies', 'food', 'pets', 'netflix', 'traveling', 'politics', 'tech', 'fashion', 'gaming'],
             display: false,
             gender: '',
             religion: '',
@@ -30,8 +30,7 @@ class About2 extends Component {
             fitness: false,
             gaming: false,
             politics: false, 
-            description: '',
-            selected: false,
+            description: ''
         }
     }
     flipInterestDisplay = () => {
@@ -39,28 +38,24 @@ class About2 extends Component {
             display: !this.state.display
         })
     }
-    
-    female = () => {
-        this.setState({
-            gender: 'female'
-        })
-    }
-    male = () => {
-        this.setState({
-            gender: 'male'
-        })
-    }
+
     handleChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
-    handleCheck = e => {
+    handleCheck= e => {
         this.setState({
             [e.target.name]: true
         })
     }
+
+    handleSubmit = () => {
+        let {gender, religion, ethnicity, intro_extro, description, sports, arts, music, books, movies, outdoors, food, pets, netflix, traveling, tech, fashion, fitness, gaming, politics} = this.state
+        this.props.addUserDetailsAndInterests(gender, religion, ethnicity, intro_extro, description, sports, arts, music,books, movies, outdoors, food, pets, netflix, traveling, tech, fashion, fitness, gaming, politics)
+    }
+
 
     checked = () => {
     }
@@ -79,13 +74,15 @@ class About2 extends Component {
                         <label className='form_labels' id='gender'>Gender:</label>
                     
                         <div className='radio-toolbar'>
-                            <input type="radio" name='gender' value='male' onChange={this.handleChange}/><label for='male' className='male_label'><i className="fas fa-male"></i> Male</label>
-                            <input type='radio' name='gender' value='female' onChange={this.handleChange}/><label for='female' className='female_label'><i type='radio' className="fas fa-female"></i> Female</label>
+                            <input type="radio" name='gender' value='male' onChange={this.handleChange} id='male'/><label for='male' className='male_label'><i className="fas fa-male"></i> Male</label>
+                            <input type='radio' name='gender' value='female' onChange={this.handleChange} id='female'/><label for='female' className='female_label'><i type='radio' className="fas fa-female"></i> Female</label>
                         </div>
                     </div>
+
                     <div>
                         <label className='form_labels' id='religion'>Religion: </label>
                         <select id='religion' name='religion' onChange={this.handleChange}>
+                            <option></option>
                             {
                                 religions.map(type => <option value={type} key={type}>{type}</option>)
                             }
@@ -94,12 +91,15 @@ class About2 extends Component {
                     <div>
                         <label className='form_labels' id='ethnicity'>Ethnicity: </label>
                         <select id='ethnicity' name='ethnicity' onChange={this.handleChange}>
+                            <option></option>
                             {
                                 races.map(type => <option value={type} key={type}>{type}</option>)
                             }
                         </select>
                     </div>
+
                 <div className='intro_extro'>Introvert<input className='slider'type="range" min="1" max="10" name='intro_extro' value={intro_extro} onChange={this.handleChange}/>Extrovert</div>
+
                 <button onClick={this.flipInterestDisplay} className='interests_button' >What are your interests?</button>
                 {
                     display ? 
@@ -107,14 +107,14 @@ class About2 extends Component {
                         return (
                             <div>
                                 <label>{interest}</label>
-                                <input type="checkbox" onClick={this.handleCheck} name={interest} value="unchecked" />     
+                                <input type="checkbox" onChange={this.handleCheck} name={interest} value='false'/>     
                             </div>
                         )
                     }) : 
                   <div>{null}</div>
                 }
                 <label id='description' className='form_labels'>Description:</label>
-                <textarea className='description' cols='30' rows='10' placeholder='Tell us about yourself' name='description' value={description}/>
+                <textarea onChange={this.handleChange} className='description' cols='30' rows='10' placeholder='Tell us about yourself' name='description' value={description} type='text'/>
                 
                     <div className='form_one_button_container'>
                         <Link to='/preferences'>
@@ -127,7 +127,9 @@ class About2 extends Component {
         )
     }
 }
+
 function mapStateToProps(state) {
     return state.form
 }
+
 export default connect(mapStateToProps, {addUserDetailsAndInterests})(About2);

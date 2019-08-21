@@ -20,6 +20,7 @@ module.exports = {
     async register(req, res) {
         const db = req.app.get('db');
         let {name, email, password} = req.body;
+        console.log(req.body);
         let [existingUser] = await db.users.get_user_email(email);
         if(existingUser) return res.status(400).send('Email already exists');
         let salt = await bcrypt.genSalt(saltRounds);
@@ -34,5 +35,14 @@ module.exports = {
     },
     getUser(req, res) {
         res.send(req.session.user);
+    },
+    async getUserDetails(req, res) {
+        console.log('details hit')
+        console.log("params", req.params)
+        let {id} = req.params
+        const db = req.app.get('db')
+        let data = await db.get_all_data_for_user(+id)
+        res.send(data)
+        console.log("data", data)
     }
 }
