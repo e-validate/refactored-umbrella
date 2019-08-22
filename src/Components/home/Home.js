@@ -102,7 +102,7 @@ class Home extends Component{
     
     render(){
       const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
-
+      console.log('details', this.props.details)
       const cardStyle = {
         backgroundColor: "white"
       }
