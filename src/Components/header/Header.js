@@ -31,6 +31,7 @@ class Header extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     let { menuOpen } = this.state;
     return (
       <div className="header-container">
@@ -57,7 +58,7 @@ class Header extends React.Component {
               </Link>
             </div>
             <div className="hamburger-links">
-              <Link to="/login" onClick={this.logout}>
+              <Link to="/loggedout" onClick={this.logout}>
                 Logout
               </Link>
             </div>

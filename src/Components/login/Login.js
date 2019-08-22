@@ -5,8 +5,8 @@ import { login } from "./../../ducks/reducers/sessionReducer";
 import "./login.css";
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: ""
@@ -37,7 +37,8 @@ class Login extends Component {
   render() {
     let { email, password } = this.state;
     let { user } = this.props;
-    if (user.loggedIn) return <Redirect to="/" />;
+    if (user.loggedIn && this.props.match.path !== "/loggedout")
+      return <Redirect to="/" />;
     return (
       <div>
         <div className="login_container">
@@ -47,7 +48,8 @@ class Login extends Component {
             type="text"
             placeholder="Enter email"
             name="email"
-            value={email}Ï
+            value={email}
+            Ï
             onChange={this.handleChange}
           />
           <input
@@ -65,9 +67,9 @@ class Login extends Component {
             value={password}
             onChange={this.handleChange}
           />
-          <button className="login_button" onClick={this.login}>
+          <Link onClick={this.login} className="login_button" to="/">
             Login
-          </button>
+          </Link>
           <Link to="/register" className="link_to_register">
             Not a member?
           </Link>
