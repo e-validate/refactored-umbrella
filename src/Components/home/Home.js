@@ -3,15 +3,19 @@ import {connect} from 'react-redux'
 import {getPotentialMatches} from '../../ducks/reducers/userReducer'
 import {swipeLeft, swipeRight} from "../../ducks/reducers/swipeReducer"
 import {getDetails} from '../../ducks/reducers/sessionReducer'
-import Swipe from 'react-easy-swipe'
 
-class Home extends Component {
-  constructor() {
-    super();
+import { Card, CardWrapper } from 'react-swipeable-cards';
+import MyEndCard from './MyEndCard';
+import './home.css'
+
+
+class Home extends Component{
+  constructor(){
+    super()
     this.state = {
-      matchesWithCompatability: [],
-      counter: 0
-    };
+      matchesWithCompatability:[],
+      defaultImage: 'https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg'
+    }
   }
   
   async componentDidMount(){
@@ -19,7 +23,7 @@ class Home extends Component {
     console.log("CDM", this.props.user)
     await getPotentialMatches()
     await getDetails(this.props.user.id)  
-    this.setCompatability(this.props.potentialMatches)  
+    this.setCompatability(this.props.potentialMatches) 
   }
 
 
@@ -79,45 +83,44 @@ class Home extends Component {
     }
   }
 
-   actionSwipeLeft = (id) => {
-      let {swipeLeft} = this.props
-      swipeLeft(id)
-      this.setState({counter: this.state.counter +=1})
-    }
-  };
-  actionSwipeLeft = () => {
-    console.log("left");
-  };
+  
+  getEndCard() {
+    return (
+        <MyEndCard />
+    )
+  }
 
-    actionSwipeRight= (id) => {
-       let {swipeRight} = this.props
-         swipeRight(id)
-         this.setState({counter: this.state.counter+= 1})
-       }
+  onSwipeLeft = (id) => {
+    let {swipeLeft} = this.props
+    swipeLeft(id)
+  }
+
+  onSwipeRight = (id) => {
+    let {swipeRight} = this.props
+    swipeRight(id)
+  }
     
     render(){
       const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
-      console.log('this', compatable)
-      console.log(this.props.user);
-    return(
-      <div>
-        {compatable.length ? (
-          <div>
-            {compatable.slice(0, 1).map(profile => 
-              <Swipe key={`swipeId-${profile.user_id}`} onSwipeLeft={() =>{ this.actionSwipeLeft(profile.user_id)
-            compatable.splice(0,1)}} onSwipeRight={() =>{ this.actionSwipeRight(profile.user_id)
-              compatable.splice(0,1)}}>
-                {profile.name}
-                {profile.age}
-                <img src={profile.image1} />
-              </Swipe>
-            ))}
-          </div>
-        ) : (
-          <div>Loading...</div>
-        )}
+
+      const cardStyle = {
+        backgroundColor: "white"
+      }
+      return(
+      <div className='home_background_color'>
+        <div className="block"></div>
+        <CardWrapper addEndCard={this.getEndCard.bind(this)} >
+            {compatable.map(profile => 
+              <Card style={cardStyle} key={`swipeId-${profile.user_id}`} onSwipeLeft={() => this.onSwipeLeft(profile.user_id)} onSwipeRight={() => this.onSwipeRight(profile.user_id)}>
+                  <img className='home_profile_image' src={profile.image1 || this.state.defaultImage}/>
+                  <span className='home_profile_name'>{profile.name}, </span>
+                  <span className='home_profile_age'>{profile.age} </span>     
+                  </Card>
+              )}
+        </CardWrapper>
       </div>
-    );
+      )
+    }
   }
     
     function mapStateToProps(state){
