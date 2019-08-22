@@ -4,6 +4,7 @@ import CheeseburgerMenu from "cheeseburger-menu";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "./../../ducks/reducers/sessionReducer";
+import {getUsersChatrooms} from './../../ducks/reducers/messageReducer'
 
 class Header extends React.Component {
   constructor() {
@@ -51,8 +52,8 @@ class Header extends React.Component {
               </Link>
             </div>
             <div className="hamburger-links">
-              <Link to="/match" onClick={this.closeMenu}>
-                Match
+              <Link to="/matches" onClick={this.closeMenu}>
+                Matches
               </Link>
             </div>
             <div className="hamburger-links">
@@ -78,10 +79,12 @@ class Header extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return state.session;
+  return {
+    session: state.session
+  };
 }
 
 export default connect(
   mapStateToProps,
-  { logout }
+  { logout}
 )(Header);

@@ -9,7 +9,7 @@ class ChatDisplay extends Component{
             <div className='chat-display'>
             {console.log(this.props)}
                 {/* <SocketView /> */}
-                <Chat />
+                <Chat chatroom_id = {this.props.match.params.chatroom_id}/>
             </div>
         );
     } 
