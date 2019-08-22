@@ -3,19 +3,15 @@ import {connect} from 'react-redux'
 import {getPotentialMatches} from '../../ducks/reducers/userReducer'
 import {swipeLeft, swipeRight} from "../../ducks/reducers/swipeReducer"
 import {getDetails} from '../../ducks/reducers/sessionReducer'
+import Swipe from 'react-easy-swipe'
 
-import { Card, CardWrapper } from 'react-swipeable-cards';
-import MyEndCard from './MyEndCard';
-import './home.css'
-
-
-class Home extends Component{
-  constructor(){
-    super()
+class Home extends Component {
+  constructor() {
+    super();
     this.state = {
-      matchesWithCompatability:[],
-      defaultImage: 'https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg'
-    }
+      matchesWithCompatability: [],
+      counter: 0
+    };
   }
   
   async componentDidMount(){
@@ -23,7 +19,7 @@ class Home extends Component{
     console.log("CDM", this.props.user)
     await getPotentialMatches()
     await getDetails(this.props.user.id)  
-    this.setCompatability(this.props.potentialMatches) 
+    this.setCompatability(this.props.potentialMatches)  
   }
 
 
@@ -83,22 +79,21 @@ class Home extends Component{
     }
   }
 
-  
-  getEndCard() {
-    return (
-        <MyEndCard />
-    )
-  }
+   actionSwipeLeft = (id) => {
+      let {swipeLeft} = this.props
+      swipeLeft(id)
+      this.setState({counter: this.state.counter +=1})
+    }
+ 
+  actionSwipeLeft = () => {
+    console.log("left");
+  };
 
-  onSwipeLeft = (id) => {
-    let {swipeLeft} = this.props
-    swipeLeft(id)
-  }
-
-  onSwipeRight = (id) => {
-    let {swipeRight} = this.props
-    swipeRight(id)
-  }
+    actionSwipeRight= (id) => {
+       let {swipeRight} = this.props
+         swipeRight(id)
+         this.setState({counter: this.state.counter+= 1})
+       }
     
     render(){
       const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
@@ -119,10 +114,9 @@ class Home extends Component{
               )}
         </CardWrapper>
       </div>
-      )
-    }
+    );
   }
-
+}
 
 
     
