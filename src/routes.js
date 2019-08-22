@@ -27,5 +27,6 @@ export default (
     <Route path="/inbox/" component={Inbox} />
     <Route path="/chat/:chatroom_id" component={ChatDisplay} />
     <Route path="/preferences" component={Preferences} />
+    <Route path="/loggedout" component={Login} />
   </Switch>
 );
