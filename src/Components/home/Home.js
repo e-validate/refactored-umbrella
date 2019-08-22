@@ -29,6 +29,8 @@ class Home extends Component{
       let user1 = this.props.details[0]        
         let user2 = arr[i]
         let compatabilityCounter = 0
+        console.log("user1", user1)
+        console.log('user2', user2)
         if(user1.ethnicity_pref === user2.ethnicity){
           compatabilityCounter +=1
         }
@@ -78,7 +80,6 @@ class Home extends Component{
         this.setState({matchesWithCompatability: [...this.state.matchesWithCompatability, currentUser]})
     }
   }
-
   
   getEndCard() {
     return (
