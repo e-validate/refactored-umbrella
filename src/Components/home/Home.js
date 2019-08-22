@@ -26,7 +26,7 @@ class Home extends Component{
 
   setCompatability = (arr) => {
     for(let i = 0; i < arr.length; i++){
-      let user1 = this.props.details        
+      let user1 = this.props.details[0]        
         let user2 = arr[i]
         let compatabilityCounter = 0
         if(user1.ethnicity_pref === user2.ethnicity){
@@ -101,8 +101,6 @@ class Home extends Component{
       const cardStyle = {
         backgroundColor: "white"
       }
-      console.log('gen pref', this.props.details.gender_pref)
-      console.log('compat', compatable)
       return(
       <div className='home_background_color'>
         <div className="block"></div>
