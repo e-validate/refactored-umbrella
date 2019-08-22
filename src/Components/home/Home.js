@@ -84,7 +84,7 @@ class Home extends Component {
       swipeLeft(id)
       this.setState({counter: this.state.counter +=1})
     }
-  };
+ 
   actionSwipeLeft = () => {
     console.log("left");
   };
@@ -111,7 +111,7 @@ class Home extends Component {
                 {profile.age}
                 <img src={profile.image1} />
               </Swipe>
-            ))}
+            )}
           </div>
         ) : (
           <div>Loading...</div>
@@ -119,6 +119,9 @@ class Home extends Component {
       </div>
     );
   }
+}
+
+
     
     function mapStateToProps(state){
   return{
