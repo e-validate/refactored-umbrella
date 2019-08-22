@@ -3,28 +3,28 @@ import {connect} from 'react-redux'
 import {getPotentialMatches} from '../../ducks/reducers/userReducer'
 import {swipeLeft, swipeRight} from "../../ducks/reducers/swipeReducer"
 import {getDetails} from '../../ducks/reducers/sessionReducer'
-import Swipe from 'react-easy-swipe'
+import { Card, CardWrapper } from 'react-swipeable-cards';
+import MyEndCard from './MyEndCard';
+import './home.css'
 
-class Home extends Component {
-  constructor() {
-    super();
+class Home extends Component{
+  constructor(){
+    super()
     this.state = {
-      matchesWithCompatability: [],
-      counter: 0
-    };
+      matchesWithCompatability:[],
+      defaultImage: 'https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg'
+    }
   }
   
   async componentDidMount(){
     let {getPotentialMatches, getDetails} = this.props
-    console.log("CDM", this.props.user)
     await getPotentialMatches()
     await getDetails(this.props.user.id)  
-    this.setCompatability(this.props.potentialMatches)  
+    this.setCompatability(this.props.potentialMatches) 
   }
 
 
   setCompatability = (arr) => {
-    console.log("user", this.props)
     for(let i = 0; i < arr.length; i++){
       let user1 = this.props.details        
         let user2 = arr[i]
@@ -79,33 +79,35 @@ class Home extends Component {
     }
   }
 
-   actionSwipeLeft = (id) => {
-      let {swipeLeft} = this.props
-      swipeLeft(id)
-      this.setState({counter: this.state.counter +=1})
-    }
- 
-  actionSwipeLeft = () => {
-    console.log("left");
-  };
+  
+  getEndCard() {
+    return (
+        <MyEndCard />
+    )
+  }
 
-    actionSwipeRight= (id) => {
-       let {swipeRight} = this.props
-         swipeRight(id)
-         this.setState({counter: this.state.counter+= 1})
-       }
+  onSwipeLeft = (id) => {
+    let {swipeLeft} = this.props
+    swipeLeft(id)
+  }
+
+  onSwipeRight = (id) => {
+    let {swipeRight} = this.props
+    swipeRight(id)
+  }
     
     render(){
       const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
-      console.log('details', this.props.details)
       const cardStyle = {
         backgroundColor: "white"
       }
+      console.log('gen pref', this.props.details.gender_pref)
+      console.log('compat', compatable)
       return(
       <div className='home_background_color'>
         <div className="block"></div>
         <CardWrapper addEndCard={this.getEndCard.bind(this)} >
-            {compatable.map(profile => 
+            {compatable.filter(prof => this.props.details[0].gender_pref === prof.gender).map(profile => 
               <Card style={cardStyle} key={`swipeId-${profile.user_id}`} onSwipeLeft={() => this.onSwipeLeft(profile.user_id)} onSwipeRight={() => this.onSwipeRight(profile.user_id)}>
                   <img className='home_profile_image' src={profile.image1 || this.state.defaultImage}/>
                   <span className='home_profile_name'>{profile.name}, </span>
@@ -114,9 +116,10 @@ class Home extends Component {
               )}
         </CardWrapper>
       </div>
-    );
+      )
+    }
   }
-}
+
 
 
     
