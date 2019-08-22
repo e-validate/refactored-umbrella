@@ -10,6 +10,9 @@ const formController = require('./controllers/formController');
 const authmw = require('./middleware/authCheck');
 const initSession = require("./middleware/initSession");
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
+var mongoose = require('mongoose');
+var expressSession = require('express-session');
+
 
 const app = express()
 
@@ -26,9 +29,14 @@ app.use(
   session({
     secret: SESSION_SECRET,
     saveUninitialized: true,
-    resave: false
+    resave: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 36
+    }
   })
 );
+
+
 
 app.use(bodyParser());
 app.use(initSession);
@@ -77,8 +85,10 @@ io.on("connection", socket => {
   socket.on('message to server', async payload =>{
     const db = app.get("db");
     const {id, chatroom_id, message } = payload;
-  let messages = await db.add_message([+id, chatroom_id ,message, socket, io] );
-  socketController.sendMessagesToRoom(messages,chatroom_id, io);
+    let messages = await db.add_message([+id, +chatroom_id ,message, socket, io] )
+      console.log('messsgaaeffg',payload);
+    io.emit('new message from sever', messages );
+ 
 })
 
 
