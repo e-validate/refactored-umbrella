@@ -18,7 +18,6 @@ class Home extends Component{
   
   async componentDidMount(){
     let {getPotentialMatches, getDetails} = this.props
-    console.log("CDM", this.props.user)
     await getPotentialMatches()
     await getDetails(this.props.user.id)  
     this.setCompatability(this.props.potentialMatches) 
@@ -26,9 +25,8 @@ class Home extends Component{
 
 
   setCompatability = (arr) => {
-    console.log("user", this.props)
     for(let i = 0; i < arr.length; i++){
-      let user1 = this.props.details        
+      let user1 = this.props.details[0]        
         let user2 = arr[i]
         let compatabilityCounter = 0
         if(user1.ethnicity_pref === user2.ethnicity){
@@ -100,7 +98,6 @@ class Home extends Component{
     
     render(){
       const compatable = this.state.matchesWithCompatability.sort((a,b) => (a.compatability< b.compatability) ? 1 : -1)
-
       const cardStyle = {
         backgroundColor: "white"
       }
@@ -108,7 +105,7 @@ class Home extends Component{
       <div className='home_background_color'>
         <div className="block"></div>
         <CardWrapper addEndCard={this.getEndCard.bind(this)} >
-            {compatable.map(profile => 
+            {compatable.filter(prof => this.props.details[0].gender_pref === prof.gender).map(profile => 
               <Card style={cardStyle} key={`swipeId-${profile.user_id}`} onSwipeLeft={() => this.onSwipeLeft(profile.user_id)} onSwipeRight={() => this.onSwipeRight(profile.user_id)}>
                   <img className='home_profile_image' src={profile.image1 || this.state.defaultImage}/>
                   <span className='home_profile_name'>{profile.name}, </span>
