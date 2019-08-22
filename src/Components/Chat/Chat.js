@@ -41,26 +41,22 @@ class Chat extends Component {
           ...messages
         ]
       });
+      console.log(messages);
     });
 
     this.sendMessage = this.sendMessage.bind(this);
   }
 
-  // componentDidUpdate(pp) {
-  //   console.log(
-  //     pp.messages.messages === this.props.messages.messages,
-  //     pp.messages.messages,
-  //     this.props.messages.messages
-  //   );
-  //   if (pp.messages.messages.length === this.props.messages.messages.length) {
-  //     // this.props.getChatroomMessages(this.props.chatroom_id);
-  //     this.render();
-  //   } else {
-  //     return;
-  //   }
-  // }
+  componentDidUpdate(pp) {
+if(pp.session.user.length === 0 || !this.props.session.user.length === 0){
+  console.log('git');
+this.props.getUser()
+  this.joinRoom()
+}
+  }
 
   componentDidMount() {
+    this.props.getUser()
     this.joinRoom();
     console.log(this.props);
   }
@@ -129,18 +125,7 @@ class Chat extends Component {
   }
 
   render() {
-    // if(!this.props.session.id){
-    //     this.props.getUser()
-    // }
-    let newArr=  this.state.chatMessages.sort((a, b) => {
-      a = new Date(a.timestamp_sent);
-      console.log(a);
-      b = new Date(b.timestamp_sent);
-      console.log(a > b ? 1 : a < b ? -1 : 0);
-      return a > b ? 1 : a < b ? -1 : 0;
-    })
-    console.log(newArr);
-    console.log("chat props", this.props);
+ 
     return (
       <div className="chat">
         <div className="input-button-sendmsg">
@@ -163,13 +148,13 @@ class Chat extends Component {
         <div className="message-container">
           {this.state.chatMessages !== undefined ? (
            
-            newArr.map(
+            this.state.chatMessages.map(
               (message, index) => (
                 (message.token =
                   message.sender_id === +this.props.session.user.id
                     ? "sender"
                     : "reciver"),
-                ( console.log('tokennnnnn',message.token),
+                (
                   <div
                     className={`${message.token}-messages-container`}
                     key={index}
