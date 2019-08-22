@@ -10,6 +10,7 @@ import About2 from "./Components/register/About2";
 import Preferences from "./Components/register/Preferences";
 import Inbox from "./Components/inbox/inbox";
 import ChatDisplay from "./Components/chatDisplay/ChatDisplay";
+import inbox from './Components/inbox/inbox'
 
 
 
@@ -17,14 +18,15 @@ export default (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/current" component={Current} />
-    <Route path="/match" component={Match} />
+    <Route path="/matches" component={inbox} />
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <Route path="/about" component={About} />
     <Route path="/about2" component={About2} />
     <Route path="/preferences" component={Preferences} />
     <Route path="/inbox/" component={Inbox} />
-    <Route path="/chat/:user_id" component={ChatDisplay} />
+    <Route path="/chat/:chatroom_id" component={ChatDisplay} />
     <Route path="/preferences" component={Preferences} />
+    <Route path="/loggedout" component={Login} />
   </Switch>
 );
