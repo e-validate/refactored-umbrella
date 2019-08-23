@@ -139,8 +139,17 @@ class Chat extends Component {
   }
 
   render() {
-      if(!this.props.session.user.id) return <Redirect to='/login'/>
-      console.log('inchat', this.props)
+    let refresh = async () => {
+      if(!this.props.session.user.id){
+        await this.props.getUser()
+        if(!this.props.session.user.id) {
+         console.log(this.props);
+         return <Redirect to='/login'/>
+       }
+     }}
+
+     refresh()
+    
     return (
       <div className="chat">
         {/* <div className="input-button-sendmsg">

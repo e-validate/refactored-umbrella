@@ -30,6 +30,7 @@ module.exports = {
         res.send(req.session.user);
     },
     logout(req, res) {
+        console.log(req.session);
         req.session.destroy();
         res.sendStatus(200);
     },
