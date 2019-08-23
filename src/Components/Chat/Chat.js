@@ -125,10 +125,61 @@ this.props.getUser()
   }
 
   render() {
- 
+    // if(!this.props.session.id){
+    //     this.props.getUser()
+    // }
+    let newArr=  this.state.chatMessages.sort((a, b) => {
+      a = new Date(a.timestamp_sent);
+      console.log(a);
+      b = new Date(b.timestamp_sent);
+      console.log(a > b ? 1 : a < b ? -1 : 0);
+      return a > b ? 1 : a < b ? -1 : 0;
+    })
     return (
-      <div className="chat">
-        <div className="input-button-sendmsg">
+      <div>
+        <div className="message-container">
+          {this.state.chatMessages !== undefined ? (
+           
+            this.state.chatMessages.map(
+              (message, index) => (
+                (message.token =
+                  message.sender_id === +this.props.session.user.id
+                    ? "sender"
+                    : "receiver"),
+                ( console.log('tokennnnnn',message.token),
+                  <div
+                    className={`${message.token}-messages-container`}
+                    key={index}
+                  >
+                    <div className={`${message.token}-message-box`}>
+                      {message.content}
+                    </div>
+                    <div className={`${message.token}-delete-info`}>
+                      <div className={`${message.token}-name`}>
+                        <h1>{message.name}</h1>
+                        
+                        <h1 className="time">
+                          {this.timeConvert(message.timestamp_sent)}
+                        </h1>
+                      </div>
+                      {/* <div className={`${message.token}-delete-btn-container`}>
+                        <button
+                          className={`${message.token}-delete-btn`}
+                          onClick={() => this.deleteMessage(message.message_id)}
+                        >
+                          Delete
+                        </button>
+                      </div> */}
+                    </div>
+                  </div>
+                )
+              )
+            )
+          ) : (
+            <h1>Loading...</h1>
+          )}
+        </div>
+        <div className="input-box-sendmsg">
           <textarea
             // onKeyUp={this.handleKeyUp}
             className="input-send-message"
@@ -141,51 +192,9 @@ this.props.getUser()
               }
             }}
           />
-          <button className="send-message" onClick={() => this.sendMessage()}>
+          <button className="send-message_button" onClick={() => this.sendMessage()}>
             Send
           </button>
-        </div>
-        <div className="message-container">
-          {this.state.chatMessages !== undefined ? (
-           
-            this.state.chatMessages.map(
-              (message, index) => (
-                (message.token =
-                  message.sender_id === +this.props.session.user.id
-                    ? "sender"
-                    : "reciver"),
-                (
-                  <div
-                    className={`${message.token}-messages-container`}
-                    key={index}
-                  >
-                    <div className={`${message.token}-message-box`}>
-                      {message.content}
-                    </div>
-                    <div className={`${message.token}-delete-info`}>
-                      <div className={`${message.token}-name`}>
-                        <h1>{message.name}</h1>
-                        <h1 className="time">
-                          {this.timeConvert(message.timestamp_sent)}
-                        </h1>
-                      </div>
-                      <div className={`${message.token}-delete-btn-container`}>
-                        <button
-                          className={`${message.token}-delete-btn`}
-                          onClick={() => this.deleteMessage(message.message_id)}
-                        >
-                          Delete
-                        </button>
-                        {/* </div> */}
-                      </div>
-                    </div>
-                  </div>
-                )
-              )
-            )
-          ) : (
-            <h1>Loading...</h1>
-          )}
         </div>
       </div>
     );
