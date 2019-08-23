@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {Redirect} from 'react-router-dom'
 import { getPotentialMatches } from "../../ducks/reducers/userReducer";
 import { swipeLeft, swipeRight } from "../../ducks/reducers/swipeReducer";
 import { getDetails } from "../../ducks/reducers/sessionReducer";
@@ -100,6 +101,7 @@ class Home extends Component {
   };
 
   render() {
+    if(!this.props.user.id) return <Redirect to='/login'/>
     const compatable = this.state.matchesWithCompatability.sort((a, b) =>
       a.compatability < b.compatability ? 1 : -1
     );

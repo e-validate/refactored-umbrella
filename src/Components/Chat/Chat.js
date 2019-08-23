@@ -7,6 +7,11 @@ import {
 import { getUser } from "../../ducks/reducers/sessionReducer";
 import { connect } from "react-redux";
 import "./Chat.css";
+import {Redirect} from 'react-router-dom'
+import moment from 'moment.js'
+import {jstz, output} from 'jstz.js'
+import 'moment-timezone.js'
+
 const socket = io.connect("http://localhost:4000");
 
 class Chat extends Component {
@@ -76,29 +81,44 @@ class Chat extends Component {
   }
 
   timeConvert = timeStamp => {
-    let time = new Date(timeStamp)
-      .toTimeString()
-      // .toLocaleString("en-US", {timeZone: "America/Denver"})
-      .split(" ")[0]
-      .split(":");
-
-    var hours = Number(time[0]);
-    var minutes = Number(time[1]);
-
-    var timeValue;
-
-    if (hours > 0 && hours <= 12) {
-      timeValue = "" + hours;
-    } else if (hours > 12) {
-      timeValue = "" + (hours - 12);
-    } else if (hours === 0) {
-      timeValue = "12";
+    if (!sessionStorage.getItem('timezone')) {
+      var tz = jstz.determine() || 'UTC';
+      sessionStorage.setItem('timezone', tz.name());
     }
+    var currTz = sessionStorage.getItem('timezone');
 
-    timeValue += minutes < 10 ? ":0" + minutes : ":" + minutes;
-    // timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;
-    timeValue += hours >= 12 ? "pm" : "am";
-    return timeValue;
+    let date = moment().format("YYYY-MM-DD")
+    var stamp = date + "T" + theTime + "Z";
+    var momentTime = moment(stamp);
+    var tzTime = momentTime.tz(currTz);
+    var formattedTime = tzTime.format('h:mm A');
+    output.textContent = "Time in " + currTz + ": " + formattedTime;
+    return formattedTime
+    
+    // new Date(timeStamp)
+    //   .toTimeString()
+    //   .split(" ")[0]
+    //   .split(":");
+      
+    // var hours = Number((time[0]));
+    // console.log(hours);
+    // var minutes = Number(time[1]);
+
+    // var timeValue;
+
+    // if (hours > 0 && hours <= 12) {
+    //   timeValue = "" + hours;
+    // } else if (hours > 12) {
+    //   timeValue = "" + (hours - 12);
+    // } else if (hours === 0) {
+    //   timeValue = "12";
+    // }
+
+
+    // timeValue += minutes < 10 ? ":0" + minutes : ":" + minutes;
+    // // timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;
+    // timeValue += hours >= 12 ? "pm" : "am";
+    // return timeValue;
   };
 
   handleKeyUp = evt => {
@@ -115,6 +135,8 @@ class Chat extends Component {
   }
 
   render() {
+      if(!this.props.session.user.id) return <Redirect to='/login'/>
+    
     return (
       <div className="chat">
         <div className="input-button-sendmsg">
@@ -153,7 +175,7 @@ class Chat extends Component {
                       <div className={`${message.token}-name`}>
                         <h1>{message.name}</h1>
                         <h1 className="time">
-                          {this.timeConvert(message.timestamp_sent)}
+                          {this.timeConvert(message.timestamp_sent).toLocaleString("en-US", {timeZone: "America/Denver"})}
                         </h1>
                       </div>
                       <div className={`${message.token}-delete-btn-container`}>
