@@ -12,7 +12,6 @@ const initSession = require("./middleware/initSession");
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
 
 
-
 const app = express()
 
 //Socket

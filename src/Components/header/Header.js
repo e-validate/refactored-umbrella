@@ -1,10 +1,10 @@
 import React from "react";
 import "./header.css";
 import CheeseburgerMenu from "cheeseburger-menu";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "./../../ducks/reducers/sessionReducer";
-import {getUsersChatrooms} from './../../ducks/reducers/messageReducer'
+
 
 class Header extends React.Component {
   constructor() {
@@ -29,6 +29,12 @@ class Header extends React.Component {
       menuOpen: false
     });
   };
+
+  redirect = () => {
+    return (
+      <Redirect />
+    )
+  }
 
   render() {
     let { menuOpen } = this.state;
@@ -64,14 +70,11 @@ class Header extends React.Component {
           </div>
         </CheeseburgerMenu>
         <div className="logo_container">
-          <header className="main_header">
-            Refactored <br /> Umbrella
-          </header>
-          <img
+          <header className="main_header">Refactored <br /> Umbrella</header>
+          <img 
             src="https://drive.google.com/uc?export=download&id=1-DYk_9wTTepDWBa9AIZPlEi5XNsRq7mK"
             alt="Green umbrella logo"
-            className="logo"
-          />
+            className="logo"/>
         </div>
       </div>
     );
@@ -86,5 +89,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { logout}
+  { logout }
 )(Header);
