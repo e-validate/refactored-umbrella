@@ -7,10 +7,8 @@ const initialState = {
 }
 
 export function getPotentialMatches(){
-  console.log('before axios call')
   let data = axios.get(`/api/users/potential`)
   .then(res => res.data)
-  console.log('data', data)
   return {
     type: GET_POTENTIAL_MATCHES,
     payload: data

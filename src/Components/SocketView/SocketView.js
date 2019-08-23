@@ -16,12 +16,8 @@ export default class SocketView extends Component {
         };
 
         this.sendMessage = this.sendMessage.bind(this);
-        // Listeners for the socket
 
-        // listen for this login event from the server
         socket.on('login', data => {
-            console.log('Login event: ', data);
-
             this.addChatMessage(data.message);
             this.setState({
                 connected: true,
@@ -52,14 +48,11 @@ export default class SocketView extends Component {
 
     connect(username) {
         if (username) {
-            // send a 'join' event to the server with your username
             socket.emit('join', username);
         }
     }
 
-    /* Sending a new message to the socket server */
     sendMessage() {
-        // This emit needs to match on the server side
         socket.emit('new message', {
             username: this.state.name,
             message: this.state.newMessage
