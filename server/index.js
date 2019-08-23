@@ -10,7 +10,6 @@ const formController = require('./controllers/formController');
 const authmw = require('./middleware/authCheck');
 const initSession = require("./middleware/initSession");
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
-var expressSession = require('express-session');
 
 
 const app = express()

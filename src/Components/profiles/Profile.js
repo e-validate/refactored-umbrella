@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Profiles.css";
-import { Link } from "react-router-dom";
+
 
 export default class Profile extends Component {
   constructor() {
@@ -20,7 +20,7 @@ export default class Profile extends Component {
   render() {
     let { profile } = this.props;
     let { defaultImg1, defaultImg2, defaultImg3, defaultImg4 } = this.state;
-    console.log("props in profile", this.props);
+
     return (
       <div>
         <div className="main_profile_image_container">
