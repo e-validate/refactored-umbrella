@@ -28,7 +28,7 @@ class Home extends Component {
 
   async componentDidMount() {
     let { getPotentialMatches, getDetails } = this.props;
-    if (this.props.user.id) {
+    if(this.props.user.id){
       await getPotentialMatches();
     }
     if (this.props.user.id) {
@@ -136,7 +136,6 @@ class Home extends Component {
           {compatable
             .filter(prof => this.props.details[0].gender_pref === prof.gender)
             .map(profile => {
-              console.log("compat", compatable);
               return (
                 <Card
                   style={cardStyle}
