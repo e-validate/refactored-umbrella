@@ -10,15 +10,15 @@ import About2 from "./Components/register/About2";
 import Preferences from "./Components/register/Preferences";
 import Inbox from "./Components/inbox/inbox";
 import ChatDisplay from "./Components/chatDisplay/ChatDisplay";
-import inbox from './Components/inbox/inbox'
-
-
+import inbox from "./Components/inbox/inbox";
+import Matched from "./Components/profiles/MatchedUserProfile";
 
 export default (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/current" component={Current} />
     <Route path="/matches" component={inbox} />
+    <Route path="/profile/:swiped_id" component={Matched} />
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <Route path="/about" component={About} />
