@@ -16,6 +16,7 @@ class Home extends Component {
       defaultImage:
         "https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg"
     };
+    // this.swipeRight = this.swipeRight.bind(this)
   }
 
   async componentDidMount() {
@@ -95,12 +96,20 @@ class Home extends Component {
     swipeLeft(id);
   };
 
-  onSwipeRight = id => {
+   onSwipeRight = async (id) => {
     let { swipeRight } = this.props;
-    swipeRight(id);
+    await swipeRight(id);
+    // if(this.props.chatRoom[0].chatroom_id) return <Redirect to="/inbox/" />
+    // //   let chatRoom = this.props.chatRoom[0].chatroom_id
+    // //   console.log('chatroom', chatRoom)
+    // // console.log('this.props.chatroom', this.props.chatRoom[0])
+   
   };
 
   render() {
+    console.log("props", this.props)
+    console.log(this.props.chatRoom)
+    if(this.props.chatRoom !== null && this.props.chatRoom[0].chatroom_id !== null) return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} />
     if(!this.props.user.id) return <Redirect to='/login'/>
     const compatable = this.state.matchesWithCompatability.sort((a, b) =>
       a.compatability < b.compatability ? 1 : -1
@@ -139,7 +148,8 @@ class Home extends Component {
 function mapStateToProps(state) {
   return {
     ...state.user,
-    ...state.session
+    ...state.session,
+    ...state.swipe
   };
 }
 

@@ -2,7 +2,7 @@ import axios from 'axios'
 import {SWIPE_LEFT, SWIPE_RIGHT} from './actionTypes'
 
 const initialState = {
-  chatRoom: 0
+  chatRoom: null
 }
 
 export function swipeRight(id){
@@ -27,9 +27,9 @@ export default function swipeReducer (state = initialState, action){
   let {type, payload} = action
   switch(type){
     case SWIPE_RIGHT + '_FULFILLED': 
-      return{...state, chatRoom: payload}  
+      return{state, chatRoom: payload}  
     case SWIPE_LEFT + "_FULFILLED" : 
-      return{...state} 
+      return{state} 
     default: 
       return state  
   }
