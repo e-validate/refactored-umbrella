@@ -3,8 +3,8 @@ import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "./../../ducks/reducers/sessionReducer";
 import "./login.css";
-import Toastify from 'toastify-js'
-import "toastify-js/src/toastify.css"
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 class Login extends Component {
   constructor() {
@@ -29,18 +29,17 @@ class Login extends Component {
   };
 
   login = () => {
-    console.log(this.state);
     this.props.login(this.state.email, this.state.password).catch(() => {
       Toastify({
         text: "Username or Password incorrect",
-        duration: 3000, 
-        transition: 'bounce',
+        duration: 3000,
+        transition: "bounce",
         newWindow: true,
-        close: true, 
-        position:"top-center",
-        backgroundColor: "linear-gradient(to right, #d1345b, #383838)", 
+        close: true,
+        position: "top-center",
+        backgroundColor: "linear-gradient(to right, #d1345b, #383838)",
         stopOnFocus: true,
-        onClick: function(){}
+        onClick: function() {}
       }).showToast();
       this.resetInput();
     });
@@ -59,12 +58,12 @@ class Login extends Component {
             type="text"
             placeholder="Enter email"
             name="email"
-            value={email}Ï
+            value={email}
+            Ï
             onChange={this.handleChange}
           />
           <input
             onKeyDown={ev => {
-              console.log(`Pressed keyCode ${ev.key}`);
               if (ev.key === "Enter") {
                 this.login();
                 ev.preventDefault();

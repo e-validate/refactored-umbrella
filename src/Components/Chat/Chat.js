@@ -6,9 +6,7 @@ import {
 } from "../../ducks/reducers/messageReducer";
 import { getUser } from "../../ducks/reducers/sessionReducer";
 import { connect } from "react-redux";
-import './Chat.css'
-
-// connect to server
+import "./Chat.css";
 const socket = io.connect("http://localhost:4000");
 
 class Chat extends Component {
@@ -23,23 +21,18 @@ class Chat extends Component {
 
     this.sendMessage = this.sendMessage.bind(this);
 
-    // listen for 'newbie joined' event and log when a new person joins
     socket.on("login", (messages, messageFromServer) => {
       console.log(messageFromServer);
       console.log("qs;djkfb;dsjkfghlkfjhblkqern", messages);
       this.setState({
-        chatMessages: [
-          ...messages
-        ]
+        chatMessages: [...messages]
       });
     });
 
     // listen for message from server
     socket.on("new message from sever", messages => {
       this.setState({
-        chatMessages: [
-          ...messages
-        ]
+        chatMessages: [...messages]
       });
       console.log(messages);
     });
@@ -48,27 +41,25 @@ class Chat extends Component {
   }
 
   componentDidUpdate(pp) {
-if(pp.session.user.length === 0 || !this.props.session.user.length === 0){
-  console.log('git');
-this.props.getUser()
-  this.joinRoom()
-}
+    if (pp.session.user.length === 0 || !this.props.session.user.length === 0) {
+      console.log("git");
+      this.props.getUser();
+      this.joinRoom();
+    }
   }
 
   componentDidMount() {
-    this.props.getUser()
+    this.props.getUser();
     this.joinRoom();
     console.log(this.props);
   }
 
   joinRoom() {
-    // send a request to the server to join the room
     socket.emit("needy", this.props.chatroom_id);
   }
 
   async sendMessage() {
     await this.joinRoom();
-    // await this.props.saveMessage(this.props.chatroom_id, this.state.message);
     socket.emit("message to server", {
       id: this.props.session.user.id,
       room: 1234,
@@ -93,7 +84,7 @@ this.props.getUser()
 
     var hours = Number(time[0]);
     var minutes = Number(time[1]);
-   
+
     var timeValue;
 
     if (hours > 0 && hours <= 12) {
@@ -111,7 +102,6 @@ this.props.getUser()
   };
 
   handleKeyUp = evt => {
-    // Max: 75px Min: 38px
     let newHeight = Math.max(Math.min(evt.target.scrollHeight + 2, 75), 38);
     if (newHeight !== this.state.textareaHeight) {
       this.setState({
@@ -125,12 +115,10 @@ this.props.getUser()
   }
 
   render() {
- 
     return (
       <div className="chat">
         <div className="input-button-sendmsg">
           <textarea
-            // onKeyUp={this.handleKeyUp}
             className="input-send-message"
             value={this.state.message}
             onChange={e => this.setState({ message: e.target.value })}
@@ -147,7 +135,6 @@ this.props.getUser()
         </div>
         <div className="message-container">
           {this.state.chatMessages !== undefined ? (
-           
             this.state.chatMessages.map(
               (message, index) => (
                 (message.token =
@@ -176,7 +163,6 @@ this.props.getUser()
                         >
                           Delete
                         </button>
-                        {/* </div> */}
                       </div>
                     </div>
                   </div>
