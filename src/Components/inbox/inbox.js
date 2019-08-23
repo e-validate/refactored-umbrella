@@ -20,6 +20,7 @@ class inbox extends Component {
   render() {
       if(!this.props.session.user.id) return <Redirect to='/login'/>
     return this.props.chatrooms.map(room => (
+      console.log(room),
       <div key={room.user_id}>
         <Link
           to={`/chat/${room.chatroom_id}`}

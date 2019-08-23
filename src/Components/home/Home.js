@@ -99,11 +99,6 @@ class Home extends Component {
    onSwipeRight = async (id) => {
     let { swipeRight } = this.props;
     await swipeRight(id);
-    // if(this.props.chatRoom[0].chatroom_id) return <Redirect to="/inbox/" />
-    // //   let chatRoom = this.props.chatRoom[0].chatroom_id
-    // //   console.log('chatroom', chatRoom)
-    // // console.log('this.props.chatroom', this.props.chatRoom[0])
-   
   };
 
   render() {

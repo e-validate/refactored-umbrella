@@ -63,7 +63,9 @@ class Header extends React.Component {
               </Link>
             </div>
             <div className="hamburger-links">
-              <Link to="/login" onClick={this.logout}>
+              <Link 
+              // to="/login" 
+              onClick={this.logout}>
                 Logout
               </Link>
             </div>
