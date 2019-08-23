@@ -29,7 +29,7 @@ class Home extends Component {
 
   async componentDidMount() {
     let { getPotentialMatches, getDetails } = this.props;
-    if(!this.props.user.id){
+    if(this.props.user.id){
       await getPotentialMatches();
     }
     if(this.props.user.id){
