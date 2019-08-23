@@ -1,85 +1,235 @@
-import React, { Component } from 'react';
-import io from 'socket.io-client'; 
-import {saveMessage} from '../../ducks/reducers/messageReducer';
-import {getUser} from '../../ducks/reducers/sessionReducer';
-import {connect} from 'react-redux'
+import React, { Component } from "react";
+import io from "socket.io-client";
+import {
+  saveMessage,
+  getChatroomMessages
+} from "../../ducks/reducers/messageReducer";
+import { getUser } from "../../ducks/reducers/sessionReducer";
+import { connect } from "react-redux";
+import "./Chat.css";
+import {Redirect} from 'react-router-dom'
 
-// connect to server
-const socket = io.connect('http://localhost:4000');
+const socket = io.connect("http://localhost:4000");
 
 class Chat extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        // state
-        this.state = {
-            message: '',
-            chatMessages: []
-        };
+    // state
+    this.state = {
+      message: "",
+      chatMessages: []
+    };
 
-        // listen for 'newbie joined' event and log when a new person joins
-        socket.on('newbie joined', messageFromServer => {
-            console.log(messageFromServer);
-        });
+    this.sendMessage = this.sendMessage.bind(this);
 
-        // listen for message from server
-        socket.on('new message from sever', message => {
-            console.log('new message', message);
-            this.setState({
-                chatMessages: [...this.state.chatMessages, message]
-            });
-            console.log(this.props);
-            this.props.saveMessage('2', this.state.message)
-        });
+    socket.on("login", (messages, messageFromServer) => {
+      console.log(messageFromServer);
+      console.log("qs;djkfb;dsjkfghlkfjhblkqern", messages);
+      this.setState({
+        chatMessages: [...messages]
+      });
+    });
 
-        this.sendMessage = this.sendMessage.bind(this);
+    // listen for message from server
+    socket.on("new message from sever", messages => {
+      this.setState({
+        chatMessages: [...messages]
+      });
+      console.log(messages);
+    });
+
+    this.sendMessage = this.sendMessage.bind(this);
+  }
+
+  componentDidUpdate(pp) {
+    if (pp.session.user.length === 0 || !this.props.session.user.length === 0) {
+      console.log("git");
+      this.props.getUser();
+      this.joinRoom();
     }
+  }
 
-    componentDidMount(){
-        this.props.getUser()
-        this.joinRoom()
+  componentDidMount() {
+    this.props.getUser();
+    this.joinRoom();
+    console.log(this.props);
+  }
+
+  joinRoom() {
+    socket.emit("needy", this.props.chatroom_id);
+  }
+
+  async sendMessage() {
+    await this.joinRoom();
+    socket.emit("message to server", {
+      id: this.props.session.user.id,
+      room: 1234,
+      chatroom_id: this.props.chatroom_id,
+      message: this.state.message
+    });
+  }
+
+  keyPress(e) {
+    if (e.keyCode == 13) {
+      console.log("value", e.target.value);
+      // put the login here
     }
+  }
 
-    joinRoom() {
-        // send a request to the server to join the room
-        socket.emit('needy', 1234);
+  timeConvert = timeStamp => {
+    // if (!sessionStorage.getItem('timezone')) {
+    //   var tz = jstz.determine() || 'UTC';
+    //   sessionStorage.setItem('timezone', tz.name());
+    // }
+    // var currTz = sessionStorage.getItem('timezone');
+
+    // let date = moment(timeStamp).format("YYYY-MM-DD")
+    // var timeStamp = date + "T" + theTime + "Z";
+    // var momentTime = moment(timeStamp);
+    // var tzTime = momentTime.tz(currTz);
+    // var formattedTime = tzTime.format('h:mm A');
+    // output.textContent = "Time in " + currTz + ": " + formattedTime;
+    // return formattedTime
+    
+  //  let time = new Date(timeStamp)
+  //     .toTimeString()
+  //     .split(" ")[0]
+  //     .split(":");
+      // var currTz = sessionStorage.getItem('timezone');
+          
+      // var momentTime = moment(timeStamp);
+      // var tzTime = momentTime.tz(currTz);
+      // var formattedTime = tzTime.format('h:mm A');
+      // return formattedTime
+      
+    // var hours = Number((time[0]));
+    // console.log(hours);
+    // var minutes = Number(time[1]);
+
+    // var timeValue;
+
+    // if (hours > 0 && hours <= 12) {
+    //   timeValue = "" + hours;
+    // } else if (hours > 12) {
+    //   timeValue = "" + (hours - 12);
+    // } else if (hours === 0) {
+    //   timeValue = "12";
+    // }
+
+
+    // timeValue += minutes < 10 ? ":0" + minutes : ":" + minutes;
+    // // timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;
+    // timeValue += hours >= 12 ? "pm" : "am";
+    // return timeValue;
+  };
+
+  handleKeyUp = evt => {
+    let newHeight = Math.max(Math.min(evt.target.scrollHeight + 2, 75), 38);
+    if (newHeight !== this.state.textareaHeight) {
+      this.setState({
+        textareaHeight: newHeight
+      });
     }
+  };
 
-    sendMessage() {
-        socket.emit('message to server', {
-            room: 1234,
-            message: this.state.message
-        });
-    }
+  deleteMessage(message) {
+    this.props.deleteMessage(message);
+  }
 
-    render() {
-        // if(!this.props.session.id){
-        //     this.props.getUser()
-        // }
-        console.log('chat props',this.props)
-        return (
-            <div className='chat'>
-                {/* <button className="send-message" onClick={this.joinRoom}>Join the Room</button> */}
-                <input
-                 className="input-send-message"
-                    value={this.state.message}
-                    onChange={e => this.setState({ message: e.target.value })}
-                />
-                <button className="send-message" onClick={this.sendMessage}>Send</button>
-
-                {this.state.chatMessages.map(message => (
-                    <div>{message}</div>
-                ))}
-            </div>
-        );
-    }
+  render() {
+      if(!this.props.session.user.id) return <Redirect to='/login'/>
+    
+    return (
+      <div className="chat">
+        {/* <div className="input-button-sendmsg">
+          <textarea
+            className="input-send-message"
+            value={this.state.message}
+            onChange={e => this.setState({ message: e.target.value })}
+            onKeyDown={ev => {
+              if (ev.key === "Enter") {
+                this.sendMessage();
+                ev.preventDefault();
+              }
+            }}
+          /> */}
+          {/* <button className="send-message" onClick={() => this.sendMessage()}>
+            Send
+          </button>
+        </div> */}
+        <div className="message-container">
+          {this.state.chatMessages !== undefined ? (
+            this.state.chatMessages.map(
+              (message, index) => (
+                (message.token =
+                  message.sender_id === +this.props.session.user.id
+                    ? "sender"
+                    : "receiver"),
+                ( console.log('tokennnnnn',message.token),
+                  <div
+                    className={`${message.token}-messages-container`}
+                    key={index}
+                  >
+                    <div className={`${message.token}-message-box`}>
+                      {message.content}
+                    </div>
+                    <div className={`${message.token}-delete-info`}>
+                      <div className={`${message.token}-name`}>
+                        <h1>{message.name}</h1>
+                        
+                        <h1 className="time">
+                          {this.timeConvert(message.timestamp_sent)}
+                        </h1>
+                      </div>
+                      {/* <div className={`${message.token}-delete-btn-container`}>
+                        <button
+                          className={`${message.token}-delete-btn`}
+                          onClick={() => this.deleteMessage(message.message_id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                      </div> */}
+                    </div>
+                  </div>
+                )
+              )
+            )
+          ) : (
+            <h1>Loading...</h1>
+          )}
+        </div>
+        <div className="input-box-sendmsg">
+          <textarea
+            // onKeyUp={this.handleKeyUp}
+            className="input-send-message"
+            value={this.state.message}
+            onChange={e => this.setState({ message: e.target.value })}
+            onKeyDown={ev => {
+              if (ev.key === "Enter") {
+                this.sendMessage();
+                ev.preventDefault();
+              }
+            }}
+          />
+          <button className="send-message_button" onClick={() => this.sendMessage()}>
+            Send
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
 
-function mapStateToProps(state){
-    return{
-       ...state.messages,
-       session: state.session
-    }
+function mapStateToProps(state) {
+  return {
+    messages: state.messages,
+    session: state.session
+  };
 }
 
-export default connect(mapStateToProps, {saveMessage, getUser})(Chat);
+export default connect(
+  mapStateToProps,
+  { saveMessage, getUser, getChatroomMessages }
+)(Chat);

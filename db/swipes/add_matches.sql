@@ -30,15 +30,30 @@ do
                         or (swiper_id = $3 and swiped_id =$2);
                         insert into chatrooms (date_created) values (now());
                         insert into chat_junc (chatroom_id, user_id)
-                    values ((select max(chatroom_id) from chatrooms), $2);   
-                insert into chat_junc (chatroom_id, user_id)
-                    values ((select max(chatroom_id) from chatrooms), $3);   
-        else
+                        values ((select max(chatroom_id) from chatrooms), $2);   
+                        insert into chat_junc (chatroom_id, user_id)
+                        values ((select max(chatroom_id) from chatrooms), $3);   
+update matches
+set 
+chatroom_id = (select max(chatroom_id) from chat_junc)
+where (swiper_id =$2
+and swiped_id = $3)
+or (swiper_id = $3
+and swiped_id = $2)
+;
+        else 
             update matches set match_junc_id = ( select max(match_junc_id) from match_junc)
                 where match_id = (select max(match_id) from matches);
         end if;
     end
 $do$;
+
+select chatroom_id from matches m 
+where swiper_id = $2
+and swiped_id = $3
+and exists (select chatroom_id from matches m 
+where swiper_id = $2
+and swiped_id = $3);
 
 
 

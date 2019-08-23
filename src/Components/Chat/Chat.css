@@ -1,32 +1,149 @@
-.chat {
-  width: 100%;
-  height: 100%;
-    margin:5px 5px 5px 5px;
+.message-container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
 
-.input-button-sendmsg {
+.receiver-messages-container, .sender-messages-container {
+  width: 100vw;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+.receiver-message-box, .sender-message-box {
+  width: 50%;
+  max-height: 100px;
+  border: solid 1px rgb(147, 164, 147);
+  color: rgb(71, 71, 71);
+  border-radius: 4px;
   padding: 5px;
+  margin-top: 5px;
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.receiver-message-box {
+  background: rgb(231, 233, 231);
+}
+
+.sender-message-box {
+  background: #04dbac;
+  border: solid 1px rgb(147, 164, 147);
+  margin-right: 15px;
+  align-self: flex-end;
+}
+
+.sender-delete-info, .receiver-delete-info {
+  color: rgb(71, 71, 71);
+  width: 100vw;
   display: flex;
   align-items: center;
-  width: 100%;
-  max-height: 300px;
-  flex: 1;
+}
+
+.sender-delete-info {
+  justify-content: flex-end;
+}
+
+.sender-name, .receiver-name {
+  height: 10px;
+  width: 10%;
+  display: flex;
+  font-size: 6px;
+  align-items: center;
+}
+
+.sender-name {
+  margin-right: 50px;
+}
+
+.receiver-name {
+  margin-left: 20px;
+}
+/* 
+.sender-delete-btn {
+  width: 20%;
+  color: rgb(230, 238, 230);
+  border: none;  
+  background: transparent;
+  background: red;
+  margin-right: 40px;
+  align-self: flex-end
+}
+
+.sender-delete-btn:hover{
+  color: rgb(71, 71, 71);
+} 
+.receiver-delete-btn:hover{
+  color: rgb(71, 71, 71);
+} 
+
+.receiver-delete-btn {
+  width: 40%;
+  color: rgb(214, 223, 214);
+  border: none;
+  margin-left: 30px;
+  background: transparent;
+  align-self: flex-start;
+} */
+
+
+
+
+
+
+
+.input-send-message {
+  height: 60px;
+  width: 70%;
+  border: solid 0.2px rgb(147, 164, 147);
+  border-radius: 4px;
   font-size: 18px;
-  border-bottom: solid 1px rgb(147, 164, 147)
 }
 
-.send-message {
-background: rgb(147, 164, 147);
+.input-box-sendmsg {
+  margin-top: 10px;
+  background: #ccc;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100vw;
+  max-height: 300px;
+}
+
+.send-message_button {
+  background: #04dbac;
+  padding: 8px;
+  color: 383838;
+  font-size: 20px;
+}
+
+@media (min-width: 400px) {
+  .receiver-message-box, .sender-message-box {
+    width: 40%;
+  }
+}
+
+@media (min-width: 700px) {
+  .receiver-message-box, .sender-message-box {
+    font-size: 20px;
+  }
 }
 
 
 
-
-
-
-
-
-
-
+@media (min-width: 800px) {
+  .input-send-message {
+    height: 100px;
+  }
+  .send-message_button {
+    padding: 16px;
+    font-size: 30px;
+  }
+}
 
 

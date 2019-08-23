@@ -14,8 +14,10 @@ module.exports = {
   async like(req, res){
     let {id} = req.session.user
     let {swipedId} = req.params
+    console.log('chhhhhatttttttrrrrooooommmmmmiiiiiiiiididiidididdddd',swipedId,id);
     const db = req.app.get('db')
     let data = await db.swipes.add_matches([true, +id, +swipedId])
+    console.log(data);
     res.send(data)
   },
   async chatRoomOnLike(req,res){

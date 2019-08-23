@@ -1,31 +1,37 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {Redirect} from 'react-router-dom'
 import { getPotentialMatches } from "../../ducks/reducers/userReducer";
 import { swipeLeft, swipeRight } from "../../ducks/reducers/swipeReducer";
 import { getDetails } from "../../ducks/reducers/sessionReducer";
-import Swipe from "react-easy-swipe";
+import { Card, CardWrapper } from "react-swipeable-cards";
+import MyEndCard from "./MyEndCard";
+import "./home.css";
+
 class Home extends Component {
   constructor() {
     super();
     this.state = {
       matchesWithCompatability: [],
-      counter: 0
+      defaultImage:
+        "https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg"
     };
+    // this.swipeRight = this.swipeRight.bind(this)
   }
 
   async componentDidMount() {
     let { getPotentialMatches, getDetails } = this.props;
-    console.log("CDM", this.props.user);
     await getPotentialMatches();
     await getDetails(this.props.user.id);
     this.setCompatability(this.props.potentialMatches);
   }
+
   setCompatability = arr => {
-    console.log("user", this.props);
     for (let i = 0; i < arr.length; i++) {
-      let user1 = this.props.details;
+      let user1 = this.props.details[0];
       let user2 = arr[i];
       let compatabilityCounter = 0;
+
       if (user1.ethnicity_pref === user2.ethnicity) {
         compatabilityCounter += 1;
       }
@@ -80,49 +86,56 @@ class Home extends Component {
       });
     }
   };
-  actionSwipeLeft = id => {
+
+  getEndCard() {
+    return <MyEndCard />;
+  }
+
+  onSwipeLeft = id => {
     let { swipeLeft } = this.props;
     swipeLeft(id);
-    this.setState({ counter: (this.state.counter += 1) });
   };
 
-  actionSwipeRight = id => {
+   onSwipeRight = async (id) => {
     let { swipeRight } = this.props;
-    swipeRight(id);
-    this.setState({ counter: (this.state.counter += 1) });
+    await swipeRight(id);
   };
 
   render() {
+    if(this.props.chatRoom !== null && this.props.chatRoom[0].chatroom_id !== null) return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} />
+    if(!this.props.user.id) return <Redirect to='/login'/>
     const compatable = this.state.matchesWithCompatability.sort((a, b) =>
       a.compatability < b.compatability ? 1 : -1
-    );
-    console.log("this", compatable);
-    console.log(this.props.user);
+    ).sort((a,b) => 
+    a.name < b.name ? 1:-1);
+    const cardStyle = {
+      backgroundColor: "white"
+    };
     return (
-      <div>
-        {compatable.length ? (
-          <div>
-            {compatable.slice(0, 1).map(profile => (
-              <Swipe
+      <div className="home_background_color">
+        <div className="block" />
+        <CardWrapper addEndCard={this.getEndCard.bind(this)}>
+          {compatable
+            .filter(prof => this.props.details[0].gender_pref === prof.gender)
+            .map(profile => {
+              console.log("compat", compatable)
+              return (
+              <Card
+                style={cardStyle}
                 key={`swipeId-${profile.user_id}`}
-                onSwipeLeft={() => {
-                  this.actionSwipeLeft(profile.user_id);
-                  compatable.splice(0, 1);
-                }}
-                onSwipeRight={() => {
-                  this.actionSwipeRight(profile.user_id);
-                  compatable.splice(0, 1);
-                }}
+                onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
+                onSwipeRight={() => this.onSwipeRight(profile.user_id)}
               >
-                {profile.name}
-                {profile.age}
-                <img src={profile.image1} />
-              </Swipe>
-            ))}
-          </div>
-        ) : (
-          <div>Loading...</div>
-        )}
+                <img
+                  className="home_profile_image"
+                  src={profile.image1 || this.state.defaultImage}
+                  alt='none'
+                />
+                <span className="home_profile_name">{profile.name}, </span>
+                <span className="home_profile_age">{profile.age} </span>
+              </Card>
+            )})}
+        </CardWrapper>
       </div>
     );
   }

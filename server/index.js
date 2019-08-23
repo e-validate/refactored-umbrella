@@ -11,7 +11,8 @@ const authmw = require("./middleware/authCheck");
 const initSession = require("./middleware/initSession");
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 
-const app = express();
+
+const app = express()
 
 //Socket
 
@@ -26,9 +27,14 @@ app.use(
   session({
     secret: SESSION_SECRET,
     saveUninitialized: true,
-    resave: false
+    resave: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 36
+    }
   })
 );
+
+
 
 app.use(bodyParser());
 app.use(initSession);
@@ -92,13 +98,36 @@ io.on("connection", socket => {
   // When a client connects run this function
   console.log("A connection happened", socket.id);
   // When the client sends 'needy' and a roomid add them to the room
-  socket.on("needy", roomid => socketController.joinRoom(roomid, socket, io));
+  socket.on("needy", async roomid => {
+    const db = app.get("db")
+    let messages = await db.get_chatroom_messages([roomid])
+  socketController.joinRoom(messages,roomid, socket, io)})
   // When the client sends a message to the server send it to everyone
-  socket.on("message to server", payload =>
-    socketController.sendMessageToRoom(payload, io)
-  );
+  socket.on('message to server', async payload =>{
+    const db = app.get("db");
+    const {id, chatroom_id, message } = payload;
+    let messages = await db.add_message([+id, +chatroom_id ,message, socket, io] )
+      console.log('messsgaaeffg',payload);
+    io.emit('new message from sever', messages );
+ 
+})
+
+
+  
 });
-app.post("/api/savemessage", socketController.saveMesssage);
-app.get("api/messages/:chatroom_id", socketController.getChatroomMessages);
+
+// io.on("message to server", async payload => {
+//   const db = app.get("db");
+//   const {id, chatroom_id, message } = payload;
+//   console.log(payload);
+//   let messages = await db.add_message([+id, chatroom_id ,message]);
+//   socketController.sendMessagesToRoom(messages, io);
+// })
+  
+  
+  app.post('/api/savemessage', socketController.saveMesssage)
+  app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
+  app.get('/api/matches', socketController.getUsersChatrooms)
+
 
 // SERVER instead of APP
