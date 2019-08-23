@@ -15,6 +15,7 @@ import Matched from "./Components/profiles/MatchedUserProfile";
 
 export default (
   <Switch>
+    <Route exact path="/home" component={Home} />
     <Route exact path="/" component={Home} />
     <Route path="/current" component={Current} />
     <Route path="/matches" component={inbox} />
