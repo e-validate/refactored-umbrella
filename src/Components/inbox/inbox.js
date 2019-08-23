@@ -18,13 +18,21 @@ class inbox extends Component {
 
  
   render() {
+   let refresh = async () => {
+      if(!this.props.session.user.id){
+        await this.props.getUser()
+        if(!this.props.session.user.id) {
+         console.log(this.props);
+         return <Redirect to='/login'/>
+       }
+     }}
 
-    if(!this.props) return <Redirect to='/login'/>
-
+     refresh()
     return this.props.chatrooms.map(room => (
+      console.log(room),
       <div key={room.user_id}>
         <Link
-          to={`/CHAT/${room.chatroom_id}`}
+          to={`/chat/${room.chatroom_id}`}
           style={{
             backgroundImage: "url(" + `${room.image1}` + ")",
             backgroundPosition: "center",
