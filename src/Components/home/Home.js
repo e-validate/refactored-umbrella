@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {Redirect} from 'react-router-dom'
 import { getPotentialMatches } from "../../ducks/reducers/userReducer";
 import { swipeLeft, swipeRight } from "../../ducks/reducers/swipeReducer";
-import { getDetails } from "../../ducks/reducers/sessionReducer";
+import { getDetails ,getUser } from "../../ducks/reducers/sessionReducer";
 import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
 import "./home.css";
@@ -19,10 +19,22 @@ class Home extends Component {
     // this.swipeRight = this.swipeRight.bind(this)
   }
 
+  // componentDidUpdate(pp){
+  //   console.log(pp, this.props);
+  //   if(pp.user !== this.props.user){
+  //     this.props.getUser()
+  //   }
+  // }
+
+
   async componentDidMount() {
     let { getPotentialMatches, getDetails } = this.props;
-    await getPotentialMatches();
-    await getDetails(this.props.user.id);
+    if(!this.props.user.id){
+      await getPotentialMatches();
+    }
+    if(this.props.user.id){
+      await getDetails(this.props.user.id);
+    }
     this.setCompatability(this.props.potentialMatches);
   }
 
@@ -103,7 +115,10 @@ class Home extends Component {
 
   render() {
     if(this.props.chatRoom !== null && this.props.chatRoom[0].chatroom_id !== null) return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} />
-    if(!this.props.user.id) return <Redirect to='/login'/>
+    if(!this.props.user.id){this.props.getUser()
+    return <Redirect to='/login'/>
+    }
+
     const compatable = this.state.matchesWithCompatability.sort((a, b) =>
       a.compatability < b.compatability ? 1 : -1
     ).sort((a,b) => 
@@ -151,5 +166,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getDetails, getPotentialMatches, swipeLeft, swipeRight }
+  { getDetails, getPotentialMatches, swipeLeft, swipeRight, getUser }
 )(Home);

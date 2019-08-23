@@ -7,8 +7,8 @@ import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: ""
@@ -46,9 +46,10 @@ class Login extends Component {
   };
 
   render() {
+    console.log(this.props);
     let { email, password } = this.state;
     let { user } = this.props;
-    if (user.loggedIn) return <Redirect to="/" />;
+    if (user.id) return <Redirect to="/" />;
     return (
       <div>
         <div className="login_container">
