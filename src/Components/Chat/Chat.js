@@ -8,9 +8,6 @@ import { getUser } from "../../ducks/reducers/sessionReducer";
 import { connect } from "react-redux";
 import "./Chat.css";
 import {Redirect} from 'react-router-dom'
-import moment from 'moment'
-import jstz from 'jstz'
-import {output} from 'moment-timezone'
 
 const socket = io.connect("http://localhost:4000");
 
@@ -99,12 +96,12 @@ class Chat extends Component {
   //     .toTimeString()
   //     .split(" ")[0]
   //     .split(":");
-      var currTz = sessionStorage.getItem('timezone');
+      // var currTz = sessionStorage.getItem('timezone');
           
-      var momentTime = moment(timeStamp);
-      var tzTime = momentTime.tz(currTz);
-      var formattedTime = tzTime.format('h:mm A');
-      return formattedTime
+      // var momentTime = moment(timeStamp);
+      // var tzTime = momentTime.tz(currTz);
+      // var formattedTime = tzTime.format('h:mm A');
+      // return formattedTime
       
     // var hours = Number((time[0]));
     // console.log(hours);
@@ -182,7 +179,7 @@ class Chat extends Component {
                         <h1>{message.name}</h1>
                         
                         <h1 className="time">
-                          {this.timeConvert(message.timestamp_sent).toLocaleString("en-US", {timeZone: "America/Denver"})}
+                          {this.timeConvert(message.timestamp_sent)}
                         </h1>
                       </div>
                       {/* <div className={`${message.token}-delete-btn-container`}>

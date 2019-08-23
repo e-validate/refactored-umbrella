@@ -48,10 +48,10 @@ and swiped_id = $2)
     end
 $do$;
 
-select chatroom_id from matches m
+select chatroom_id from matches m 
 where swiper_id = $2
 and swiped_id = $3
-and exists (select chatroom_id from matches m
+and exists (select chatroom_id from matches m 
 where swiper_id = $2
 and swiped_id = $3);
 
