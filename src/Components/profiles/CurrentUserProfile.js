@@ -3,8 +3,9 @@ import "./Profiles.css";
 import { connect } from "react-redux";
 import { getCurrentUser } from "./../../ducks/reducers/profileReducer";
 import { getUser } from "./../../ducks/reducers/sessionReducer";
+import { editUserProfile } from "./../../ducks/reducers/formReducer";
+
 import Profile from "./Profile";
-import {Link} from 'react-router-dom'
 
 class CurrentUserProfile extends Component {
   async componentDidMount() {
@@ -15,31 +16,26 @@ class CurrentUserProfile extends Component {
   }
 
   render() {
-    let { profiles } = this.props;
+    let { profiles, editUserProfile, getCurrentUser, getUser } = this.props;
     return (
       <div className="CurrentUserProfile">
         {profiles ? (
           <div className="Profile-Container">
             {profiles.map(profile => (
-              <Profile key={profile.user_id} profile={profile} />
+              <Profile
+                key={profile.user_id}
+                profile={profile}
+                editUserProfile={editUserProfile}
+                getCurrentUser={getCurrentUser}
+                getUser={getUser}
+                loggedIn={this.props.user.loggedIn}
+              />
             ))}
-            <div className="Border" />
-            <div>
-              <p />
-              <Link to="/about">
-                <button>edit profile</button>
-              </Link>
-              <p />
-            </div>
           </div>
         ) : (
           <div className="Profile-Container">
             Loading...
             <div className="Border" />
-            <p />
-            <Link to="/about">
-              <button>edit profile</button>
-            </Link>
             <p />
           </div>
         )}
@@ -51,11 +47,12 @@ class CurrentUserProfile extends Component {
 function mapStateToProps(state) {
   return {
     ...state.profiles,
-    ...state.session
+    ...state.session,
+    ...state.form
   };
 }
 
 export default connect(
   mapStateToProps,
-  { getCurrentUser, getUser }
+  { getCurrentUser, getUser, editUserProfile }
 )(CurrentUserProfile);

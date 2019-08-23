@@ -8,6 +8,7 @@ import { getUser } from "../../ducks/reducers/sessionReducer";
 import { connect } from "react-redux";
 import "./Chat.css";
 import {Redirect} from 'react-router-dom'
+import {setChatRoom} from '../../ducks/reducers/swipeReducer'
 
 const socket = io.connect("http://localhost:4000");
 
@@ -49,12 +50,20 @@ class Chat extends Component {
       this.joinRoom();
     }
   }
-
+  
   componentDidMount() {
     this.props.getUser();
     this.joinRoom();
-    console.log(this.props);
+    this.props.setChatRoom()
+    console.log("why", this.props);
   }
+
+  handleRedirect = () => {
+    if(this.props.chatRoom && this.props.chatRoom[0].chatroom_id){
+    this.props.chatRoom[0].chatroom_id = null
+    }
+   }
+
 
   joinRoom() {
     socket.emit("needy", this.props.chatroom_id);
@@ -73,7 +82,7 @@ class Chat extends Component {
 
   keyPress(e) {
     if (e.keyCode == 13) {
-      console.log("value", e.target.value);
+      // console.log("value", e.target.value);
       // put the login here
     }
   }
@@ -226,5 +235,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { saveMessage, getUser, getChatroomMessages }
+  { saveMessage, getUser, getChatroomMessages, setChatRoom }
 )(Chat);

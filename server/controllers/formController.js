@@ -27,6 +27,13 @@ module.exports = {
         let details_pref = await db.users.add_user_details_pref([gender_pref, religion_pref, ethnicity_pref, id])
         let data = appear_pref.concat(details_pref)
         res.status(200).send(data)
+    },
+    async editUserProfile(req, res) {
+        const db = req.app.get('db')
+        let {age, name, ethnicity, religion, description, gender} = req.body
+        let {id} = req.session.user
+        let data = await db.users.edit_user_profile([age, +id, name, religion, ethnicity, description, gender])
+        res.status(200).send(data)
     }
 
 }

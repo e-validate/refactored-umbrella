@@ -51,7 +51,7 @@ class Login extends Component {
     let { user } = this.props;
     if (user.id) return <Redirect to="/" />;
     return (
-      <div>
+      <div className="login">
         <div className="login_container">
           <input
             className="login_inputs"
