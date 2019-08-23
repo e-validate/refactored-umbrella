@@ -1,17 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import "./about.css";
-import {
-  addUserPref,
-  getUserPref,
-  editUserPref
-} from "./../../ducks/reducers/formReducer";
-import LoginPreferences from "./LoginPreferences";
 
-class Preferences extends Component {
-  constructor() {
-    super();
+class LoginPreferences extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       colors: ["Brunette", "Blonde", "Black", "Red", "White", "None"],
       religions: [
@@ -34,18 +27,35 @@ class Preferences extends Component {
         "White",
         "Other"
       ],
-      age_min: 0,
-      age_max: 0,
-      hair_color_pref: "",
-      gender_pref: "",
-      religion_pref: "",
-      ethnicity_pref: ""
+      age_min: this.props.age_min,
+      age_max: this.props.age_max,
+      hair_color_pref: this.props.hair_color_pref,
+      gender_pref: this.props.gender_pref,
+      religion_pref: this.props.religion_pref,
+      ethnicity_pref: this.props.ethnicity_pref
     };
   }
 
   async componentDidMount() {
-    let { getUserPref } = this.props;
-    await getUserPref();
+    if ((await this.props.gender_pref) === "female") {
+      document.getElementById("female").checked = true;
+      document.getElementById("male").checked = false;
+    }
+    if ((await this.props.gender_pref) === "male") {
+      document.getElementById("female").checked = false;
+      document.getElementById("male").checked = true;
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.gender_pref === "female") {
+      document.getElementById("female").checked = true;
+      document.getElementById("male").checked = false;
+    }
+    if (this.props.gender_pref === "male") {
+      document.getElementById("female").checked = false;
+      document.getElementById("male").checked = true;
+    }
   }
 
   handleChange = e => {
@@ -54,7 +64,7 @@ class Preferences extends Component {
     });
   };
 
-  handleSubmit = () => {
+  handleEdit = () => {
     let {
       age_min,
       age_max,
@@ -63,7 +73,7 @@ class Preferences extends Component {
       religion_pref,
       ethnicity_pref
     } = this.state;
-    this.props.addUserPref(
+    this.props.editUserPref(
       age_min,
       age_max,
       hair_color_pref,
@@ -74,28 +84,13 @@ class Preferences extends Component {
   };
 
   render() {
-    let { ethnicity, religions, colors, age_min, age_max } = this.state;
-    let { formDetails } = this.props;
-    console.log("formdetails", formDetails);
+    let { ethnicity, religions, colors } = this.state;
+    let { form } = this.props;
+    console.log("Props in Prefs", this.props);
+    console.log("gender", this.props.gender_pref);
     return (
-      <div>
-        {formDetails ? (
-          <div>
-            {formDetails.map(form => (
-              <LoginPreferences
-                key={form.user_id}
-                form={form}
-                editUserPref={this.props.editUserPref}
-                age_max={this.props.formDetails[0].age_max}
-                age_min={this.props.formDetails[0].age_min}
-                hair_color_pref={this.props.formDetails[0].hair_color_pref}
-                gender_pref={this.props.formDetails[1].gender_pref}
-                religion_pref={this.props.formDetails[1].religion_pref}
-                ethnicity_pref={this.props.formDetails[1].ethnicity_pref}
-              />
-            ))}
-          </div>
-        ) : (
+      <div className="Pref2">
+        {form ? (
           <div>
             <h1 className="about_you_header">Preferences</h1>
             <div className="preferences_div">
@@ -108,8 +103,8 @@ class Preferences extends Component {
                 <input
                   className="form_input"
                   name="age_min"
-                  value={age_min}
-                  placeholder="Min"
+                  value={this.props.age_min}
+                  placeholder={this.props.age_min}
                   onChange={this.handleChange}
                 />
               </label>
@@ -117,8 +112,8 @@ class Preferences extends Component {
                 className="form_input"
                 id="max_age"
                 name="age_max"
-                value={age_max}
-                placeholder="Max"
+                value={this.props.age_max}
+                placeholder={this.props.age_max}
                 onChange={this.handleChange}
               />
 
@@ -131,9 +126,13 @@ class Preferences extends Component {
                   name="hair_color_pref"
                   onChange={this.handleChange}
                 >
-                  <option />
+                  <option>{this.props.hair_color_pref}</option>
                   {colors.map(value => (
-                    <option value={value} key={value}>
+                    <option
+                      value={value}
+                      key={value}
+                      placeholder={this.props.hair_color_pref}
+                    >
                       {value}
                     </option>
                   ))}
@@ -178,9 +177,13 @@ class Preferences extends Component {
                   name="religion_pref"
                   onChange={this.handleChange}
                 >
-                  <option />
+                  <option>{this.props.religion_pref}</option>
                   {religions.map(type => (
-                    <option value={type} key={type}>
+                    <option
+                      value={type}
+                      key={type}
+                      placeholder={this.props.religion_pref}
+                    >
                       {type}
                     </option>
                   ))}
@@ -196,9 +199,13 @@ class Preferences extends Component {
                   name="ethnicity_pref"
                   onChange={this.handleChange}
                 >
-                  <option />
+                  <option>{this.props.ethnicity_pref}</option>
                   {ethnicity.map(type => (
-                    <option value={type} key={type}>
+                    <option
+                      value={type}
+                      key={type}
+                      placeholder={this.props.ethnicity_pref}
+                    >
                       {type}
                     </option>
                   ))}
@@ -209,23 +216,18 @@ class Preferences extends Component {
             <div className="form_one_button_container">
               <Link to="/">
                 <button className="skip-button">Skip</button>
-                <button className="next-button" onClick={this.handleSubmit}>
-                  Next
+                <button className="next-button" onClick={this.handleEdit}>
+                  Save Changes
                 </button>
               </Link>
             </div>
           </div>
+        ) : (
+          <div>Loading...</div>
         )}
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return { ...state.form, ...state.session };
-}
-
-export default connect(
-  mapStateToProps,
-  { addUserPref, editUserPref, getUserPref }
-)(Preferences);
+export default LoginPreferences;

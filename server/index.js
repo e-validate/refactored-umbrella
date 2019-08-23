@@ -1,17 +1,17 @@
-require("dotenv").config()
-const express = require('express');
-const session = require('express-session');
-const massive = require('massive');
-const userController = require('./controllers/userController');
-const sessionController = require('./controllers/sessionController');
+require("dotenv").config();
+const express = require("express");
+const session = require("express-session");
+const massive = require("massive");
+const userController = require("./controllers/userController");
+const sessionController = require("./controllers/sessionController");
 const profileController = require("./controllers/profileController");
-const likeController = require('./controllers/likeController');
-const formController = require('./controllers/formController');
-const authmw = require('./middleware/authCheck');
+const likeController = require("./controllers/likeController");
+const formController = require("./controllers/formController");
+const authmw = require("./middleware/authCheck");
 const initSession = require("./middleware/initSession");
-const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
+const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 
-const app = express()
+const app = express();
 
 //Socket
 
@@ -33,12 +33,15 @@ app.use(
 app.use(bodyParser());
 app.use(initSession);
 
-massive(CONNECTION_STRING).then(db => {
-  app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`))
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(express.json());
-    app.set("db", db)
-    app.use( express.static( `${__dirname}/../build` ) );
+massive(CONNECTION_STRING)
+  .then(db => {
+    app.listen(SERVER_PORT, () =>
+      console.log(`Server listening on ${SERVER_PORT}`)
+    );
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(express.json());
+    app.set("db", db);
+    app.use(express.static(`${__dirname}/../build`));
     server.listen(4000, () => console.log("Sockets are cool"));
   })
   .catch(err => console.log("err", err));
@@ -51,19 +54,39 @@ app.post("/api/login", sessionController.login);
 app.post("/api/register", sessionController.register);
 app.delete("/api/logout", sessionController.logout);
 app.get("/api/user", authmw, sessionController.getUser);
-app.get('/api/user/details/:id', sessionController.getUserDetails)
+app.get("/api/user/details/:id", sessionController.getUserDetails);
 
-//form endpoints 
-app.post('/api/addUserAppearance', formController.addUserAppearance);
-app.post('/api/addUserDetailsAndInterests', formController.addUserDetailsAndInterests);
-app.post('/api/addPref', formController.addUserPreferences);
+//form endpoints
+app.post("/api/addUserAppearance", formController.addUserAppearance);
+app.post(
+  "/api/addUserDetailsAndInterests",
+  formController.addUserDetailsAndInterests
+);
+app.post("/api/addPref", formController.addUserPreferences);
+app.put(
+  "/api/addUserAppearance/:user_appearance_id",
+  formController.editUserAppearance
+);
+app.put(
+  "/api/editUserInterests/:user_interests_id",
+  formController.editUserInterests
+);
+app.put(
+  "/api/editUserDetails/:user_details_id",
+  formController.editUserDetails
+);
+app.put("/api/addPref/:user_id", formController.editUserPreferences);
+app.get("/api/addPref/:user_id", formController.getUserPreferences);
+app.get("/api/addUserAppearance/:user_id", formController.getUserAppearance);
+app.get(
+  "/api/addUserDetailsAndInterests/:user_id",
+  formController.getUserDetailsAndInterests
+);
 
 // Like endPoints
-app.post("/api/swipe/left/:swipedId", likeController.dislike)
-app.post("/api/swipe/right/:swipedId", likeController.like)
-app.get('/api/swipe/:swipedId', likeController.chatRoomOnLike)
-
-
+app.post("/api/swipe/left/:swipedId", likeController.dislike);
+app.post("/api/swipe/right/:swipedId", likeController.like);
+app.get("/api/swipe/:swipedId", likeController.chatRoomOnLike);
 
 io.on("connection", socket => {
   // When a client connects run this function
@@ -72,13 +95,10 @@ io.on("connection", socket => {
   socket.on("needy", roomid => socketController.joinRoom(roomid, socket, io));
   // When the client sends a message to the server send it to everyone
   socket.on("message to server", payload =>
-  socketController.sendMessageToRoom(payload, io));
+    socketController.sendMessageToRoom(payload, io)
+  );
 });
-app.post('/api/savemessage', socketController.saveMesssage)
-app.get('api/messages/:chatroom_id', socketController.getChatroomMessages)
-
+app.post("/api/savemessage", socketController.saveMesssage);
+app.get("api/messages/:chatroom_id", socketController.getChatroomMessages);
 
 // SERVER instead of APP
- 
-
-
