@@ -114,8 +114,6 @@ class Home extends Component {
   };
 
   render() {
-    console.log("props", this.props)
-    console.log(this.props.chatRoom)
     if(this.props.chatRoom !== null && this.props.chatRoom[0].chatroom_id !== null) return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} />
     if(!this.props.user.id){this.props.getUser()
     return <Redirect to='/login'/>
@@ -123,7 +121,8 @@ class Home extends Component {
 
     const compatable = this.state.matchesWithCompatability.sort((a, b) =>
       a.compatability < b.compatability ? 1 : -1
-    );
+    ).sort((a,b) => 
+    a.name < b.name ? 1:-1);
     const cardStyle = {
       backgroundColor: "white"
     };
@@ -133,7 +132,9 @@ class Home extends Component {
         <CardWrapper addEndCard={this.getEndCard.bind(this)}>
           {compatable
             .filter(prof => this.props.details[0].gender_pref === prof.gender)
-            .map(profile => (
+            .map(profile => {
+              console.log("compat", compatable)
+              return (
               <Card
                 style={cardStyle}
                 key={`swipeId-${profile.user_id}`}
@@ -148,7 +149,7 @@ class Home extends Component {
                 <span className="home_profile_name">{profile.name}, </span>
                 <span className="home_profile_age">{profile.age} </span>
               </Card>
-            ))}
+            )})}
         </CardWrapper>
       </div>
     );

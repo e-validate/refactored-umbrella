@@ -68,6 +68,7 @@ class Chat extends Component {
       chatroom_id: this.props.chatroom_id,
       message: this.state.message
     });
+    this.setState({message: ''})
   }
 
   keyPress(e) {
