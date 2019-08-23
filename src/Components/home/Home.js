@@ -16,7 +16,6 @@ class Home extends Component {
       defaultImage:
         "https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg"
     };
-    // this.swipeRight = this.swipeRight.bind(this)
   }
 
   // componentDidUpdate(pp){
@@ -26,10 +25,9 @@ class Home extends Component {
   //   }
   // }
 
-
   async componentDidMount() {
     let { getPotentialMatches, getDetails } = this.props;
-    if(!this.props.user.id){
+    if(this.props.user.id){
       await getPotentialMatches();
     }
     if(this.props.user.id){
@@ -37,6 +35,7 @@ class Home extends Component {
     }
     this.setCompatability(this.props.potentialMatches);
   }
+
 
   setCompatability = arr => {
     for (let i = 0; i < arr.length; i++) {
@@ -128,6 +127,7 @@ class Home extends Component {
     };
     return (
       <div className="home_background_color">
+      
         <div className="block" />
         <CardWrapper addEndCard={this.getEndCard.bind(this)}>
           {compatable
