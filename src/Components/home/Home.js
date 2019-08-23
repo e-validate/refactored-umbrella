@@ -118,7 +118,6 @@ class Home extends Component {
           {compatable
             .filter(prof => this.props.details[0].gender_pref === prof.gender)
             .map(profile => {
-              console.log("compat", compatable)
               return (
               <Card
                 style={cardStyle}

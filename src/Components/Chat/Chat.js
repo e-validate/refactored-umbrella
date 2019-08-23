@@ -140,7 +140,7 @@ class Chat extends Component {
 
   render() {
       if(!this.props.session.user.id) return <Redirect to='/login'/>
-    
+      console.log('inchat', this.props)
     return (
       <div className="chat">
         {/* <div className="input-button-sendmsg">
