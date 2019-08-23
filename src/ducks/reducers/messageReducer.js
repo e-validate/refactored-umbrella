@@ -17,7 +17,7 @@ export const saveMessage = (chatroom_id, content) => {
     .post("/api/savemessage", {
       chatroom_id,
       content
-    })
+    })``
     .then(res => {
       return res.data;
     });

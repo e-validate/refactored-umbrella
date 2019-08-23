@@ -8,9 +8,9 @@ import { getUser } from "../../ducks/reducers/sessionReducer";
 import { connect } from "react-redux";
 import "./Chat.css";
 import {Redirect} from 'react-router-dom'
-import moment from 'moment.js'
-import {jstz, output} from 'jstz.js'
-import 'moment-timezone.js'
+import moment from 'moment'
+import jstz from 'jstz'
+import {output} from 'moment-timezone'
 
 const socket = io.connect("http://localhost:4000");
 
@@ -81,24 +81,30 @@ class Chat extends Component {
   }
 
   timeConvert = timeStamp => {
-    if (!sessionStorage.getItem('timezone')) {
-      var tz = jstz.determine() || 'UTC';
-      sessionStorage.setItem('timezone', tz.name());
-    }
-    var currTz = sessionStorage.getItem('timezone');
+    // if (!sessionStorage.getItem('timezone')) {
+    //   var tz = jstz.determine() || 'UTC';
+    //   sessionStorage.setItem('timezone', tz.name());
+    // }
+    // var currTz = sessionStorage.getItem('timezone');
 
-    let date = moment().format("YYYY-MM-DD")
-    var stamp = date + "T" + theTime + "Z";
-    var momentTime = moment(stamp);
-    var tzTime = momentTime.tz(currTz);
-    var formattedTime = tzTime.format('h:mm A');
-    output.textContent = "Time in " + currTz + ": " + formattedTime;
-    return formattedTime
+    // let date = moment(timeStamp).format("YYYY-MM-DD")
+    // var timeStamp = date + "T" + theTime + "Z";
+    // var momentTime = moment(timeStamp);
+    // var tzTime = momentTime.tz(currTz);
+    // var formattedTime = tzTime.format('h:mm A');
+    // output.textContent = "Time in " + currTz + ": " + formattedTime;
+    // return formattedTime
     
-    // new Date(timeStamp)
-    //   .toTimeString()
-    //   .split(" ")[0]
-    //   .split(":");
+  //  let time = new Date(timeStamp)
+  //     .toTimeString()
+  //     .split(" ")[0]
+  //     .split(":");
+      var currTz = sessionStorage.getItem('timezone');
+          
+      var momentTime = moment(timeStamp);
+      var tzTime = momentTime.tz(currTz);
+      var formattedTime = tzTime.format('h:mm A');
+      return formattedTime
       
     // var hours = Number((time[0]));
     // console.log(hours);
@@ -139,7 +145,7 @@ class Chat extends Component {
     
     return (
       <div className="chat">
-        <div className="input-button-sendmsg">
+        {/* <div className="input-button-sendmsg">
           <textarea
             className="input-send-message"
             value={this.state.message}
@@ -150,11 +156,11 @@ class Chat extends Component {
                 ev.preventDefault();
               }
             }}
-          />
-          <button className="send-message" onClick={() => this.sendMessage()}>
+          /> */}
+          {/* <button className="send-message" onClick={() => this.sendMessage()}>
             Send
           </button>
-        </div>
+        </div> */}
         <div className="message-container">
           {this.state.chatMessages !== undefined ? (
             this.state.chatMessages.map(
@@ -162,8 +168,8 @@ class Chat extends Component {
                 (message.token =
                   message.sender_id === +this.props.session.user.id
                     ? "sender"
-                    : "reciver"),
-                (
+                    : "receiver"),
+                ( console.log('tokennnnnn',message.token),
                   <div
                     className={`${message.token}-messages-container`}
                     key={index}
@@ -174,11 +180,12 @@ class Chat extends Component {
                     <div className={`${message.token}-delete-info`}>
                       <div className={`${message.token}-name`}>
                         <h1>{message.name}</h1>
+                        
                         <h1 className="time">
                           {this.timeConvert(message.timestamp_sent).toLocaleString("en-US", {timeZone: "America/Denver"})}
                         </h1>
                       </div>
-                      <div className={`${message.token}-delete-btn-container`}>
+                      {/* <div className={`${message.token}-delete-btn-container`}>
                         <button
                           className={`${message.token}-delete-btn`}
                           onClick={() => this.deleteMessage(message.message_id)}
@@ -186,6 +193,7 @@ class Chat extends Component {
                           Delete
                         </button>
                       </div>
+                      </div> */}
                     </div>
                   </div>
                 )
@@ -194,6 +202,23 @@ class Chat extends Component {
           ) : (
             <h1>Loading...</h1>
           )}
+        </div>
+        <div className="input-box-sendmsg">
+          <textarea
+            // onKeyUp={this.handleKeyUp}
+            className="input-send-message"
+            value={this.state.message}
+            onChange={e => this.setState({ message: e.target.value })}
+            onKeyDown={ev => {
+              if (ev.key === "Enter") {
+                this.sendMessage();
+                ev.preventDefault();
+              }
+            }}
+          />
+          <button className="send-message_button" onClick={() => this.sendMessage()}>
+            Send
+          </button>
         </div>
       </div>
     );
