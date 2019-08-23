@@ -1,9 +1,9 @@
-export const GET_POTENTIAL_MATCHES = "GET_POTENTIAL_MATCHES"
-export const GET_USER = 'GET_USER';
-export const REGISTER = 'REGISTER';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
-export const GET_USER_DETAILS = 'GET_USER_DETAILS'
+export const GET_POTENTIAL_MATCHES = "GET_POTENTIAL_MATCHES";
+export const GET_USER = "GET_USER";
+export const REGISTER = "REGISTER";
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+export const GET_USER_DETAILS = "GET_USER_DETAILS";
 
 //like action types
 export const SWIPE_RIGHT = "SWIPE_RIGHT"
