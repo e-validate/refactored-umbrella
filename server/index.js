@@ -63,6 +63,8 @@ app.get('/api/user/details/:id', sessionController.getUserDetails)
 app.post('/api/addUserAppearance', formController.addUserAppearance);
 app.post('/api/addUserDetailsAndInterests', formController.addUserDetailsAndInterests);
 app.post('/api/addPref', formController.addUserPreferences);
+//edits profile
+app.put('/api/editUserProfile', formController.editUserProfile);
 
 // Like endPoints
 app.post("/api/swipe/left/:swipedId", likeController.dislike)
@@ -86,7 +88,6 @@ io.on("connection", socket => {
     let messages = await db.add_message([+id, +chatroom_id ,message, socket, io] )
       console.log('messsgaaeffg',payload);
     io.emit('new message from sever', messages );
- 
 })
 
 
