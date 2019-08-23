@@ -68,6 +68,7 @@ class Chat extends Component {
       chatroom_id: this.props.chatroom_id,
       message: this.state.message
     });
+    this.setState({message: ''})
   }
 
   keyPress(e) {
@@ -138,7 +139,16 @@ class Chat extends Component {
   }
 
   render() {
-      if(!this.props.session.user.id) return <Redirect to='/login'/>
+    let refresh = async () => {
+      if(!this.props.session.user.id){
+        await this.props.getUser()
+        if(!this.props.session.user.id) {
+         console.log(this.props);
+         return <Redirect to='/login'/>
+       }
+     }}
+
+     refresh()
     
     return (
       <div className="chat">

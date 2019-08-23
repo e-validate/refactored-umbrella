@@ -62,32 +62,12 @@ app.delete("/api/logout", sessionController.logout);
 app.get("/api/user", authmw, sessionController.getUser);
 app.get("/api/user/details/:id", sessionController.getUserDetails);
 
-//form endpoints
-app.post("/api/addUserAppearance", formController.addUserAppearance);
-app.post(
-  "/api/addUserDetailsAndInterests",
-  formController.addUserDetailsAndInterests
-);
-app.post("/api/addPref", formController.addUserPreferences);
-app.put(
-  "/api/addUserAppearance/:user_appearance_id",
-  formController.editUserAppearance
-);
-app.put(
-  "/api/editUserInterests/:user_interests_id",
-  formController.editUserInterests
-);
-app.put(
-  "/api/editUserDetails/:user_details_id",
-  formController.editUserDetails
-);
-app.put("/api/addPref/:user_id", formController.editUserPreferences);
-app.get("/api/addPref/:user_id", formController.getUserPreferences);
-app.get("/api/addUserAppearance/:user_id", formController.getUserAppearance);
-app.get(
-  "/api/addUserDetailsAndInterests/:user_id",
-  formController.getUserDetailsAndInterests
-);
+//form endpoints 
+app.post('/api/addUserAppearance', formController.addUserAppearance);
+app.post('/api/addUserDetailsAndInterests', formController.addUserDetailsAndInterests);
+app.post('/api/addPref', formController.addUserPreferences);
+//edits profile
+app.put('/api/editUserProfile', formController.editUserProfile);
 
 // Like endPoints
 app.post("/api/swipe/left/:swipedId", likeController.dislike);
@@ -109,7 +89,6 @@ io.on("connection", socket => {
     let messages = await db.add_message([+id, +chatroom_id ,message, socket, io] )
       console.log('messsgaaeffg',payload);
     io.emit('new message from sever', messages );
- 
 })
 
 
