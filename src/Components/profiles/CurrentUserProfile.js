@@ -3,11 +3,9 @@ import "./Profiles.css";
 import { connect } from "react-redux";
 import { getCurrentUser } from "./../../ducks/reducers/profileReducer";
 import { getUser } from "./../../ducks/reducers/sessionReducer";
-import {editUserProfile} from './../../ducks/reducers/formReducer';
+import { editUserProfile } from "./../../ducks/reducers/formReducer";
 
 import Profile from "./Profile";
-import { get } from "https";
-
 
 class CurrentUserProfile extends Component {
   async componentDidMount() {
@@ -15,7 +13,7 @@ class CurrentUserProfile extends Component {
     await getUser();
     let { id } = this.props.user;
     await getCurrentUser(id);
-  }  
+  }
 
   render() {
     let { profiles, editUserProfile, getCurrentUser, getUser } = this.props;
@@ -24,7 +22,14 @@ class CurrentUserProfile extends Component {
         {profiles ? (
           <div className="Profile-Container">
             {profiles.map(profile => (
-              <Profile key={profile.user_id} profile={profile} editUserProfile={editUserProfile} getCurrentUser={getCurrentUser} getUser={getUser}/>
+              <Profile
+                key={profile.user_id}
+                profile={profile}
+                editUserProfile={editUserProfile}
+                getCurrentUser={getCurrentUser}
+                getUser={getUser}
+                loggedIn={this.props.user.loggedIn}
+              />
             ))}
           </div>
         ) : (
@@ -42,12 +47,12 @@ class CurrentUserProfile extends Component {
 function mapStateToProps(state) {
   return {
     ...state.profiles,
-    ...state.session, 
+    ...state.session,
     ...state.form
   };
 }
 
 export default connect(
   mapStateToProps,
-  { getCurrentUser, getUser, editUserProfile}
+  { getCurrentUser, getUser, editUserProfile }
 )(CurrentUserProfile);
