@@ -82,13 +82,13 @@ export default class Profile extends Component {
           editing ? 
           <div>
                 <div className="Profile_User">
-                  <input placeholder={profile.name} name='name' onChange={this.handleChange}/>, 
-                  <span><input placeholder={profile.age} onChange={this.handleChange} name='age'/></span>
+                  Name:<input placeholder={profile.name} name='name' onChange={this.handleChange}/> 
+                  <span>Age:<input placeholder={profile.age} onChange={this.handleChange} name='age'/></span>
                 </div>
       
               <div className="Border" />
               
-              <div className="Profile_Desc"><input placeholder={profile.description} name='description' onChange={this.handleChange}/></div>
+              <div className="Profile_Desc">Description:<input placeholder={profile.description} name='description' onChange={this.handleChange}/></div>
               
               <div className="Border" />
 
