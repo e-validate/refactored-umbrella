@@ -22,7 +22,7 @@ class inbox extends Component {
     return this.props.chatrooms.map(room => (
       <div key={room.user_id}>
         <Link
-          to={`/CHAT/${room.chatroom_id}`}
+          to={`/chat/${room.chatroom_id}`}
           style={{
             backgroundImage: "url(" + `${room.image1}` + ")",
             backgroundPosition: "center",
