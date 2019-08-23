@@ -112,15 +112,12 @@ class Home extends Component {
     await swipeRight(id);
   };
 
+  
+
   render() {
-    if (
-      this.props.chatRoom !== null &&
-      this.props.chatRoom[0].chatroom_id !== null
-    )
-      return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} />;
-    if (!this.props.user.id) {
-      this.props.getUser();
-      return <Redirect to="/login" />;
+  if(this.props.chatRoom !== null && this.props.chatRoom[0].chatroom_id !== null && this.props.match.path !== "/home") return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} /> 
+    if(!this.props.user.id){this.props.getUser()
+    return <Redirect to='/login'/>
     }
 
     const compatable = this.state.matchesWithCompatability
