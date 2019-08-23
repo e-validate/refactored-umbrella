@@ -25,7 +25,7 @@ class Header extends React.Component {
 
   closeMenu = () => {
     this.setState({
-      menuOpen: false
+      menuOpen: !this.state.menuOpen
     });
   };
 
@@ -77,7 +77,8 @@ class Header extends React.Component {
                 </div>
                 <div className="hamburger-links">
                   <Link
-                    onClick={()=>this.logout()}
+                    onClick={()=>{this.logout()
+                      this.closeMenu()}}
                     to="/login"
                   >
                     Logout

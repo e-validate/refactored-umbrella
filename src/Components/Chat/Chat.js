@@ -139,6 +139,7 @@ class Chat extends Component {
   }
 
   render() {
+
     let refresh = async () => {
       if(!this.props.session.user.id){
         await this.props.getUser()
@@ -152,22 +153,6 @@ class Chat extends Component {
     
     return (
       <div className="chat">
-        {/* <div className="input-button-sendmsg">
-          <textarea
-            className="input-send-message"
-            value={this.state.message}
-            onChange={e => this.setState({ message: e.target.value })}
-            onKeyDown={ev => {
-              if (ev.key === "Enter") {
-                this.sendMessage();
-                ev.preventDefault();
-              }
-            }}
-          /> */}
-          {/* <button className="send-message" onClick={() => this.sendMessage()}>
-            Send
-          </button>
-        </div> */}
         <div className="message-container">
           {this.state.chatMessages !== undefined ? (
             this.state.chatMessages.map(
@@ -189,7 +174,7 @@ class Chat extends Component {
                         <h1>{message.name}</h1>
                         
                         <h1 className="time">
-                          {this.timeConvert(message.timestamp_sent)}
+                          {message.time}
                         </h1>
                       </div>
                       {/* <div className={`${message.token}-delete-btn-container`}>
