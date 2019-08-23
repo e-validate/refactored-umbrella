@@ -41,29 +41,25 @@ class Chat extends Component {
           ...messages
         ]
       });
+      console.log(messages);
     });
 
     this.sendMessage = this.sendMessage.bind(this);
   }
 
-  // componentDidUpdate(pp) {
-  //   console.log(
-  //     pp.messages.messages === this.props.messages.messages,
-  //     pp.messages.messages,
-  //     this.props.messages.messages
-  //   );
-  //   if (pp.messages.messages.length === this.props.messages.messages.length) {
-  //     // this.props.getChatroomMessages(this.props.chatroom_id);
-  //     this.render();
-  //   } else {
-  //     return;
-  //   }
-  // }
+  componentDidUpdate(pp) {
+if(pp.session.user.length === 0 || !this.props.session.user.length === 0){
+  console.log('git');
+this.props.getUser()
+  this.joinRoom()
+}
+  }
 
   componentDidMount() {
-    this.joinRoom()
-    window.scrollTo(0,document.querySelector('.input-box-sendmsg').scrollHeight)
-    }
+    this.props.getUser()
+    this.joinRoom();
+    console.log(this.props);
+  }
 
   joinRoom() {
     // send a request to the server to join the room
@@ -144,7 +140,7 @@ class Chat extends Component {
         <div className="message-container">
           {this.state.chatMessages !== undefined ? (
            
-            newArr.map(
+            this.state.chatMessages.map(
               (message, index) => (
                 (message.token =
                   message.sender_id === +this.props.session.user.id

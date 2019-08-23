@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUser } from "../../ducks/reducers/sessionReducer";
 import { getUsersChatrooms, getChatroomMessages, getUnreadMessages } from "../../ducks/reducers/messageReducer";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class inbox extends Component {
   async componentDidMount() {
@@ -18,6 +18,9 @@ class inbox extends Component {
 
  
   render() {
+
+    if(!this.props) return <Redirect to='/login'/>
+
     return this.props.chatrooms.map(room => (
       <div key={room.user_id}>
         <Link
