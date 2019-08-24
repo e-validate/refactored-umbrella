@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {Redirect} from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 import { getPotentialMatches } from "../../ducks/reducers/userReducer";
 import { swipeLeft, swipeRight } from "../../ducks/reducers/swipeReducer";
-import { getDetails } from "../../ducks/reducers/sessionReducer";
+import { getDetails, getUser } from "../../ducks/reducers/sessionReducer";
 import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
 import "./home.css";
@@ -16,12 +16,24 @@ class Home extends Component {
       defaultImage:
         "https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg"
     };
+    // this.swipeRight = this.swipeRight.bind(this)
   }
+
+  // componentDidUpdate(pp){
+  //   console.log(pp, this.props);
+  //   if(pp.user !== this.props.user){
+  //     this.props.getUser()
+  //   }
+  // }
 
   async componentDidMount() {
     let { getPotentialMatches, getDetails } = this.props;
-    await getPotentialMatches();
-    await getDetails(this.props.user.id);
+    if(this.props.user.id){
+      await getPotentialMatches();
+    }
+    if (this.props.user.id) {
+      await getDetails(this.props.user.id);
+    }
     this.setCompatability(this.props.potentialMatches);
   }
 
@@ -95,16 +107,22 @@ class Home extends Component {
     swipeLeft(id);
   };
 
-  onSwipeRight = id => {
+  onSwipeRight = async id => {
     let { swipeRight } = this.props;
-    swipeRight(id);
+    await swipeRight(id);
   };
 
+  
+
   render() {
-    if(!this.props.user.id) return <Redirect to='/login'/>
-    const compatable = this.state.matchesWithCompatability.sort((a, b) =>
-      a.compatability < b.compatability ? 1 : -1
-    );
+  if(this.props.chatRoom !== null && this.props.chatRoom[0].chatroom_id !== null && this.props.match.path !== "/home") return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} /> 
+    if(!this.props.user.id){this.props.getUser()
+    return <Redirect to='/login'/>
+    }
+
+    const compatable = this.state.matchesWithCompatability
+      .sort((a, b) => (a.compatability < b.compatability ? 1 : -1))
+      .sort((a, b) => (a.name < b.name ? 1 : -1));
     const cardStyle = {
       backgroundColor: "white"
     };
@@ -114,22 +132,24 @@ class Home extends Component {
         <CardWrapper addEndCard={this.getEndCard.bind(this)}>
           {compatable
             .filter(prof => this.props.details[0].gender_pref === prof.gender)
-            .map(profile => (
-              <Card
-                style={cardStyle}
-                key={`swipeId-${profile.user_id}`}
-                onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
-                onSwipeRight={() => this.onSwipeRight(profile.user_id)}
-              >
-                <img
-                  className="home_profile_image"
-                  src={profile.image1 || this.state.defaultImage}
-                  alt='none'
-                />
-                <span className="home_profile_name">{profile.name}, </span>
-                <span className="home_profile_age">{profile.age} </span>
-              </Card>
-            ))}
+            .map(profile => {
+              return (
+                <Card
+                  style={cardStyle}
+                  key={`swipeId-${profile.user_id}`}
+                  onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
+                  onSwipeRight={() => this.onSwipeRight(profile.user_id)}
+                >
+                  <img
+                    className="home_profile_image"
+                    src={profile.image1 || this.state.defaultImage}
+                    alt="none"
+                  />
+                  <span className="home_profile_name">{profile.name}, </span>
+                  <span className="home_profile_age">{profile.age} </span>
+                </Card>
+              );
+            })}
         </CardWrapper>
       </div>
     );
@@ -139,11 +159,12 @@ class Home extends Component {
 function mapStateToProps(state) {
   return {
     ...state.user,
-    ...state.session
+    ...state.session,
+    ...state.swipe
   };
 }
 
 export default connect(
   mapStateToProps,
-  { getDetails, getPotentialMatches, swipeLeft, swipeRight }
+  { getDetails, getPotentialMatches, swipeLeft, swipeRight, getUser }
 )(Home);

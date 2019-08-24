@@ -3,7 +3,7 @@ import "./ChatDisplay.css";
 import Chat from "../Chat/Chat";
 
 class ChatDisplay extends Component {
-  render() {
+  render(props) {
     return (
       <div className="chat-display">
         <Chat chatroom_id={this.props.match.params.chatroom_id} />

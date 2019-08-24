@@ -1,8 +1,16 @@
 import axios from 'axios'
-import {SWIPE_LEFT, SWIPE_RIGHT} from './actionTypes'
+import {SWIPE_LEFT, SWIPE_RIGHT, SET_CHAT_ROOM} from './actionTypes'
 
 const initialState = {
-  chatRoom: 0
+  chatRoom: null
+}
+
+export function setChatRoom (){
+  console.log("setchathit")
+  return{
+    paylod: null,
+    type: SET_CHAT_ROOM
+  }
 }
 
 export function swipeRight(id){
@@ -11,6 +19,7 @@ export function swipeRight(id){
     type: SWIPE_RIGHT, 
     payload: data
   }
+  
 }
 
 export function swipeLeft(id){
@@ -26,9 +35,11 @@ export default function swipeReducer (state = initialState, action){
   let {type, payload} = action
   switch(type){
     case SWIPE_RIGHT + '_FULFILLED': 
-      return{...state}  
+      return{state, chatRoom: payload}  
     case SWIPE_LEFT + "_FULFILLED" : 
-      return{...state} 
+      return{state} 
+    case SET_CHAT_ROOM + "_FULFILLED" :
+      return{...state, chatRoom: payload} 
     default: 
       return state  
   }

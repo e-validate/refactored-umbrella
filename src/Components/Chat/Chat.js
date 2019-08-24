@@ -8,9 +8,7 @@ import { getUser } from "../../ducks/reducers/sessionReducer";
 import { connect } from "react-redux";
 import "./Chat.css";
 import {Redirect} from 'react-router-dom'
-import moment from 'moment'
-import jstz from 'jstz'
-import {output} from 'moment-timezone'
+import {setChatRoom} from '../../ducks/reducers/swipeReducer'
 
 const socket = io.connect("http://localhost:4000");
 
@@ -52,12 +50,20 @@ class Chat extends Component {
       this.joinRoom();
     }
   }
-
+  
   componentDidMount() {
     this.props.getUser();
     this.joinRoom();
-    console.log(this.props);
+    this.props.setChatRoom()
+    console.log("why", this.props);
   }
+
+  handleRedirect = () => {
+    if(this.props.chatRoom && this.props.chatRoom[0].chatroom_id){
+    this.props.chatRoom[0].chatroom_id = null
+    }
+   }
+
 
   joinRoom() {
     socket.emit("needy", this.props.chatroom_id);
@@ -71,58 +77,61 @@ class Chat extends Component {
       chatroom_id: this.props.chatroom_id,
       message: this.state.message
     });
+    this.setState({message: ''})
   }
 
   keyPress(e) {
     if (e.keyCode == 13) {
-      console.log("value", e.target.value);
+      // console.log("value", e.target.value);
       // put the login here
     }
   }
 
   timeConvert = timeStamp => {
+    // if (!sessionStorage.getItem('timezone')) {
+    //   var tz = jstz.determine() || 'UTC';
+    //   sessionStorage.setItem('timezone', tz.name());
+    // }
+    // var currTz = sessionStorage.getItem('timezone');
 
-      var currTz = sessionStorage.getItem('timezone');
-          console.log(currTz);
-      var momentTime = moment(timeStamp);
-      console.log(momentTime);
-      var tzTime = momentTime.tz(currTz);
-      console.log(tzTime._i);
-  
- 
-      var d = new Date(tzTime._i);
-      var hh = d.getHours();
-      console.log(hh);
-      var m = d.getMinutes();
-      var s = d.getSeconds();
-      var dd = "AM";
-      var h = hh;
-      if (h >= 12) {
-        h = hh - 12;
-        dd = "PM";
-      }
-      if (h == 0) {
-        h = 12;
-      }
-      m = m < 10 ? "0" + m : m;
+    // let date = moment(timeStamp).format("YYYY-MM-DD")
+    // var timeStamp = date + "T" + theTime + "Z";
+    // var momentTime = moment(timeStamp);
+    // var tzTime = momentTime.tz(currTz);
+    // var formattedTime = tzTime.format('h:mm A');
+    // output.textContent = "Time in " + currTz + ": " + formattedTime;
+    // return formattedTime
     
-      s = s < 10 ? "0" + s : s;
-    
-      // if you want 2 digit hours:
-      h = h<10?"0"+h:h; 
-    
-      var pattern = new RegExp("0?" + hh + ":" + m + ":" + s);
-      console.log(pattern);
-    
-      var replacement = h + ":" + m;
-      /* if you want to add seconds
-      replacement += ":"+s;  */
-      replacement += " " + dd;
-    
-    let newTimeStamp = timeStamp.replace(pattern, replacement);
-     console.log(timeStamp);
-    return timeStamp
-  
+  //  let time = new Date(timeStamp)
+  //     .toTimeString()
+  //     .split(" ")[0]
+  //     .split(":");
+      // var currTz = sessionStorage.getItem('timezone');
+          
+      // var momentTime = moment(timeStamp);
+      // var tzTime = momentTime.tz(currTz);
+      // var formattedTime = tzTime.format('h:mm A');
+      // return formattedTime
+      
+    // var hours = Number((time[0]));
+    // console.log(hours);
+    // var minutes = Number(time[1]);
+
+    // var timeValue;
+
+    // if (hours > 0 && hours <= 12) {
+    //   timeValue = "" + hours;
+    // } else if (hours > 12) {
+    //   timeValue = "" + (hours - 12);
+    // } else if (hours === 0) {
+    //   timeValue = "12";
+    // }
+
+
+    // timeValue += minutes < 10 ? ":0" + minutes : ":" + minutes;
+    // // timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;
+    // timeValue += hours >= 12 ? "pm" : "am";
+    // return timeValue;
   };
 
   handleKeyUp = evt => {
@@ -139,7 +148,16 @@ class Chat extends Component {
   }
 
   render() {
-      if(!this.props.session.user.id) return <Redirect to='/login'/>
+    let refresh = async () => {
+      if(!this.props.session.user.id){
+        await this.props.getUser()
+        if(!this.props.session.user.id) {
+         console.log(this.props);
+         return <Redirect to='/login'/>
+       }
+     }}
+
+     refresh()
     
     return (
       <div className="chat">
@@ -233,5 +251,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { saveMessage, getUser, getChatroomMessages }
+  { saveMessage, getUser, getChatroomMessages, setChatRoom }
 )(Chat);
