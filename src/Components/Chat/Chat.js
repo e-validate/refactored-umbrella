@@ -7,8 +7,8 @@ import {
 import { getUser } from "../../ducks/reducers/sessionReducer";
 import { connect } from "react-redux";
 import "./Chat.css";
-import {Redirect} from 'react-router-dom'
-import {setChatRoom} from '../../ducks/reducers/swipeReducer'
+import { Redirect } from "react-router-dom";
+import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 
 const socket = io.connect("http://localhost:4000");
 
@@ -25,8 +25,6 @@ class Chat extends Component {
     this.sendMessage = this.sendMessage.bind(this);
 
     socket.on("login", (messages, messageFromServer) => {
-      console.log(messageFromServer);
-      console.log("qs;djkfb;dsjkfghlkfjhblkqern", messages);
       this.setState({
         chatMessages: [...messages]
       });
@@ -44,26 +42,25 @@ class Chat extends Component {
   }
 
   componentDidUpdate(pp) {
-    if (pp.session.user.length === 0 || !this.props.session.user.length === 0) {
-      console.log("git");
-      this.props.getUser();
-      this.joinRoom();
+    if (
+      this.props.chatRoom === +this.props.chatroom_id ||
+      pp.chatRoom === this.props.chatRoom
+    ) {
+    this.props.setChatRoom();
     }
   }
-  
+
   componentDidMount() {
     this.props.getUser();
     this.joinRoom();
-    this.props.setChatRoom()
-    console.log("why", this.props);
+    this.props.setChatRoom();
   }
 
   handleRedirect = () => {
-    if(this.props.chatRoom && this.props.chatRoom[0].chatroom_id){
-    this.props.chatRoom[0].chatroom_id = null
+    if (this.props.chatRoom && this.props.chatRoom[0].chatroom_id) {
+      this.props.chatRoom[0].chatroom_id = null;
     }
-   }
-
+  };
 
   joinRoom() {
     socket.emit("needy", this.props.chatroom_id);
@@ -77,62 +74,8 @@ class Chat extends Component {
       chatroom_id: this.props.chatroom_id,
       message: this.state.message
     });
-    this.setState({message: ''})
+    this.setState({ message: "" });
   }
-
-  keyPress(e) {
-    if (e.keyCode == 13) {
-      // console.log("value", e.target.value);
-      // put the login here
-    }
-  }
-
-  timeConvert = timeStamp => {
-    // if (!sessionStorage.getItem('timezone')) {
-    //   var tz = jstz.determine() || 'UTC';
-    //   sessionStorage.setItem('timezone', tz.name());
-    // }
-    // var currTz = sessionStorage.getItem('timezone');
-
-    // let date = moment(timeStamp).format("YYYY-MM-DD")
-    // var timeStamp = date + "T" + theTime + "Z";
-    // var momentTime = moment(timeStamp);
-    // var tzTime = momentTime.tz(currTz);
-    // var formattedTime = tzTime.format('h:mm A');
-    // output.textContent = "Time in " + currTz + ": " + formattedTime;
-    // return formattedTime
-    
-  //  let time = new Date(timeStamp)
-  //     .toTimeString()
-  //     .split(" ")[0]
-  //     .split(":");
-      // var currTz = sessionStorage.getItem('timezone');
-          
-      // var momentTime = moment(timeStamp);
-      // var tzTime = momentTime.tz(currTz);
-      // var formattedTime = tzTime.format('h:mm A');
-      // return formattedTime
-      
-    // var hours = Number((time[0]));
-    // console.log(hours);
-    // var minutes = Number(time[1]);
-
-    // var timeValue;
-
-    // if (hours > 0 && hours <= 12) {
-    //   timeValue = "" + hours;
-    // } else if (hours > 12) {
-    //   timeValue = "" + (hours - 12);
-    // } else if (hours === 0) {
-    //   timeValue = "12";
-    // }
-
-
-    // timeValue += minutes < 10 ? ":0" + minutes : ":" + minutes;
-    // // timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;
-    // timeValue += hours >= 12 ? "pm" : "am";
-    // return timeValue;
-  };
 
   handleKeyUp = evt => {
     let newHeight = Math.max(Math.min(evt.target.scrollHeight + 2, 75), 38);
@@ -149,16 +92,15 @@ class Chat extends Component {
 
   render() {
     let refresh = async () => {
-      if(!this.props.session.user.id){
-        await this.props.getUser()
-        if(!this.props.session.user.id) {
-         console.log(this.props);
-         return <Redirect to='/login'/>
-       }
-     }}
+      if (!this.props.session.user.id) {
+        await this.props.getUser();
+        if (!this.props.session.user.id) {
+          return <Redirect to="/login" />;
+        }
+      }
+    };
+    refresh();
 
-     refresh()
-    
     return (
       <div className="chat">
         {/* <div className="input-button-sendmsg">
@@ -173,7 +115,7 @@ class Chat extends Component {
               }
             }}
           /> */}
-          {/* <button className="send-message" onClick={() => this.sendMessage()}>
+        {/* <button className="send-message" onClick={() => this.sendMessage()}>
             Send
           </button>
         </div> */}
@@ -185,7 +127,7 @@ class Chat extends Component {
                   message.sender_id === +this.props.session.user.id
                     ? "sender"
                     : "receiver"),
-                ( console.log('tokennnnnn',message.token),
+                (
                   <div
                     className={`${message.token}-messages-container`}
                     key={index}
@@ -196,10 +138,9 @@ class Chat extends Component {
                     <div className={`${message.token}-delete-info`}>
                       <div className={`${message.token}-name`}>
                         <h1>{message.name}</h1>
-                        
-                        <h1 className="time">
-                          {this.timeConvert(message.timestamp_sent)}
-                        </h1>
+
+                        {console.log(message.timestamp_sent)}
+                        <h1 className="time">{message.time}</h1>
                       </div>
                       {/* <div className={`${message.token}-delete-btn-container`}>
                         <button
@@ -212,9 +153,9 @@ class Chat extends Component {
                       </div> */}
                     </div>
                   </div>
-                )
+                ))
               )
-            )
+            
           ) : (
             <h1>Loading...</h1>
           )}
@@ -232,7 +173,10 @@ class Chat extends Component {
               }
             }}
           />
-          <button className="send-message_button" onClick={() => this.sendMessage()}>
+          <button
+            className="send-message_button"
+            onClick={() => this.sendMessage()}
+          >
             Send
           </button>
         </div>
@@ -244,7 +188,8 @@ class Chat extends Component {
 function mapStateToProps(state) {
   return {
     messages: state.messages,
-    session: state.session
+    session: state.session,
+    ...state.swipe
   };
 }
 

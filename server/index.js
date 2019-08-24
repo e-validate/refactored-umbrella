@@ -103,7 +103,7 @@ io.on("connection", socket => {
 // })
   
   
-  app.post('/api/savemessage', socketController.saveMesssage)
+
   app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
   app.get('/api/matches', socketController.getUsersChatrooms)
 

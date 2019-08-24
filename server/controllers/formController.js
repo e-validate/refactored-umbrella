@@ -9,14 +9,10 @@ module.exports = {
     async addUserDetailsAndInterests(req, res) {
         const db = req.app.get('db');
         let {gender, religion, ethnicity, intro_extro, description, sports, arts, music,books, movies, outdoors, food, pets, netflix, traveling, tech, fashion, fitness, gaming, politics} = req.body
-        console.log(gender, 'gender')
         let {id} = req.session.user;
         let details = await db.users.add_user_details([gender, religion, ethnicity, intro_extro, description, id])
-        console.log(details, 'details')
         let interests = await db.users.add_user_interests([sports, arts, music,books, movies, outdoors, food, pets, netflix, traveling, tech, fashion, fitness, gaming, politics, id])
-        console.log(interests, 'interests')
         let data = details.concat(interests)
-        console.log(data, 'we think this is data')
         res.status(200).send(data)
     },
     async addUserPreferences(req, res) {
