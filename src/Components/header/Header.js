@@ -4,6 +4,7 @@ import CheeseburgerMenu from "cheeseburger-menu";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "./../../ducks/reducers/sessionReducer";
+import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 
 class Header extends React.Component {
   constructor(props) {
@@ -101,5 +102,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { logout }
+  { logout, setChatRoom }
 )(Header);
