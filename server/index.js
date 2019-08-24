@@ -71,7 +71,6 @@ app.put('/api/editUserProfile', formController.editUserProfile);
 // Like endPoints
 app.post("/api/swipe/left/:swipedId", likeController.dislike);
 app.post("/api/swipe/right/:swipedId", likeController.like);
-// app.get("/api/swipe/:swipedId", likeController.chatRoomOnLike);
 
 io.on("connection", socket => {
   // When a client connects run this function

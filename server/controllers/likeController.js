@@ -7,6 +7,7 @@ module.exports = {
   async dislike (req, res){
     let {id} = req.session.user
     let {swipedId} = req.params
+    console.log("id's", id, swipedId)
     const db = req.app.get('db')
     await db.swipes.add_matches([false, +id, +swipedId])
     res.sendStatus(200)
