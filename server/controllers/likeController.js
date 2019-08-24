@@ -24,7 +24,7 @@ module.exports = {
     let {id} = req.session.user
     let {swipedId} = req.params
     const db = req.app.get('db')
-    let data = await db.Messages.get_match_chatroom(id, swipedId)
+    let data = await db.Messages.get_match_chatroom(+id, +swipedId)
     res.send(data).catch(err => console.log('error', err))
   }
 }

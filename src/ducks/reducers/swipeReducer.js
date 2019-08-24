@@ -28,7 +28,7 @@ export function swipeRight(id) {
 }
 
 export function swipeLeft(id) {
-  let data = axios.post(`/api/swipe/left/${id}`);
+  let data = axios.post(`/api/swipe/left/${id}`).then(res => res.data);
   return {
     type: SWIPE_LEFT,
     payload: data
