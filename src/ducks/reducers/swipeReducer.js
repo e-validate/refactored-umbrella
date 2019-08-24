@@ -2,11 +2,11 @@ import axios from "axios";
 import { SWIPE_LEFT, SWIPE_RIGHT, SET_CHAT_ROOM } from "./actionTypes";
 
 const initialState = {
-  chatRoom: null
+  chatRoom: 0
 };
 
 export function setChatRoom() {
-  let data = null;
+  let data = 0;
   console.log("set Chat to 0")
   return {
     payload: data,
@@ -16,8 +16,8 @@ export function setChatRoom() {
 
 export function swipeRight(id) {
   let data = axios.post(`/api/swipe/right/${id}`).then(res => {
-    if (res.data[0].chatroom_id === null) {
-      return (data = null);
+    if (!res.data[0] ) {
+      return (data = 0);
     } else {
       return res.data[0].chatroom_id;
     }
@@ -43,7 +43,7 @@ export default function swipeReducer(state = initialState, action) {
       return { ...state, chatRoom: payload };
     case SWIPE_LEFT + "_FULFILLED":
       return { ...state };
-    case SET_CHAT_ROOM + "_FULFILLED":
+    case SET_CHAT_ROOM :
       return { ...state, chatRoom: payload };
     default:
       return state;
