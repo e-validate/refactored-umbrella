@@ -36,10 +36,8 @@ class Home extends Component {
     await getUser();
 
     if (this.props.user.id) {
-      await getPotentialMatches();
-    }
-    if (this.props.user.id) {
       await getDetails(this.props.user.id);
+      await getPotentialMatches();
     }
     this.setCompatability(this.props.potentialMatches);
   }
@@ -49,6 +47,11 @@ class Home extends Component {
       let user1 = this.props.details[0];
       let user2 = arr[i];
       let compatabilityCounter = 0;
+
+      console.log('users comparison ep' , this.props);
+      console.log('users comparison ep' , user1.ethnicity_pref);
+
+      console.log('users comparison' , user1, user2 );
 
       if (user1.ethnicity_pref === user2.ethnicity) {
         compatabilityCounter += 1;
