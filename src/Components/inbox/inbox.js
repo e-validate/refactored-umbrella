@@ -31,6 +31,8 @@ class inbox extends Component {
       }
     };
 
+
+    console.log(this.props.chatrooms);
     refresh();
     return this.props.chatrooms.map(
       room => (
