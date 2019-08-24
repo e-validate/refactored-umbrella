@@ -46,7 +46,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log(this.props);
     let { email, password } = this.state;
     let { user } = this.props;
     if (user.id) return <Redirect to="/" />;
