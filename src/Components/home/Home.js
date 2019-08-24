@@ -11,6 +11,8 @@ import { getDetails, getUser } from "../../ducks/reducers/sessionReducer";
 import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
 import "./home.css";
+import Geolocation from '../geloaction/Geolocation'
+
 
 class Home extends Component {
   constructor() {
@@ -18,7 +20,9 @@ class Home extends Component {
     this.state = {
       matchesWithCompatability: [],
       defaultImage:
-        "https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg"
+        "https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg",
+        latitude: '',
+        longitude: ''
     };
   }
 
@@ -117,6 +121,11 @@ class Home extends Component {
     swipeRight(id);
   };
 
+  handleLocation = async () => {
+    await this.setState({latitude: this.props.coords.latitude, longitude: this.props.coords.longitude})
+    console.log('hit handlelocation', this.state.latitude, this.state.longitude)
+  }
+
   render() {
     console.log('chatroom', this.props.chatRoom)
     if (this.props.chatRoom !== 0) {
@@ -136,6 +145,9 @@ class Home extends Component {
     };
     return (
       <div className="home_background_color">
+        <Geolocation
+        handleLocation = {this.handleLocation}
+        />
         <div className="block" />
         <CardWrapper addEndCard={this.getEndCard.bind(this)}>
           {compatable
