@@ -7,7 +7,6 @@ const initialState = {
 
 export function setChatRoom() {
   let data = 0;
-  console.log("set Chat to 0")
   return {
     payload: data,
     type: SET_CHAT_ROOM
