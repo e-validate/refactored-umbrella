@@ -45,6 +45,7 @@ class Login extends Component {
         onClick: function() {}
       }).showToast();
       this.resetInput();
+      this.props.setChatRoom()
     });
   };
 

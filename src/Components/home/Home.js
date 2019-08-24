@@ -48,11 +48,6 @@ class Home extends Component {
       let user2 = arr[i];
       let compatabilityCounter = 0;
 
-      console.log('users comparison ep' , this.props);
-      console.log('users comparison ep' , user1.ethnicity_pref);
-
-      console.log('users comparison' , user1, user2 );
-
       if (user1.ethnicity_pref === user2.ethnicity) {
         compatabilityCounter += 1;
       }
@@ -123,7 +118,8 @@ class Home extends Component {
   };
 
   render() {
-    if (this.props.chatRoom !== 0) {
+    console.log('chatroom', this.props.chatRoom)
+    if (this.props.chatRoom !== null) {
       return <Redirect to={`/chat/${this.props.chatRoom}`} />;
     }
     if (!this.props.user.id) {
