@@ -15,7 +15,7 @@
   align-items: center;
   border-radius: 10px;
   background: white;
-  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
 }
 
 .login {
@@ -34,7 +34,7 @@
   margin-top: 20px;
   /* border-radius: 4px; */
   padding: 10px;
-  width: 300px;
+  width: 75%;
   /* background: blue; */
   border-bottom: 1px black solid;
   border-top: none;
@@ -45,65 +45,64 @@
 }
 
 .login_left {
-    background-image: url("https://images.unsplash.com/photo-1537123650928-6680fa9b24a0");
+  background-image: url("https://images.unsplash.com/photo-1537123650928-6680fa9b24a0");
   background-size: cover;
   background-position: center center;
-    width: 60%;
-    height: 90%;
-    border-radius: 10px;
-    margin-left: 23px;
+  width: 60%;
+  height: 90%;
+  border-radius: 10px;
+  margin-left: 23px;
 }
 
 .login_right {
-    width: 40%;
-    height: 100%;
+  width: 40%;
+  height: 100%;
 }
 
 .login_right > div:nth-child(1) {
-    width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-
 .login_right > div > span {
-    padding: 20px;
-    font-size: 15pt;
-    color: black;
-    width: 60%
+  padding: 20px;
+  font-size: 15pt;
+  color: black;
+  width: 60%;
 }
 
 .login_right > div:nth-child(2) {
-    /* background: green; */
-    /* width: 100%; */
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
+  /* background: green; */
+  /* width: 100%; */
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 }
-
 
 .login_button {
   margin-top: 20px;
   padding: 10px;
   font-size: 15px;
   width: 100px;
-  background: #00C59A;
+  background: #00c59a;
   color: white;
   font-weight: bold;
   border-radius: 4px;
+  border: none;
 }
 
 .link_to_register {
   margin-top: 20px;
-  color: #00C59A;
+  color: #00c59a;
 }
 
 .rfu {
-    max-width:90%;
-    height:auto;
+  max-width: 90%;
+  height: auto;
 }
