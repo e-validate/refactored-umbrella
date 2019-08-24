@@ -10,9 +10,9 @@ import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
 
 class inbox extends Component {
-  async componentDidMount() {
+
+  async componentDidMount(id) {
     await this.props.getUsersChatrooms();
-    console.log(this.props);
   }
 
   getMatchMessages = id => {
@@ -25,18 +25,16 @@ class inbox extends Component {
       if (!this.props.session.user.id) {
         await this.props.getUser();
         if (!this.props.session.user.id) {
-          console.log(this.props);
           return <Redirect to="/login" />;
         }
       }
     };
 
 
-    console.log(this.props.chatrooms);
+
     refresh();
     return this.props.chatrooms.map(
       room => (
-        console.log(room),
         (
           <div key={room.user_id} className="inbox">
             <div
@@ -52,7 +50,7 @@ class inbox extends Component {
                 className="picture-buttons"
                 alt="none"
               >
-                <h3 className="match-name-preview">{room.name}</h3>
+                <h3 className="match-name-preview">Go to Inbox</h3>
               </Link>
             </div>
             <div>
