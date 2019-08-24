@@ -1,3 +1,12 @@
 .end_card {
-    font-size: 40px;
+    font-size: 20pt;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+}
+
+.end_card > span {
+    padding: 30px;
 }

@@ -1,49 +1,100 @@
-@import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap");
 body {
-    font-family: 'Lexend Deca', sans-serif;
+  font-family: "Lexend Deca", sans-serif;
 }
 
 .header-container {
-    width: 100vw;
-    height: 90px;
-    /* position: absolute; */
-    background: #3b559e;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 100vw;
+  height: 75px;
+  /* position: absolute; */
+  /* background: #3b559e; */
+  background: white;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+  /* box-shadow; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-container > div {
+  width: 100%;
+  /* background: green; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loggedin-header {
+  width: 100vw;
+  height: 75px;
+  background: white;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .main_header {
-    text-transform: uppercase;
-    margin-left: 100%;
-    color: white;
-    margin-left: 5px;
+  text-transform: uppercase;
+  margin-left: 100%;
+  color: black;
+  margin-left: 5px;
 }
 
 .logo {
-    margin-right: 10px;
-    height: 50px;
-    width: 50px;
+  max-height: 65px;
+  width: auto;
+  text-align: center;
 }
 
 #hamburger {
-    margin-left: 10px;
-    font-size: 30px;
-    color: white;
+  margin-left: 25px;
+  font-size: 30px;
+  color: #00c59a;
 }
 
 .logo_container {
-    display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.logo-right {
+margin-right: 25px;
+max-height: 65px;
+  width: auto;
+  }
 
+#circle {
+  font-size: 9pt;
+  position: relative;
+  bottom: 4px;
+  color: #00c59a;
+}
+
+.logo_container > span {
+  font-size: 20pt;
+  text-transform: uppercase;
+  letter-spacing: 2pt;
+}
 a {
-    color: #04dbac;
+  color: #00c59a;
+  text-decoration: none;
 }
 
 .hamburger-links {
-    font-size: 30px;
-    padding: 10px;
+  font-size: 16pt;
+  padding: 15px;
+  padding-left: 20px;
+  text-align: left;
+  text-decoration: none;
 }
 
+.hamburger-links:hover {
+    background: #efefefe0;
+    color: black;
+  }
 
+.menu {
+    width: 100%;
+}
