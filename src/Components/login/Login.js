@@ -5,6 +5,8 @@ import { login } from "./../../ducks/reducers/sessionReducer";
 import "./login.css";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import {setChatRoom} from '../../ducks/reducers/swipeReducer'
+
 
 class Login extends Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class Login extends Component {
       password: ""
     };
   }
+
 
   handleChange = e => {
     this.setState({
@@ -42,16 +45,16 @@ class Login extends Component {
         onClick: function() {}
       }).showToast();
       this.resetInput();
+      this.props.setChatRoom()
     });
   };
 
   render() {
-    console.log(this.props);
     let { email, password } = this.state;
     let { user } = this.props;
     if (user.id) return <Redirect to="/" />;
     return (
-      <div>
+      <div className="login">
         <div className="login_container">
           <input
             className="login_inputs"
@@ -95,5 +98,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { login }
+  { login, setChatRoom }
 )(Login);

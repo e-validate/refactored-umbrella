@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { getPotentialMatches } from "../../ducks/reducers/userReducer";
-import { swipeLeft, swipeRight } from "../../ducks/reducers/swipeReducer";
+import {
+  swipeLeft,
+  swipeRight,
+  setChatRoom
+} from "../../ducks/reducers/swipeReducer";
 import { getDetails, getUser } from "../../ducks/reducers/sessionReducer";
 import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
@@ -18,20 +22,22 @@ class Home extends Component {
     };
   }
 
-  // componentDidUpdate(pp){
-  //   console.log(pp, this.props);
-  //   if(pp.user !== this.props.user){
-  //     this.props.getUser()
-  //   }
-  // }
+  componentDidUpdate(pp) {
+    if (pp.chatRoom === this.props.chatRoom) {
+      this.props.setChatRoom();
+    } else {
+      return;
+    }
+  }
 
   async componentDidMount() {
-    let { getPotentialMatches, getDetails } = this.props;
-    if(this.props.user.id){
-      await getPotentialMatches();
-    }
+    await this.props.setChatRoom();
+    let { getPotentialMatches, getDetails, getUser } = this.props;
+    await getUser();
+
     if (this.props.user.id) {
       await getDetails(this.props.user.id);
+      await getPotentialMatches();
     }
     this.setCompatability(this.props.potentialMatches);
   }
@@ -107,17 +113,19 @@ class Home extends Component {
     swipeLeft(id);
   };
 
-  onSwipeRight = async id => {
+  onSwipeRight = id => {
     let { swipeRight } = this.props;
-    await swipeRight(id);
+    swipeRight(id);
   };
 
-  
-
   render() {
-  if(this.props.chatRoom !== null && this.props.chatRoom[0].chatroom_id !== null && this.props.match.path !== "/home") return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} /> 
-    if(!this.props.user.id){this.props.getUser()
-    return <Redirect to='/login'/>
+    console.log('chatroom', this.props.chatRoom)
+    if (this.props.chatRoom !== 0) {
+      return <Redirect to={`/chat/${this.props.chatRoom}`} />;
+    }
+    if (!this.props.user.id) {
+      this.props.getUser();
+      return <Redirect to="/login" />;
     }
 
     const compatable = this.state.matchesWithCompatability
@@ -167,5 +175,12 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getDetails, getPotentialMatches, swipeLeft, swipeRight, getUser }
+  {
+    getDetails,
+    getPotentialMatches,
+    swipeLeft,
+    swipeRight,
+    getUser,
+    setChatRoom
+  }
 )(Home);
