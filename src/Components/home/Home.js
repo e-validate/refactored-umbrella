@@ -119,7 +119,7 @@ class Home extends Component {
 
   render() {
     console.log('chatroom', this.props.chatRoom)
-    if (this.props.chatRoom !== null) {
+    if (this.props.chatRoom !== 0) {
       return <Redirect to={`/chat/${this.props.chatRoom}`} />;
     }
     if (!this.props.user.id) {

@@ -41,14 +41,15 @@ class Chat extends Component {
     this.sendMessage = this.sendMessage.bind(this);
   }
 
-  componentDidUpdate(pp) {
-    if (
-      this.props.chatRoom === +this.props.chatroom_id ||
-      pp.chatRoom === this.props.chatRoom
-    ) {
-    this.props.setChatRoom();
-    }
-  }
+  // componentDidUpdate(pp) {
+  //   if (
+  //     this.props.chatRoom === +this.props.chatroom_id ||
+  //     pp.chatRoom === this.props.chatRoom
+  //   ) {
+  //     this.props.setChatRoom();
+  //     console.log('cdm' , this.props);
+  //   }
+  // }
 
   componentDidMount() {
     this.props.getUser();

@@ -20,9 +20,9 @@ do
     $do$
         begin 
             if exists (select match_junc_id from matches 
-            where swiped_id = $2
-            and  likes = true
-            and swiper_id = $3)
+            where swiped_id in ($2, $3)
+            and swiper_id in ($2, $3)
+            and  likes = true)
         then 
             update matches 
                 set match_junc_id = ( select match_junc_id from matches where swiped_id = $3 and  likes = true and swiper_id = $2)
@@ -47,6 +47,8 @@ and swiped_id = $2)
         end if;
     end
 $do$;
+
+
 
 
 
