@@ -1,50 +1,109 @@
 .login_container {
-    /* background-image: url('https://images.unsplash.com/photo-1437624155766-b64bf17eb2ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'); */
-    /* background-image: url('https://images.unsplash.com/photo-1514632595-4944383f2737?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'); */
-    background-size: cover;
-    background-position: center center;
-    background-image: url('https://images.unsplash.com/photo-1518104593124-ac2e82a5eb9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
-    background-image: url('https://images.unsplash.com/photo-1431037242647-4c2c27cb5bb1');
-    /* background: white; */
-    height: 500px;
-    width: 70vw;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin: 0 auto;
-    align-items: center;
-    border-radius: 10px;
+  /* background-image: url('https://images.unsplash.com/photo-1437624155766-b64bf17eb2ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'); */
+  /* background-image: url('https://images.unsplash.com/photo-1514632595-4944383f2737?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'); */
+  /* background-image: url("https://images.unsplash.com/photo-1518104593124-ac2e82a5eb9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"); */
+  /* background-image: url("https://images.unsplash.com/photo-1537123650928-6680fa9b24a0"); */
+  background-size: cover;
+  background-position: center center;
+  /* background-image: url("https://images.unsplash.com/photo-1537123650928-6680fa9b24a0"); */
+  height: 500px;
+  width: 62vw;
+  display: flex;
+  justify-content: center;
+  /* flex-direction: column; */
+  margin: 0 auto;
+  align-items: center;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
 }
 
 .login {
-    height: 90%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    align-items: center;
+  /* background-image: url("https://images.unsplash.com/photo-1537123650928-6680fa9b24a0");
+  background-size: cover;
+  background-position: center right; */
+  height: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
 }
 
 .login_inputs {
-    margin-top: 20px;
-    border-radius: 4px;
-    padding: 10px;
-    box-shadow:  1px 1px 2px 2px #ccc;
+  margin-top: 20px;
+  /* border-radius: 4px; */
+  padding: 10px;
+  width: 300px;
+  /* background: blue; */
+  border-bottom: 1px black solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: 12pt;
+  /* box-shadow: 1px 1px 2px 2px #ccc; */
 }
 
+.login_left {
+    background-image: url("https://images.unsplash.com/photo-1537123650928-6680fa9b24a0");
+  background-size: cover;
+  background-position: center center;
+    width: 60%;
+    height: 90%;
+    border-radius: 10px;
+    margin-left: 23px;
+}
+
+.login_right {
+    width: 40%;
+    height: 100%;
+}
+
+.login_right > div:nth-child(1) {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.login_right > div > span {
+    padding: 20px;
+    font-size: 15pt;
+    color: black;
+    width: 60%
+}
+
+.login_right > div:nth-child(2) {
+    /* background: green; */
+    /* width: 100%; */
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+
 .login_button {
-    margin-top: 20px;
-    padding: 10px;
-    font-size: 15px;
-    background: #04dbac;
-    color: white;
-    font-weight: bold;
-    border-radius: 4px;
-    box-shadow:  1px 1px 2px 2px #ccc;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 15px;
+  width: 100px;
+  background: #00C59A;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
 }
 
 .link_to_register {
-    margin-top: 20px;
-    color: #04dbac;
+  margin-top: 20px;
+  color: #00C59A;
 }
 
+.rfu {
+    max-width:90%;
+    height:auto;
+}
