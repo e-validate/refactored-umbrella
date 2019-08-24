@@ -5,7 +5,7 @@ import './myendcard.css'
 class MyEndCard extends Component {
     render() {
         return(
-            <div className='end_card'>You have no more matches at this time. Please try again later!</div>
+            <div className='end_card'><span>You have no more matches at this time. <p>Please try again later!</p></span></div>
         );
     }
 }

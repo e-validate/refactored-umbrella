@@ -53,6 +53,7 @@ massive(CONNECTION_STRING)
 
 app.get(`/api/users/potential`, userController.getPotentialMatches);
 app.get(`/api/profiles/:id`, profileController.getCurrentUser);
+app.post('/api/location/set', userController.setLocation)
 
 // session endpoints
 app.post("/api/login", sessionController.login);

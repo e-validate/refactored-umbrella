@@ -29,10 +29,15 @@
 
 module.exports = {
     async getPotentialMatches (req, res){
-      console.log('khdfgasiuy', req.session);
      let {id} = req.session.user      
      const db = req.app.get('db')
      let data = await db.get_users_potential_matches(+id)
      res.send(data)
+   },
+   async setLocation(req, res){
+     let {latitude, longitude} = req.body
+     const db = req.app.get('db')
+     let data = await db.set_location(latitude, longitude)
+     res.sendStatus(200)
    }
   }
