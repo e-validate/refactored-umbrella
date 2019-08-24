@@ -36,71 +36,59 @@ class Header extends React.Component {
   render() {
     let { menuOpen } = this.state;
     return (
-      
       <div>
         {window.location.hash === "#/login" ? (
           <div className="header-container">
-          <div className="logo_container">
-          <header className="main_header">
-            Refactored <br /> Umbrella
-          </header>
-          <img
-            src="https://drive.google.com/uc?export=download&id=1-DYk_9wTTepDWBa9AIZPlEi5XNsRq7mK"
-            alt="Green umbrella logo"
-            className="logo"
-          />
-        </div>
-      </div>
-          ) : (
-            <div className="header-container">
+            <div>
+              <div className="logo_container">
+                <span><i class="fas fa-circle" id="circle"/> refactored <i class="fas fa-circle" id="circle"/> umbrella <i class="fas fa-circle" id="circle"/> </span> 
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="loggedin-header">
             <i
               id="hamburger"
               className="fas fa-bars"
               onClick={menuOpen ? this.closeMenu : this.openMenu}
             />
-            <CheeseburgerMenu isOpen={menuOpen} closeCallback={this.closeMenu}>
-              <div>
-                <div className="hamburger-links">
+            <CheeseburgerMenu isOpen={menuOpen} closeCallback={this.closeMenu} width={250}>
+              <div className="menu">
                   <Link to="/" onClick={this.closeMenu}>
+                <div className="hamburger-links">
                     Home
-                  </Link>
                 </div>
-                <div className="hamburger-links">
+                  </Link>
                   <Link to="/current" onClick={this.closeMenu}>
+                <div className="hamburger-links">
                     Profile
-                  </Link>
                 </div>
-                <div className="hamburger-links">
+                  </Link>
                   <Link to="/matches" onClick={this.closeMenu}>
-                    Matches
-                  </Link>
-                </div>
                 <div className="hamburger-links">
-                  <Link
-                    onClick={()=>this.logout()}
-                    to="/login"
-                  >
-                    Logout
-                  </Link>
+                    Matches
                 </div>
+                  </Link>
+                  <Link onClick={() => this.logout()} to="/login">
+                <div className="hamburger-links">
+                    Logout
+                </div>
+                  </Link>
               </div>
             </CheeseburgerMenu>
             <div className="logo_container">
-            <header className="main_header">
-              Refactored <br /> Umbrella
-            </header>
-            <img
-              src="https://drive.google.com/uc?export=download&id=1-DYk_9wTTepDWBa9AIZPlEi5XNsRq7mK"
-              alt="Green umbrella logo"
-              className="logo"
-            />
+              <header className="main_header">
+                Refactored <br /> Umbrella
+              </header>
+              <img
+                src="https://drive.google.com/uc?export=download&id=1TOy6PrzFcOFipusMIjwNJi3LypbJsvbB"
+                alt="Green umbrella logo"
+                className="logo-right"
+              />
+            </div>
           </div>
-        </div>
-  
-          )}
-
+        )}
       </div>
-       
     );
   }
 }

@@ -28,7 +28,7 @@ class Home extends Component {
 
   async componentDidMount() {
     let { getPotentialMatches, getDetails } = this.props;
-    if(this.props.user.id){
+    if (this.props.user.id) {
       await getPotentialMatches();
     }
     if (this.props.user.id) {
@@ -112,12 +112,16 @@ class Home extends Component {
     await swipeRight(id);
   };
 
-  
-
   render() {
-  if(this.props.chatRoom !== null && this.props.chatRoom[0].chatroom_id !== null && this.props.match.path !== "/home") return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} /> 
-    if(!this.props.user.id){this.props.getUser()
-    return <Redirect to='/login'/>
+    if (
+      this.props.chatRoom !== null &&
+      this.props.chatRoom[0].chatroom_id !== null &&
+      this.props.match.path !== "/home"
+    )
+      return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} />;
+    if (!this.props.user.id) {
+      this.props.getUser();
+      return <Redirect to="/login" />;
     }
 
     const compatable = this.state.matchesWithCompatability
@@ -127,30 +131,37 @@ class Home extends Component {
       backgroundColor: "white"
     };
     return (
-      <div className="home_background_color">
+      <div className="home">
         <div className="block" />
-        <CardWrapper addEndCard={this.getEndCard.bind(this)}>
-          {compatable
-            .filter(prof => this.props.details[0].gender_pref === prof.gender)
-            .map(profile => {
-              return (
-                <Card
-                  style={cardStyle}
-                  key={`swipeId-${profile.user_id}`}
-                  onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
-                  onSwipeRight={() => this.onSwipeRight(profile.user_id)}
-                >
-                  <img
-                    className="home_profile_image"
-                    src={profile.image1 || this.state.defaultImage}
-                    alt="none"
-                  />
-                  <span className="home_profile_name">{profile.name}, </span>
-                  <span className="home_profile_age">{profile.age} </span>
-                </Card>
-              );
-            })}
-        </CardWrapper>
+        <div className="cards">
+          <CardWrapper addEndCard={this.getEndCard.bind(this)}>
+            {compatable
+              .filter(prof => this.props.details[0].gender_pref === prof.gender)
+              .map(profile => {
+                return (
+                  <Card
+                    style={cardStyle}
+                    key={`swipeId-${profile.user_id}`}
+                    onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
+                    onSwipeRight={() => this.onSwipeRight(profile.user_id)}
+                    id="card"
+                  >
+                    <div className="card">
+                      <img
+                        className="home_profile_image"
+                        src={profile.image1 || this.state.defaultImage}
+                        alt="none"
+                      />
+                      <span className="home_profile_name">
+                        {profile.name},{" "}
+                      </span>
+                      <span className="home_profile_age">{profile.age} </span>
+                    </div>
+                  </Card>
+                );
+              })}
+          </CardWrapper>
+        </div>
       </div>
     );
   }

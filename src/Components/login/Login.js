@@ -53,36 +53,48 @@ class Login extends Component {
     return (
       <div className="login">
         <div className="login_container">
-          <input
-            className="login_inputs"
-            id="login-input-one"
-            type="text"
-            placeholder="Enter email"
-            name="email"
-            value={email}
-            Ï
-            onChange={this.handleChange}
-          />
-          <input
-            onKeyDown={ev => {
-              if (ev.key === "Enter") {
-                this.login();
-                ev.preventDefault();
-              }
-            }}
-            className="login_inputs"
-            type="password"
-            placeholder="Enter password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />
-          <button className="login_button" onClick={this.login}>
-            Login
-          </button>
-          <Link to="/register" className="link_to_register">
-            Not a member?
-          </Link>
+          <div className="login_left" />
+          <div className="login_right">
+            <div>
+            <img
+            src="https://drive.google.com/uc?export=download&id=1r3GIArXdgsXJO18a3AZaivaqb8-P4RkP"
+            alt="Green umbrella logo"
+            className="rfu"
+            />
+          <span>cause dating doesn't make much sense either</span></div>
+            <div>
+              <input
+                className="login_inputs"
+                id="login-input-one"
+                type="text"
+                placeholder="email"
+                name="email"
+                value={email}
+                Ï
+                onChange={this.handleChange}
+              />
+              <input
+                onKeyDown={ev => {
+                  if (ev.key === "Enter") {
+                    this.login();
+                    ev.preventDefault();
+                  }
+                }}
+                className="login_inputs"
+                type="password"
+                placeholder="password"
+                name="password"
+                value={password}
+                onChange={this.handleChange}
+              />
+              <button className="login_button" onClick={this.login}>
+                Login
+              </button>
+              <Link to="/register" className="link_to_register">
+                Not A Member?
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
