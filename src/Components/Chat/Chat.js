@@ -81,50 +81,48 @@ class Chat extends Component {
   }
 
   timeConvert = timeStamp => {
-    // if (!sessionStorage.getItem('timezone')) {
-    //   var tz = jstz.determine() || 'UTC';
-    //   sessionStorage.setItem('timezone', tz.name());
-    // }
-    // var currTz = sessionStorage.getItem('timezone');
 
-    // let date = moment(timeStamp).format("YYYY-MM-DD")
-    // var timeStamp = date + "T" + theTime + "Z";
-    // var momentTime = moment(timeStamp);
-    // var tzTime = momentTime.tz(currTz);
-    // var formattedTime = tzTime.format('h:mm A');
-    // output.textContent = "Time in " + currTz + ": " + formattedTime;
-    // return formattedTime
-    
-  //  let time = new Date(timeStamp)
-  //     .toTimeString()
-  //     .split(" ")[0]
-  //     .split(":");
       var currTz = sessionStorage.getItem('timezone');
-          
+          console.log(currTz);
       var momentTime = moment(timeStamp);
+      console.log(momentTime);
       var tzTime = momentTime.tz(currTz);
-      var formattedTime = tzTime.format('h:mm A');
-      return formattedTime
-      
-    // var hours = Number((time[0]));
-    // console.log(hours);
-    // var minutes = Number(time[1]);
-
-    // var timeValue;
-
-    // if (hours > 0 && hours <= 12) {
-    //   timeValue = "" + hours;
-    // } else if (hours > 12) {
-    //   timeValue = "" + (hours - 12);
-    // } else if (hours === 0) {
-    //   timeValue = "12";
-    // }
-
-
-    // timeValue += minutes < 10 ? ":0" + minutes : ":" + minutes;
-    // // timeValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;
-    // timeValue += hours >= 12 ? "pm" : "am";
-    // return timeValue;
+      console.log(tzTime._i);
+  
+ 
+      var d = new Date(tzTime._i);
+      var hh = d.getHours();
+      console.log(hh);
+      var m = d.getMinutes();
+      var s = d.getSeconds();
+      var dd = "AM";
+      var h = hh;
+      if (h >= 12) {
+        h = hh - 12;
+        dd = "PM";
+      }
+      if (h == 0) {
+        h = 12;
+      }
+      m = m < 10 ? "0" + m : m;
+    
+      s = s < 10 ? "0" + s : s;
+    
+      // if you want 2 digit hours:
+      h = h<10?"0"+h:h; 
+    
+      var pattern = new RegExp("0?" + hh + ":" + m + ":" + s);
+      console.log(pattern);
+    
+      var replacement = h + ":" + m;
+      /* if you want to add seconds
+      replacement += ":"+s;  */
+      replacement += " " + dd;
+    
+    let newTimeStamp = timeStamp.replace(pattern, replacement);
+     console.log(timeStamp);
+    return timeStamp
+  
   };
 
   handleKeyUp = evt => {
@@ -181,8 +179,9 @@ class Chat extends Component {
                       <div className={`${message.token}-name`}>
                         <h1>{message.name}</h1>
                         
+                          {console.log(message.timestamp_sent)}
                         <h1 className="time">
-                          {this.timeConvert(message.timestamp_sent).toLocaleString("en-US", {timeZone: "America/Denver"})}
+                          {this.timeConvert(message.timestamp_sent)}
                         </h1>
                       </div>
                       {/* <div className={`${message.token}-delete-btn-container`}>
