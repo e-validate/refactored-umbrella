@@ -18,7 +18,8 @@ export const addUserAppearance = (
   hair_color,
   image1,
   image2,
-  image3
+  image3,
+  image4
 ) => {
   let data = axios
     .post("/api/addUserAppearance", {
@@ -28,7 +29,8 @@ export const addUserAppearance = (
       hair_color,
       image1,
       image2,
-      image3
+      image3,
+      image4
     })
     .then(res => res.data);
   return {
