@@ -28,6 +28,7 @@ class Home extends Component {
 
   async componentDidMount() {
     let { getPotentialMatches, getDetails } = this.props;
+    await this.props.getUser()
     if(this.props.user.id){
       await getPotentialMatches();
     }
@@ -115,7 +116,7 @@ class Home extends Component {
   
 
   render() {
-  if(this.props.chatRoom !== null && this.props.chatRoom[0].chatroom_id !== null && this.props.match.path !== "/home") return <Redirect to={`/chat/${this.props.chatRoom[0].chatroom_id}`} /> 
+  // if(this.props.chatRoom !== null && this.props.match.path !== "/home") return <Redirect to={`/chat/${1}`} /> 
     if(!this.props.user.id){this.props.getUser()
     return <Redirect to='/login'/>
     }
