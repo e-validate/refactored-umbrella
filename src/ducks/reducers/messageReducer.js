@@ -4,7 +4,7 @@ const initialState = {
   messages: [],
   error: false,
   chatrooms: [],
-  unreadMessages: ""
+  chatroomCount:[]
 };
 
 export const SAVE_MESSAGE = "SAVE_MESSAGE";
@@ -36,9 +36,12 @@ export const getChatroomMessages = chatroom_id => {
 };
 
 export const getUnreadMessages = chatroom_id => {
-  let data = axios.get(`/api/messages/${chatroom_id}`).then(res => res.data);
+  console.log('hit message reducer', chatroom_id);
+  let data = axios.get(`/api/unread/messages/${chatroom_id}`).then(res => {
+    console.log('number of unread messages' , res.data)
+    return res.data});
   return {
-    type: GET_CHATROOM_MESSAGES,
+    type: GET_MESSAGE_COUNT,
     payload: data
   };
 };
@@ -53,6 +56,7 @@ export const getUsersChatrooms = () => {
 
 export default function messageReducer(state = initialState, action) {
   let { type, payload } = action;
+  console.log('payload messages ', payload);
   switch (type) {
     case SAVE_MESSAGE + "_FULFILLED":
       return { ...state, messages: payload };
@@ -63,7 +67,7 @@ export default function messageReducer(state = initialState, action) {
     case GET_CHATROOM_MESSAGES + "_REJECTED":
       return { ...state, error: payload };
     case GET_MESSAGE_COUNT + "_FULFILLED":
-      return { ...state, unreadMessages: payload };
+      return { ...state, chatroomCount: payload };
     case GET_MESSAGE_COUNT + "_REJECTED":
       return { ...state, error: payload };
     case GET_USERS_CHATROOMS + "_FULFILLED":

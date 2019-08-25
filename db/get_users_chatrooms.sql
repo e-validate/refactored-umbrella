@@ -1,11 +1,10 @@
-select  DISTINCT(m.chatroom_id) , m.swiped_id, ua.image1 from matches m
-inner join user_appearance u
-on u.user_id = m.swiped_id
-inner join user_appearance ua using (user_id)
-inner join users ud using (user_id)
-inner join chat_junc cj using (user_id)
-where m.swiped_id in (select swiper_id from matches
+select   DISTINCT(m.chatroom_id) , m.swiped_id , u.image1, cj.unread_messages from matches m
+left join user_appearance u 
+on m.swiped_id = u.user_id 
+left join chat_junc cj 
+on m.swiper_id = cj.user_id
+where cj.user_id in (select swiper_id from matches
 where swiped_id = $1
-and likes = TRUE)
+and swiper_id != $1 
+and likes = TRUE) 
 and m.swiper_id = $1
-and m.likes = true
