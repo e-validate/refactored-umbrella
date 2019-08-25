@@ -11,6 +11,7 @@ export const SAVE_MESSAGE = "SAVE_MESSAGE";
 export const GET_CHATROOM_MESSAGES = "GET_CHATROOM_MESSAGES";
 export const GET_USERS_CHATROOMS = "GET_USERS_CHATROOMS";
 export const GET_MESSAGE_COUNT = "GET_MESSAGE_COUNT";
+export const SWITCH_TO_READ = "SWITCH_TO_READ";
 
 export const saveMessage = (chatroom_id, content) => {
   let data = axios

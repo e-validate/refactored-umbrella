@@ -1,4 +1,4 @@
-update messages 
-set read = 'true'
-where sender_id != $1
-and chatroom_id = $2;
+update chat_junc 
+set unread_messages = 0
+where chatroom_id = $1
+and user_id = $2;

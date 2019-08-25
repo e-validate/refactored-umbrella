@@ -125,7 +125,7 @@ class Home extends Component {
   }
 
   render() {
-    console.log('chatroom', this.props.chatRoom)
+    console.log('chatroom', this.props)
     if (this.props.chatRoom !== 0) {
       return <Redirect to={`/chat/${this.props.chatRoom}`} />;
       
@@ -142,6 +142,7 @@ class Home extends Component {
       backgroundColor: "white"
     };
     return (
+    
       <div className="home_background_color">
         <Geolocation
         handleLocation = {this.handleLocation}

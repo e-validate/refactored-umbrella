@@ -79,12 +79,13 @@ io.on("connection", socket => {
   // When the client sends 'needy' and a roomid add them to the room
   socket.on("needy", async roomid => {
     const db = app.get("db")
-    let messages = await db.get_chatroom_messages([roomid])
+    let messages = await db.get_chatroom_messages(roomid)
   socketController.joinRoom(messages,roomid, socket, io)})
   // When the client sends a message to the server send it to everyone
   socket.on('message to server', async payload =>{
     const db = app.get("db");
     const {id, chatroom_id, message } = payload;
+    console.log('chatroom id',chatroom_id);
     let messages = await db.add_message([+id, +chatroom_id ,message, socket, io] )
       console.log('messsgaaeffg',payload);
     io.emit('new message from sever', messages );
@@ -92,6 +93,6 @@ io.on("connection", socket => {
 });
 
   // app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
-  app.get('/api/unread/messages/:chatroom_id', socketController.getUnreadMessages)
   app.get('/api/matches', socketController.getUsersChatrooms)
+  app.put('/api/read/:chatroom_id', socketController.switchToRead)
 

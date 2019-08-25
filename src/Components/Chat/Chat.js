@@ -13,8 +13,8 @@ import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 const socket = io.connect("http://localhost:4000");
 
 class Chat extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     // state
     this.state = {
@@ -51,9 +51,10 @@ class Chat extends Component {
   //   }
   // }
 
-  componentDidMount() {
-    this.props.getUser();
-    this.joinRoom();
+  async componentDidMount() {
+    console.log(this.props);
+    await this.props.getUser();
+    await this.joinRoom();
     this.props.setChatRoom();
   }
 

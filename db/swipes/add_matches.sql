@@ -10,11 +10,11 @@ update matches set match_junc_id = (
     select max(match_junc_id) from match_junc)
         where match_id = (select max(match_id) from matches);
 
-update matches
-    set likes = true
-        where swiper_id = $2
-        and likes = false
-        and swiped_id in (select swiped_id from matches where swiped_id = $3 and likes = true and swiper_id = $2);
+-- update matches
+--     set likes = true
+--         where swiper_id = $2
+--         and likes = false
+--         and swiped_id in (select swiped_id from matches where swiped_id = $3 and likes = true and swiper_id = $2);
 
 do 
     $do$
