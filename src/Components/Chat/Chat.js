@@ -13,8 +13,8 @@ import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 const socket = io.connect("http://localhost:4000");
 
 class Chat extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     // state
     this.state = {
@@ -51,9 +51,10 @@ class Chat extends Component {
   //   }
   // }
 
-  componentDidMount() {
-    this.props.getUser();
-    this.joinRoom();
+  async componentDidMount() {
+    console.log(this.props);
+    await this.props.getUser();
+    await this.joinRoom();
     this.props.setChatRoom();
   }
 
@@ -92,6 +93,7 @@ class Chat extends Component {
   }
 
   render() {
+
     let refresh = async () => {
       if (!this.props.session.user.id) {
         await this.props.getUser();
@@ -104,22 +106,6 @@ class Chat extends Component {
 
     return (
       <div className="chat">
-        {/* <div className="input-button-sendmsg">
-          <textarea
-            className="input-send-message"
-            value={this.state.message}
-            onChange={e => this.setState({ message: e.target.value })}
-            onKeyDown={ev => {
-              if (ev.key === "Enter") {
-                this.sendMessage();
-                ev.preventDefault();
-              }
-            }}
-          /> */}
-        {/* <button className="send-message" onClick={() => this.sendMessage()}>
-            Send
-          </button>
-        </div> */}
         <div className="message-container">
           {this.state.chatMessages !== undefined ? (
             this.state.chatMessages.map(

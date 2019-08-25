@@ -26,7 +26,7 @@ class Header extends React.Component {
 
   closeMenu = () => {
     this.setState({
-      menuOpen: false
+      menuOpen: !this.state.menuOpen
     });
   };
 
@@ -70,7 +70,10 @@ class Header extends React.Component {
                     Matches
                 </div>
                   </Link>
-                  <Link onClick={() => this.logout()} to="/login">
+                  <Link onClick={() => {
+                    this.closeMenu()
+                    this.logout()}}
+                     to="/login">
                 <div className="hamburger-links">
                     Logout
                 </div>

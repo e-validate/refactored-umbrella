@@ -8,6 +8,7 @@ import {
 } from "../../ducks/reducers/messageReducer";
 import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
+import axios from 'axios'
 
 class inbox extends Component {
   constructor(){
@@ -27,15 +28,10 @@ class inbox extends Component {
     return this.props.unreadMessages;
   };
 
-  // countUnread = () => {
-  //   this.props.chatrooms.map( (room) => {
-  //     let aroom = this.props.getUnreadMessages(room.chatroom_id)
-  //     this.setState({...this.state.rooms , rooms:aroom
-        
-  //     })
-  //     console.log('aroom' , aroom);
-  //   console.log(this.state.rooms);
-  // })}
+markAsRead = (roomid) => {
+  axios.put(`/api/read/${roomid}`).then(res=> res.data)
+  .catch(err => console.log('did not mark as read', err))
+}
  
 
   render() {
@@ -60,10 +56,12 @@ class inbox extends Component {
       
           (<div key={room.user_id} className="inbox">
             <div className="inbox-left">
-              <Link to={`/chat/${room.chatroom_id}`}>
+              <Link 
+              onClick={()=>this.markAsRead(room.chatroom_id)}
+              to={`/chat/${room.chatroom_id}`}>
                 <img className="inbox-left" src={room.image1} />
               </Link>
-              <div className="new_msg">{room.count} new messages</div>
+              <div className="new_msg">{room.unread_messages} new messages</div>
             </div>
             <div className="inbox-right">
               <Link
