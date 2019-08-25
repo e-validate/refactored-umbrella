@@ -154,8 +154,8 @@ export default class Profile extends Component {
             <div className="Profile_Desc">
               <div className="Edit_text">Current Description:</div>
               <textarea
-              rows="10"
-              cols="50"
+                rows="10"
+                cols="50"
                 placeholder={profile.description}
                 name="description"
                 onChange={this.handleChange}
@@ -245,9 +245,7 @@ export default class Profile extends Component {
             <div className="Profile_User">
               {profile.name}, <span>{profile.age}</span>
             </div>
-            {/* <div className="Border" /> */}
             <div className="Profile_Desc">{profile.description}</div>
-            {/* <div className="Border" /> */}
             <p />
             <div className="Profile_User">{profile.name}'s Details</div>
             <div className="Profile_Info_Short">

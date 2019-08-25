@@ -4,7 +4,6 @@ module.exports = {
         io.in(+roomid).emit('login', messages);
     },
      sendMessagesToRoom(messages, payload, io, socket) {
-       console.log(messages);
         const { message } = payload;
         io.emit('new message from sever', message, messages );
     },
@@ -24,8 +23,6 @@ module.exports = {
     },
 
    async switchToRead(req,res){
-        console.log('hit message contr;p', req.params);
-        console.log('hit message contr;p', req.session);
         const db = req.app.get("db");
         let {chatroom_id} = req.params
         let {id} = req.session.user

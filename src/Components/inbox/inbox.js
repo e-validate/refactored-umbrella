@@ -19,8 +19,6 @@ class inbox extends Component {
   }
   componentDidMount() {
    this.props.getUsersChatrooms();
-    console.log(this.props);
-    // this.countUnread()
   }
 
   getMatchMessages = id => {
@@ -39,18 +37,12 @@ markAsRead = (roomid) => {
       if (!this.props.session.user.id) {
         await this.props.getUser();
         if (!this.props.session.user.id) {
-          console.log(this.props);
-          return <Redirect to="/login" />;
+           return <Redirect to="/login" />;
         }
       }
     };
-
-    
-
-    console.log("alllll chhaaattttt rrrroooommms", this.props);
     refresh();
 
-   
     return this.props.chatrooms.map(
       (room, i) => (
       

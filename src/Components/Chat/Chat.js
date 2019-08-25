@@ -37,24 +37,12 @@ class Chat extends Component {
       this.setState({
         chatMessages: [...messages]
       });
-      console.log(messages);
     });
 
     this.sendMessage = this.sendMessage.bind(this);
   }
 
-  // componentDidUpdate(pp) {
-  //   if (
-  //     this.props.chatRoom === +this.props.chatroom_id ||
-  //     pp.chatRoom === this.props.chatRoom
-  //   ) {
-  //     this.props.setChatRoom();
-  //     console.log('cdm' , this.props);
-  //   }
-  // }
-
   async componentDidMount() {
-    console.log(this.props);
     await this.props.getUser();
     await this.joinRoom();
     this.getName()
@@ -97,13 +85,11 @@ class Chat extends Component {
 
   getName=()=>{
   axios.get(`api/matchname/${this.props.chatroom_id}`).then(res=>{
-    console.log(res.data[0].name)
     this.setState({name: res.data[0].name})})
     .catch(err => console.log('could not get name', err))
   }
 
   render() {
-console.log(this.state);
     let refresh = async () => {
       if (!this.props.session.user.id) {
         await this.props.getUser();
@@ -136,8 +122,6 @@ console.log(this.state);
                     <div className={`${message.token}-delete-info`}>
                       <div className={`${message.token}-name`}>
                         <h1>{message.name}</h1>
-
-                        {console.log(message.timestamp_sent)}
                         <h1 className="time">{message.time}</h1>
                       </div>
                       {/* <div className={`${message.token}-delete-btn-container`}>
