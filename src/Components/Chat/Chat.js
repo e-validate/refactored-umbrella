@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import "./Chat.css";
 import { Redirect } from "react-router-dom";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
+import axios from 'axios'
 
 const socket = io.connect("http://localhost:4000");
 
@@ -19,7 +20,8 @@ class Chat extends Component {
     // state
     this.state = {
       message: "",
-      chatMessages: []
+      chatMessages: [],
+      name: ""
     };
 
     this.sendMessage = this.sendMessage.bind(this);
@@ -55,6 +57,7 @@ class Chat extends Component {
     console.log(this.props);
     await this.props.getUser();
     await this.joinRoom();
+    this.getName()
     this.props.setChatRoom();
   }
 
@@ -92,8 +95,15 @@ class Chat extends Component {
     this.props.deleteMessage(message);
   }
 
-  render() {
+  getName=()=>{
+  axios.get(`api/matchname/${this.props.chatroom_id}`).then(res=>{
+    console.log(res.data[0].name)
+    this.setState({name: res.data[0].name})})
+    .catch(err => console.log('could not get name', err))
+  }
 
+  render() {
+console.log(this.state);
     let refresh = async () => {
       if (!this.props.session.user.id) {
         await this.props.getUser();
@@ -106,6 +116,7 @@ class Chat extends Component {
 
     return (
       <div className="chat">
+        <h3>{this.state.name}</h3>
         <div className="message-container">
           {this.state.chatMessages !== undefined ? (
             this.state.chatMessages.map(
