@@ -10,15 +10,33 @@ import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
 
 class inbox extends Component {
-  async componentDidMount() {
-    await this.props.getUsersChatrooms();
+  constructor(){
+    super()
+    this.state={
+      rooms: []
+    }
+  }
+  componentDidMount() {
+   this.props.getUsersChatrooms();
     console.log(this.props);
+    // this.countUnread()
   }
 
   getMatchMessages = id => {
     this.props.getUnreadMessages(id);
     return this.props.unreadMessages;
   };
+
+  // countUnread = () => {
+  //   this.props.chatrooms.map( (room) => {
+  //     let aroom = this.props.getUnreadMessages(room.chatroom_id)
+  //     this.setState({...this.state.rooms , rooms:aroom
+        
+  //     })
+  //     console.log('aroom' , aroom);
+  //   console.log(this.state.rooms);
+  // })}
+ 
 
   render() {
     let refresh = async () => {
@@ -31,17 +49,21 @@ class inbox extends Component {
       }
     };
 
+    
+
+    console.log("alllll chhaaattttt rrrroooommms", this.props);
     refresh();
+
+   
     return this.props.chatrooms.map(
-      room => (
-        console.log(room),
-        (
-          <div key={room.user_id} className="inbox">
-            <div
-              className="inbox-left"
-            >
-              <Link to={`/profile/${room.swiped_id}`} ><img className="inbox-left" src={room.image1} /></Link>
-              <div className="new_msg"># new messages</div>
+      (room, i) => (
+      
+          (<div key={room.user_id} className="inbox">
+            <div className="inbox-left">
+              <Link to={`/chat/${room.chatroom_id}`}>
+                <img className="inbox-left" src={room.image1} />
+              </Link>
+              <div className="new_msg">{room.count} new messages</div>
             </div>
             <div className="inbox-right">
               <Link
@@ -54,14 +76,14 @@ class inbox extends Component {
               </Link>
             </div>
             <div>
-              {async () => {
-                await this.getMatchMessages(room.chatroom_id);
+              {() => {
+                this.getMatchMessages(room.chatroom_id);
               }}
             </div>
           </div>
         )
       )
-    );
+    )
   }
 }
 function mapStateToProps(state) {
@@ -69,7 +91,7 @@ function mapStateToProps(state) {
     session: state.session,
     chatrooms: state.messages.chatrooms,
     messages: state.messages.messages,
-    unreadCount: state.messages.unreadMessages
+    chatroomCount: state.messages.chatroomCount,
   };
 }
 

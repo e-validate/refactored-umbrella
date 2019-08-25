@@ -53,6 +53,7 @@ massive(CONNECTION_STRING)
 
 app.get(`/api/users/potential`, userController.getPotentialMatches);
 app.get(`/api/profiles/:id`, profileController.getCurrentUser);
+app.post('/api/location/set', userController.setLocation)
 
 // session endpoints
 app.post("/api/login", sessionController.login);
@@ -71,7 +72,6 @@ app.put('/api/editUserProfile', formController.editUserProfile);
 // Like endPoints
 app.post("/api/swipe/left/:swipedId", likeController.dislike);
 app.post("/api/swipe/right/:swipedId", likeController.like);
-app.get("/api/swipe/:swipedId", likeController.chatRoomOnLike);
 
 io.on("connection", socket => {
   // When a client connects run this function
@@ -88,24 +88,10 @@ io.on("connection", socket => {
     let messages = await db.add_message([+id, +chatroom_id ,message, socket, io] )
       console.log('messsgaaeffg',payload);
     io.emit('new message from sever', messages );
-})
-
-
-  
+}) 
 });
 
-// io.on("message to server", async payload => {
-//   const db = app.get("db");
-//   const {id, chatroom_id, message } = payload;
-//   console.log(payload);
-//   let messages = await db.add_message([+id, chatroom_id ,message]);
-//   socketController.sendMessagesToRoom(messages, io);
-// })
-  
-  
-  app.post('/api/savemessage', socketController.saveMesssage)
-  app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
+  // app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
+  app.get('/api/unread/messages/:chatroom_id', socketController.getUnreadMessages)
   app.get('/api/matches', socketController.getUsersChatrooms)
 
-
-// SERVER instead of APP

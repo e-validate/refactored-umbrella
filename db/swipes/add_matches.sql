@@ -20,19 +20,19 @@ do
     $do$
         begin 
             if exists (select match_junc_id from matches 
-            where swiped_id = $2
-            and  likes = true
-            and swiper_id = $3)
+            where swiped_id in ($2, $3)
+            and swiper_id in ($2, $3)
+            and  likes = true)
         then 
             update matches 
                 set match_junc_id = ( select match_junc_id from matches where swiped_id = $3 and  likes = true and swiper_id = $2)
                     where (swiper_id = $2 and swiped_id = $3)
                         or (swiper_id = $3 and swiped_id =$2);
                         insert into chatrooms (date_created) values (now());
-                        insert into chat_junc (chatroom_id, user_id)
-                        values ((select max(chatroom_id) from chatrooms), $2);   
-                        insert into chat_junc (chatroom_id, user_id)
-                        values ((select max(chatroom_id) from chatrooms), $3);   
+                        insert into chat_junc (chatroom_id, user_id, unread_messages)
+                        values ((select max(chatroom_id) from chatrooms), $2, 0);   
+                        insert into chat_junc (chatroom_id, user_id, unread_messages)
+                        values ((select max(chatroom_id) from chatrooms), $3, 0);   
 update matches
 set 
 chatroom_id = (select max(chatroom_id) from chat_junc)
@@ -48,12 +48,9 @@ and swiped_id = $2)
     end
 $do$;
 
-select chatroom_id from matches m 
-where swiper_id = $2
-and swiped_id = $3
-and exists (select chatroom_id from matches m 
-where swiper_id = $2
-and swiped_id = $3);
+
+
+
 
 
 

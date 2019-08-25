@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import "./Profiles.css";
+import { Carousel } from "react-responsive-carousel";
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultImg1:
-        "https://images.unsplash.com/photo-1518783079920-3ff64f0da9ba",
-      defaultImg2:
-        "https://images.unsplash.com/photo-1535911062114-764574491173",
-      defaultImg3:
-        "https://images.unsplash.com/photo-1523772721666-22ad3c3b6f90",
-      defaultImg4:
-        "https://images.unsplash.com/photo-1516469727881-f4458e7cee17",
+      defaultImg1: "https://images.unsplash.com/photo-1562184647-dfdfb9c0bf3a",
       editing: false,
       gender: this.props.profile.gender,
       religion: this.props.profile.religion,
@@ -49,6 +43,12 @@ export default class Profile extends Component {
     });
   };
 
+  handleScrollToIndex = index => {
+    this.setState({
+      visibleIndex: index
+    });
+  };
+
   handleSubmit = async () => {
     let { age, name, religion, ethnicity, description, gender } = this.state;
     await this.props.editUserProfile(
@@ -71,63 +71,101 @@ export default class Profile extends Component {
 
   render() {
     let { profile } = this.props;
-    let {
-      defaultImg1,
-      defaultImg2,
-      defaultImg3,
-      defaultImg4,
-      editing,
-      races,
-      religions
-    } = this.state;
+    let { defaultImg1, editing, races, religions } = this.state;
     return (
-      <div>
-        <div className="main_profile_image_container">
-          <div className="sub_profile_container">
-            <img
-              id="profile_image_one"
-              className="profile_image"
-              src={profile.image1 || defaultImg1}
-              alt={profile.name}
-            />
-            <img
-              id="profile_image_two"
-              className="profile_image"
-              src={profile.image2 || defaultImg2}
-              alt={profile.name}
-            />
-          </div>
-
-          <div className="sub_profile_container">
-            <img
-              id="profile_image_three"
-              className="profile_image"
-              src={profile.image3 || defaultImg3}
-              alt={profile.name}
-            />
-            <img
-              id="profile_image_four"
-              className="profile_image"
-              src={profile.image4 || defaultImg4}
-              alt={profile.name}
-            />
+      <div className="profile_box">
+        <div>
+          <div>
+            <div class="carrousel">
+              <input type="radio" name="slides" id="radio-1" checked />
+              <input type="radio" name="slides" id="radio-2" />
+              <input type="radio" name="slides" id="radio-3" />
+              <input type="radio" name="slides" id="radio-4" />
+              <ul class="slides">
+                <li class="slide">
+                  <p>
+                    <img
+                      src={profile.image1 || defaultImg1}
+                      className="profileImg"
+                    />
+                  </p>
+                </li>
+                <li class="slide">
+                  <p>
+                    <img
+                      src={profile.image2 || defaultImg1}
+                      className="profileImg"
+                    />
+                  </p>
+                </li>
+                <li class="slide">
+                  <p>
+                    <img
+                      src={profile.image3 || defaultImg1}
+                      className="profileImg"
+                    />
+                  </p>
+                </li>
+                <li class="slide">
+                  <p>
+                    <img
+                      src={profile.image4 || defaultImg1}
+                      className="profileImg"
+                    />
+                  </p>
+                </li>
+              </ul>
+              <div class="slidesNavigation">
+                <label for="radio-1" id="dotForRadio-1"></label>
+                <label for="radio-2" id="dotForRadio-2"></label>
+                <label for="radio-3" id="dotForRadio-3"></label>
+                <label for="radio-4" id="dotForRadio-4"></label>
+              </div>
+            </div>
+            <div className="Border" />
           </div>
         </div>
 
         {editing ? (
           <div>
-                <div className="Profile_User">
-                  Name:<input placeholder={profile.name} name='name' onChange={this.handleChange}/> 
-                  <span>Age:<input placeholder={profile.age} onChange={this.handleChange} name='age'/></span>
+            <div className="Profile_User">
+              <div className="Edit_text">
+                Current Name:{" "}
+                <input
+                  placeholder={profile.name}
+                  name="name"
+                  onChange={this.handleChange}
+                  className="edit_input"
+                />
+              </div>
+              <div>
+                <div className="Edit_text">
+                  Current Age:{" "}
+                  <input
+                    placeholder={profile.age}
+                    onChange={this.handleChange}
+                    name="age"
+                    className="edit_input"
+                  />
                 </div>
-      
-              <div className="Border" />
-              
-              <div className="Profile_Desc">Description:<input placeholder={profile.description} name='description' onChange={this.handleChange}/></div>
-              
-              <div className="Border" />
+              </div>
+            </div>
 
-            <div className="Profile_User">{profile.name}'s Details</div>
+            <div className="Profile_Desc">
+              <div className="Edit_text">Current Description:</div>
+              <textarea
+              rows="10"
+              cols="50"
+                placeholder={profile.description}
+                name="description"
+                onChange={this.handleChange}
+                className="edit_desc"
+              />
+            </div>
+
+            <div className="Profile_User">
+              <div className="Edit_text">Current Details:</div>
+            </div>
 
             <div className="Profile_Info_Short">
               <div>
@@ -138,6 +176,7 @@ export default class Profile extends Component {
                   id="ethnicity"
                   name="ethnicity"
                   onChange={this.handleChange}
+                  className="edit_dropdown"
                 >
                   <option>{profile.ethnicity}</option>
                   {races.map(type => (
@@ -155,6 +194,7 @@ export default class Profile extends Component {
                   id="religion"
                   name="religion"
                   onChange={this.handleChange}
+                  className="edit_dropdown"
                 >
                   <option>{profile.religion}</option>
                   {religions.map(type => (
@@ -164,35 +204,40 @@ export default class Profile extends Component {
                   ))}
                 </select>
               </div>
+              <div className="form_labels" id="religion">
+                Gender:{" "}
+                <span className="radio-toolbar">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    onChange={this.handleChange}
+                    id="male"
+                  />
+                  <label for="male" className="male_label">
+                    <i className="fas fa-male" />
+                    Male
+                  </label>
 
-              <div className="radio-toolbar">
-                <input
-                  type="radio"
-                  name="gender"
-                  value="male"
-                  onChange={this.handleChange}
-                  id="male"
-                />
-                <label for="male" className="male_label">
-                  <i className="fas fa-male" />
-                  Male
-                </label>
-
-                <input
-                  type="radio"
-                  name="gender"
-                  value="female"
-                  onChange={this.handleChange}
-                  id="female"
-                />
-                <label for="female" className="female_label">
-                  <i type="radio" className="fas fa-female" />
-                  Female
-                </label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    onChange={this.handleChange}
+                    id="female"
+                  />
+                  <label for="female" className="female_label">
+                    <i type="radio" className="fas fa-female" />
+                    Female
+                  </label>
+                </span>
               </div>
 
               <div className="Border" />
-              <button onClick={this.handleSubmit}>Save Changes</button>
+              <div className="Edit_Btns">
+                <button onClick={this.handleSubmit}>Save Changes</button>
+                <button onClick={this.flipEdit}>Cancel</button>
+              </div>
             </div>
           </div>
         ) : (
@@ -200,17 +245,24 @@ export default class Profile extends Component {
             <div className="Profile_User">
               {profile.name}, <span>{profile.age}</span>
             </div>
-
-            <div className="Border" />
+            {/* <div className="Border" /> */}
             <div className="Profile_Desc">{profile.description}</div>
-            <div className="Border" />
+            {/* <div className="Border" /> */}
+            <p />
             <div className="Profile_User">{profile.name}'s Details</div>
             <div className="Profile_Info_Short">
-              <div>religion: {profile.religion}</div>
-              <div>ethnicity: {profile.ethnicity}</div>
-              <div>gender: {profile.gender}</div>
+              <div>Religion: {profile.religion}</div>
+              <div>Ethnicity: {profile.ethnicity}</div>
+              <div>Gender: {profile.gender}</div>
             </div>
-            {this.props.loggedIn ? (<div><div className="Border" /><button onClick={this.flipEdit}>edit profile</button></div>): (<div/>)}
+            {this.props.loggedIn ? (
+              <div>
+                <div className="Border" />
+                <button onClick={this.flipEdit}>edit profile</button>
+              </div>
+            ) : (
+              <div />
+            )}
           </div>
         )}
       </div>

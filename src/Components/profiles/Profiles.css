@@ -1,24 +1,29 @@
+
+
 .CurrentUserProfile {
   width: 100vw;
+  /* height: 90vh; */
   display: flex;
   justify-content: center;
-  background: lightgray;
-  font-family: "Lexend Deca", sans-serif;
+  align-items: center;
+  overflow-x: hidden;
 }
 
 .Profile-Container {
-  width: 70vw;
-  margin-top: 75px;
-  background: white;
-  padding: 10px 10px 10px 10px;
   margin-top: 50px;
   margin-bottom: 50px;
-  border-radius: 4px;
+  width: 40vw;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
 }
 
 .main_profile_image_container {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .profile_image {
@@ -33,6 +38,12 @@
   margin-top: 10px;
 }
 
+.Profile_Info_Short {
+  line-height: 20pt;
+  text-transform: capitalize;
+  letter-spacing: .5pt;
+}
+
 .Profile_User:nth-child(2) {
   font-weight: bolder;
   font-size: 20pt;
@@ -45,7 +56,10 @@
 
 .Profile_User {
   font-weight: bold;
-  font-size: 17pt;
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 20pt;
+  text-transform: uppercase;
+ color: #00C59C; 
 }
 
 .Border {
@@ -58,21 +72,72 @@
 
 .Profile_Desc {
   text-align: justify;
-  padding-top: 20px;
+  padding-top: 10px;
   line-height: 20pt;
+  letter-spacing: .5pt;
+}
+
+.edit_input {
+    padding-bottom: 5px;
+    margin: 10px;
+    width: 50%;
+    border-bottom: 1px black solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-size: 12pt;
+    background: white;
+}
+
+.edit_dropdown {
+  padding-bottom: 5px;
+  margin: 10px;
+  width: 50%;
+  border: 1px black solid;
+  font-size: 12pt;
+  background: white;
+}
+
+.edit_desc {
+  padding-bottom: 5px;
+  margin: 10px;
+  width: 95%;
+  /* height: 100px; */
+  border: 1px black solid;
+  font-size: 12pt;
+  text-align: center;
+  line-height: 25px;
+}
+
+.Edit_text {
+  font-size: 15pt;
+  font-weight: bolder;
+  text-transform: capitalize;
+  color: #00C59A
+}
+
+.Edit_Btns {
+  width: 33%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
 }
 
 button {
-  background: lightgrey;
-  padding: 7px;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 15px;
+  background: #00C59A;
+  color: white;
+  font-weight: bold;
   border-radius: 4px;
   border: none;
-  margin-top: 15px;
 }
 
 @media (min-width: 400px) {
   .profile_image {
-    width: 60%;
+    width: 70%;
   }
 }
 
@@ -86,5 +151,133 @@ button {
   .profile_image {
       width: 33vw;
       height: 32vh;
+  }
+}
+
+body {
+  font-family: Helvetica; 
+  font-weight: 400;
+  background: #EFEFEF;
+}
+
+.profile_box {
+  margin-top: 20px;
+}
+
+.profileImg {
+  width: auto;
+  height: 500px;
+  position: relative;
+  top: -100px;
+}
+
+/*Carousel*/
+.carrousel {
+  /* background: blue; */
+  text-align: center;
+  padding: 4em 0;
+  height: 425px;
+  max-width: 750px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+.carrousel h2 {
+  margin: 0;
+  margin-top: -1.7em;
+  padding: 0;
+  font-size: 1em;
+  text-align: center;
+  color: #bbbbbb;
+}
+.carrousel .slides {
+  width: 400%;
+  left: 0;
+  padding-left: 0;
+  padding-top: 1em;
+  /* overflow: hidden; */
+  list-style: none;
+  position: relative;
+
+  -webkit-transition: transform .5s;
+  -moz-transition: transform .5s;
+  -o-transition: transform .5s;
+  transition: transform .5s;
+}
+.carrousel .slides li {
+  width: 25%;
+  position: relative;
+  float: left;
+}
+.carrousel li p{
+  margin-top: 0;  
+}
+.carrousel .slidesNavigation {
+  display: block;
+  list-style: none;
+  text-align: center;
+  bottom: 1em;
+  position: absolute; 
+    width: 104px; /*This width  is the addition of the width of all the navigations dots - So in this case is   104 because the navigation dots are 26px (width:10px and 6px marginleft + 6 px marginright) and there are 4 dots so 4x26=104 */
+    left: 50%; 
+    margin-left: -52px; 
+  }
+.carrousel input {
+  display: none;
+}
+.carrousel .slidesNavigation label {
+  float: left;
+  margin: 6px;
+  display: block;
+  height: 10px;
+  width: 10px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border: solid 2px #00C59C;
+  font-size: 0;
+}
+
+#radio-1:checked ~ .slides {
+  transform: translateX(0%);
+}
+#radio-2:checked ~ .slides {
+  transform: translateX(-25%);
+}
+#radio-3:checked ~ .slides {
+  transform: translateX(-50%);
+}
+#radio-4:checked ~ .slides {
+  transform: translateX(-75%);
+}
+
+
+.carrousel .slidesNavigation label:hover {
+   cursor: pointer;
+}
+/* You have to repeat this with each slide/dot */
+.carrousel #radio-1:checked ~ .slidesNavigation label#dotForRadio-1,
+.carrousel #radio-2:checked ~ .slidesNavigation label#dotForRadio-2,
+.carrousel #radio-3:checked ~ .slidesNavigation label#dotForRadio-3,
+.carrousel #radio-4:checked ~ .slidesNavigation label#dotForRadio-4 {
+  background: #00C59C;
+}
+
+@media  (max-width: 796px) {
+  .carrousel{
+    height: 8.5em;
+  }
+}
+@media  (max-width: 480px) {
+  .carrousel li p {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+  .carrousel li q {
+      font-size: 1em;
+  }
+  .carrousel li img {
+     width:2em;
+     margin-left: -1em;
+     margin-right: 0.25em;
   }
 }

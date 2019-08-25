@@ -4,11 +4,13 @@ export const REGISTER = "REGISTER";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const GET_USER_DETAILS = "GET_USER_DETAILS";
+export const SET_LOCATION = "SET_LOCATION"
 
 //like action types
 export const SWIPE_RIGHT = "SWIPE_RIGHT"
 export const SWIPE_LEFT = "SWIPE_LEFT"
 export const SET_CHAT_ROOM = "SET_CHAT_ROOM"
+
 
 //form action types
 export const ADD_USER_APPEARANCE = 'ADD_USER_APPEARANCE';
