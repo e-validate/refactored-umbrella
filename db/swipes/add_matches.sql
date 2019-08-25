@@ -29,10 +29,10 @@ do
                     where (swiper_id = $2 and swiped_id = $3)
                         or (swiper_id = $3 and swiped_id =$2);
                         insert into chatrooms (date_created) values (now());
-                        insert into chat_junc (chatroom_id, user_id)
-                        values ((select max(chatroom_id) from chatrooms), $2);   
-                        insert into chat_junc (chatroom_id, user_id)
-                        values ((select max(chatroom_id) from chatrooms), $3);   
+                        insert into chat_junc (chatroom_id, user_id, unread_messages)
+                        values ((select max(chatroom_id) from chatrooms), $2, 0);   
+                        insert into chat_junc (chatroom_id, user_id, unread_messages)
+                        values ((select max(chatroom_id) from chatrooms), $3, 0);   
 update matches
 set 
 chatroom_id = (select max(chatroom_id) from chat_junc)

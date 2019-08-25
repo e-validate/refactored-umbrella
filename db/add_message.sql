@@ -1,6 +1,11 @@
 insert into messages (sender_id, chatroom_id, content, timestamp_sent, read)
 values ($1, $2, $3, now(), 'false');
 
+update chat_junc 
+set unread_messages = unread_messages + 1
+where chatroom_id = $2 
+and user_id != $1;
+
 
 select * from messages m
 join users u

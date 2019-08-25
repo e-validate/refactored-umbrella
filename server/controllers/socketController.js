@@ -9,12 +9,12 @@ module.exports = {
         io.emit('new message from sever', message, messages );
     },
 
-    async getChatroomMessages(req,res){
-        const db = req.app.get("db");
-        let {chatroom_id} = req.params
-        let messages = await db.get_chatroom_messages(+chatroom_id)
-        res.send(messages)
-    },
+    // async getChatroomMessages(req,res){
+    //     const db = req.app.get("db");
+    //     let {chatroom_id} = req.params
+    //     let messages = await db.get_chatroom_messages(+chatroom_id)
+    //     res.send(messages)
+    // },
     
     async getUsersChatrooms(req, res){
         const db = req.app.get("db");
@@ -24,11 +24,14 @@ module.exports = {
     },
 
     async getUnreadMessages(req, res){
+        console.log('hit message contr;p', req.params);
+        console.log('hit message contr;p', req.session);
         const db = req.app.get("db");
         let {id} = req.session.user
         let {chatroom_id} = req.params
-        let messages = await db.read_message_check([+chatroom_id, +id])
-        res.send(messages)
+        let chatrooms = await db.read_message_check([+chatroom_id, +id])
+        console.log(chatrooms);
+        res.send(chatrooms)
     },
     leaveRoom() {}
 };
