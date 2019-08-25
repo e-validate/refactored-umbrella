@@ -95,4 +95,13 @@ io.on("connection", socket => {
   // app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
   app.get('/api/matches', socketController.getUsersChatrooms)
   app.put('/api/read/:chatroom_id', socketController.switchToRead)
+  app.get('/api/matchname/:chatroom_id', async (req,res) => {
+    console.log('name', req.session, req.params);
+    const {id} = req.session.user
+    const {chatroom_id} = req.params
+    const db = req.app.get("db");
+    let name = await db.get_match_name([+id, +chatroom_id])
+    console.log(name);
+    res.send(name)
+  })
 
