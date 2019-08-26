@@ -10,8 +10,8 @@ import {
 import { getDetails, getUser } from "../../ducks/reducers/sessionReducer";
 import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
-import "./Home.css";
-import Geolocation from '../geloaction/Geolocation'
+import "./home.css";
+// import Geolocation from '../geloaction/Geolocation'
 
 class Home extends Component {
   constructor() {
@@ -152,9 +152,9 @@ class Home extends Component {
     };
     return (
       <div>
-        <Geolocation
+        {/* <Geolocation
         handleLocation = {this.handleLocation}
-        />
+        /> */}
         <CardWrapper addEndCard={this.getEndCard.bind(this)}>
           {compatable
             .filter(prof => this.props.details[0].gender_pref === prof.gender)

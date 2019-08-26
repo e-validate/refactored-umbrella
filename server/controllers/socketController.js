@@ -13,14 +13,14 @@ module.exports = {
         let {chatroom_id} = req.params
         let messages = await db.get_chatroom_messages(+chatroom_id)
         res.send(messages)
-    },
-    
+    },    
     async getUsersChatrooms(req, res){
         const db = req.app.get("db");
         let {id} = req.session.user
         let chatrooms = await db.get_users_chatrooms(+id)
         res.send(chatrooms)
     },
+
 
 //     let {id} = req.session.user;
 //     const db = req.app.get('db');

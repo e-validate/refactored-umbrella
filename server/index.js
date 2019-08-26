@@ -73,8 +73,8 @@ app.post('/api/addPref', formController.addUserPreferences);
 app.put('/api/editUserProfile', formController.editUserProfile);
 
 //favorites
-app.delete('/api/deleteFavorite/:chatroomId', favoriteController.deleteFavorite);
-app.post('/api/addFavorite/:chatroomId', favoriteController.addFavorite);
+app.delete('/api/deleteFavorite/:swipedId', favoriteController.deleteFavorite);
+app.post('/api/addFavorite/:swipedId', favoriteController.addFavorite);
 app.get('/api/favorites', favoriteController.getFavoriteChatrooms);
 
 // Like endPoints

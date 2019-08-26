@@ -43,7 +43,7 @@ class Header extends React.Component {
   };
 
   getSumUnread = async () => {
-    console.log("hit summmmmm");
+    // console.log("hit summmmmm");
     // if(this.props.chatrooms.length)
     await this.props.getUsersChatrooms();
     let sum = this.props.chatrooms.reduce((acc, v) => {
@@ -51,11 +51,11 @@ class Header extends React.Component {
       return +acc + +value;
     }, []);
     this.setState({ countUnread: sum });
-    console.log(sum);
+    // console.log(sum);
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     if (window.location.hash !== "#/login" && this.props.chatrooms.length < 1)
       this.getSumUnread();
 

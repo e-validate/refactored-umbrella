@@ -136,7 +136,7 @@ user_details_counter int
 CREATE TABLE user_favorite_chatrooms (
 user_favorite_chatrooms_id SERIAL PRIMARY KEY,
 user_id INT REFERENCES users(user_id),
-chatroom_id INT REFERENCES chatrooms(chatroom_id)
+swiped_id INT REFERENCES users(user_id)
 ); 
 
 

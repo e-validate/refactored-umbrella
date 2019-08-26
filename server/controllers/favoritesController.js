@@ -1,9 +1,9 @@
 module.exports = {
     async addFavorite(req, res) {
         let {id} = req.session.user;
-        let {chatroomId} = req.params;
+        let {swipedId} = req.params;
         const db = req.app.get('db');
-        await db.favorites.add_favorite_chatroom([id, +chatroomId])
+        await db.favorites.add_favorite_chatroom([id, +swipedId])
         res.sendStatus(200);
     },
     async getFavoriteChatrooms(req, res) {
@@ -14,9 +14,9 @@ module.exports = {
     },
     async deleteFavorite(req, res) {
         let {id} = req.session.user;
-        let {chatroomId} = req.params;
+        let {swipedId} = req.params;
         const db = req.app.get('db');
-        await db.favorites.delete_favorite_chatroom([id, chatroomId]);
+        await db.favorites.delete_favorite_chatroom([id, swipedId]);
         res.sendStatus(200);
     }
 }

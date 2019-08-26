@@ -4,8 +4,9 @@ import { getUser } from "../../ducks/reducers/sessionReducer";
 import {
   getUsersChatrooms,
   getChatroomMessages,
-  getUnreadMessages
-} from "../../ducks/reducers/messageReducer";
+  getUnreadMessages,
+  addFavorite,
+  deleteFavorite} from "../../ducks/reducers/messageReducer";
 import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
 import axios from "axios";
@@ -14,7 +15,8 @@ class inbox extends Component {
   constructor() {
     super();
     this.state = {
-      rooms: []
+      rooms: [],
+      isFavorite: false
     };
   }
   componentDidMount() {
@@ -28,7 +30,22 @@ class inbox extends Component {
       .catch(err => console.log("did not mark as read", err));
   };
 
+  deleteFavorite = (swiped_id) => {
+      this.props.deleteFavorite(swiped_id)
+      this.setState({
+        isFavorite: false
+      })
+  }
+
+  addFavorite = (swiped_id) => {
+      this.props.addFavorite(swiped_id)
+      this.setState({
+        isFavorite: true
+      })
+    }
+
   render() {
+    let {isFavorite} = this.state
     let refresh = async () => {
       if (!this.props.session.user.id) {
         await this.props.getUser();
@@ -38,7 +55,6 @@ class inbox extends Component {
       }
     };
     refresh();
-
     return this.props.chatrooms.map((room, i) => (
       <div key={i} className="inbox">
         <div className="inbox-left">
@@ -59,9 +75,14 @@ class inbox extends Component {
             className="picture-buttons"
             alt="none"
           >
-            <h3 className="match-name-preview">{room.name}</h3>
+            <h3 className="match-name-preview"></h3>
+            {console.log(room)}
           </Link>
-        </div>
+            {
+              isFavorite ? <i className="fas fa-heart" id='favorite-button' onClick={() => this.addFavorite(room.swiped_id)} style={{cursor: 'pointer', color: 'black'}}></i> :
+              <i className="fas fa-heart" id='favorite-button' onClick={() => this.deleteFavorite(room.swiped_id)} style={{cursor: 'pointer', color: 'red'}}></i>
+            }
+          </div>
       </div>
     ));
   }
@@ -71,11 +92,12 @@ function mapStateToProps(state) {
     session: state.session,
     chatrooms: state.messages.chatrooms,
     messages: state.messages.messages,
-    chatroomCount: state.messages.chatroomCount
+    chatroomCount: state.messages.chatroomCount,
+    favorites: state.messages.favorites
   };
 }
 
 export default connect(
   mapStateToProps,
-  { getUser, getUsersChatrooms, getChatroomMessages, getUnreadMessages }
+  { getUser, getUsersChatrooms, getChatroomMessages, getUnreadMessages, addFavorite, deleteFavorite }
 )(inbox);
