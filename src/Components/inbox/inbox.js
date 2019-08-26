@@ -8,31 +8,32 @@ import {
 } from "../../ducks/reducers/messageReducer";
 import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
-import axios from 'axios'
+import axios from "axios";
 
 class inbox extends Component {
-  constructor(){
-    super()
-    this.state={
+  constructor() {
+    super();
+    this.state = {
       rooms: []
-    }
+    };
   }
   componentDidMount() {
-   this.props.getUsersChatrooms();
+    this.props.getUsersChatrooms();
   }
 
-markAsRead = (roomid) => {
-  axios.put(`/api/read/${roomid}`).then(res=> res.data)
-  .catch(err => console.log('did not mark as read', err))
-}
- 
+  markAsRead = roomid => {
+    axios
+      .put(`/api/read/${roomid}`)
+      .then(res => res.data)
+      .catch(err => console.log("did not mark as read", err));
+  };
 
   render() {
     let refresh = async () => {
       if (!this.props.session.user.id) {
         await this.props.getUser();
         if (!this.props.session.user.id) {
-           return <Redirect to="/login" />;
+          return <Redirect to="/login" />;
         }
       }
     };
@@ -69,7 +70,7 @@ function mapStateToProps(state) {
     session: state.session,
     chatrooms: state.messages.chatrooms,
     messages: state.messages.messages,
-    chatroomCount: state.messages.chatroomCount,
+    chatroomCount: state.messages.chatroomCount
   };
 }
 
