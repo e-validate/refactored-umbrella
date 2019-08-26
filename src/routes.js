@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./Components/home/Home";
 import Current from "./Components/profiles/CurrentUserProfile";
-import Match from "./Components/profiles/MatchedUserProfile";
 import Login from "./Components/login/Login";
 import Register from "./Components/register/Register";
 import About from "./Components/register/About";

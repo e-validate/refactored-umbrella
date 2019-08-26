@@ -26,7 +26,7 @@ module.exports = {
         const db = req.app.get("db");
         let {chatroom_id} = req.params
         let {id} = req.session.user
-        await db.Messages.switch_to_read([+chatroom_id, +id])
+        await db.switch_to_read([+chatroom_id, +id])
         res.sendStatus(200)
     },
     leaveRoom() {}

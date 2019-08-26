@@ -126,6 +126,7 @@ class Home extends Component {
 
   render() {
     if (this.props.chatRoom !== 0) {
+      console.log('hit redirect',this.props.chatRoom);
       return <Redirect to={`/chat/${this.props.chatRoom}`} />;
       
     }
@@ -162,6 +163,7 @@ class Home extends Component {
                   >
                     <div className="card">
                       <img
+                      draggable="false" ondragstart="return false;"
                         className="home_profile_image"
                         src={profile.image1 || this.state.defaultImage}
                         alt="none"
