@@ -11,7 +11,7 @@ import { getDetails, getUser } from "../../ducks/reducers/sessionReducer";
 import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
 import "./home.css";
-import Geolocation from '../geloaction/Geolocation'
+// import Geolocation from '../geloaction/Geolocation'
 
 
 class Home extends Component {
@@ -146,9 +146,9 @@ class Home extends Component {
     };
     return (
       <div className="home_background_color">
-        <Geolocation
+        {/* <Geolocation
         handleLocation = {this.handleLocation}
-        />
+        /> */}
         <div className="block" />
         <div className="cards">
           <CardWrapper addEndCard={this.getEndCard.bind(this)}>
