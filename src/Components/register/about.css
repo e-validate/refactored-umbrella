@@ -1,4 +1,12 @@
 .register {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.register2 {
   height: 90%;
   display: flex;
   justify-content: center;
@@ -8,8 +16,21 @@
 
 .register_container {
   background: white;
-  width: 30vw;
-  /* height: 60vh; */
+  width: 40vw;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+.register_container1 {
+  background: white;
+  width: 40vw;
   padding-top: 40px;
   padding-bottom: 40px;
   display: flex;
@@ -17,6 +38,31 @@
   justify-content: center;
   align-items: center;
   margin: auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+}
+.register_container2 {
+  background: white;
+  width: 40vw;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+.register_container3 {
+  background: white;
+  width: 40vw;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
 }
@@ -37,7 +83,6 @@
   width: 85%;
   margin-top: 20px;
   text-align: left;
-  /* background: blue; */
 }
 
 .about_you_header {
@@ -86,7 +131,6 @@
 
 .about_right {
   width: 100%;
-  /* background: tomato; */
 }
 
 .verts_text {
@@ -97,7 +141,6 @@
 
 .verts {
   width: 100%;
-  /* background: blue; */
   display: flex;
   padding-top:5px;
   justify-content: center;
@@ -110,7 +153,6 @@
   font-size: 14pt;
 }
 .about_text1 {
-  /* width: 150px; */
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14pt;
   padding-bottom: 5px;
@@ -125,7 +167,7 @@ select {
 }
 
 .form_input {
-  /* padding: 10px; */
+
   width: 90%;
   border: none;
   font-size: 13pt;
@@ -135,7 +177,6 @@ select {
 }
 
 .age_input {
-  /* padding: 10px; */
   width: 40%;
   border: none;
   font-size: 13pt;
@@ -155,7 +196,7 @@ select {
   padding: 10px 0px;
 }
 .about_line1 {
-  /* display: flex; */
+
   width: 100%;
   padding: 10px 0px 10px 0px;
 }
@@ -170,7 +211,6 @@ select {
   background: rgb(219, 219, 219);
   padding: 5px 10px;
   font-size: 16px;
-  /* border: 0.5px solid #383838; */
   border-radius: 4px;
 }
 
@@ -206,14 +246,11 @@ select {
 .button_container {
   width: 100%;
   display: flex;
-  /* flex-direction: row; */
   justify-content: space-between;
   align-items: center;
-  /* background: blue */
 }
 
 .reg_buttons {
-  /* background: blue;  */
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -235,7 +272,6 @@ select {
 
 .skip-button,
 .next-button {
-  /* margin-top: 20px; */
   padding: 10px;
   font-size: 15px;
   width: 75px;
@@ -249,7 +285,6 @@ select {
 .interests_button {
   padding: 10px;
   font-size: 15px;
-  /* width: 400px; */
   background: #00c59a;
   color: white;
   font-weight: bold;
@@ -328,4 +363,53 @@ select {
 
 .Pref2:nth-child(2) {
   display: none;
+}
+
+@media (max-width: 480px) {
+  .register2 {
+    height: 100vh;
+    width: 100vw;
+    margin: auto;
+  }
+  .register_container, .register_container1, .register_container2 {
+    width: 75vw;
+  }
+.register_container {
+  margin-top: 75px;
+    margin-bottom: 50px;
+}
+
+  .register_container2  {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .register_container3  {
+    width: 75vw;
+    margin-top: 250px;
+    margin-bottom: 50px;
+  }
+
+  #reg_text {
+    font-size: 16pt;
+    color: #01C59A;
+    letter-spacing: -.5pt;
+  }
+  #circle {
+    display: none;
+  }
+  .about_text, .about_text1 {
+    width: 120px;
+    font-size: 12pt;
+  }
+  #height, #hair, #pref {
+    font-size: 11pt;
+  }
+  .slider {
+    -webkit-appearance: none;
+    width: 100px;
+    height: 5px;
+    background: rgb(209, 209, 209);
+    outline: none;
+  }
 }

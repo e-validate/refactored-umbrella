@@ -101,8 +101,9 @@ class Chat extends Component {
     refresh();
 
     return (
-      <div className="chat">
-        <h3>{this.state.name}</h3>
+      <div className="chat_container">
+        <div className="chat">
+        <h3><i className="fas fa-circle" id="circle"/> Messages with {this.state.name} <i className="fas fa-circle" id="circle"/> </h3>
         <div className="message-container">
           {this.state.chatMessages !== undefined ? (
             this.state.chatMessages.map(
@@ -121,8 +122,8 @@ class Chat extends Component {
                     </div>
                     <div className={`${message.token}-delete-info`}>
                       <div className={`${message.token}-name`}>
-                        <h1>{message.name}</h1>
-                        <h1 className="time">{message.time}</h1>
+                        <div>{message.name}</div>&emsp;
+                        <div className="time">{message.time}</div>
                       </div>
                       {/* <div className={`${message.token}-delete-btn-container`}>
                         <button
@@ -161,6 +162,7 @@ class Chat extends Component {
           >
             Send
           </button>
+        </div>
         </div>
       </div>
     );

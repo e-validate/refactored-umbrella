@@ -61,7 +61,7 @@ class Header extends React.Component {
 
     let { menuOpen } = this.state;
     return (
-      <div>
+      <div className="header">
         {window.location.hash === "#/login" ? (
           <div className="header-container">
             <div>

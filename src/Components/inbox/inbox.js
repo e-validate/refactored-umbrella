@@ -39,31 +39,30 @@ class inbox extends Component {
     };
     refresh();
 
-    return this.props.chatrooms.map((room, i) => (
-      <div key={i} className="inbox">
-        <div className="inbox-left">
-          <Link
-            onClick={() => this.markAsRead(room.chatroom_id)}
-            to={`/chat/${room.chatroom_id}`}
-          >
-            <img className="inbox-left" src={room.image1} alt="none" />
-          </Link>
-          {room.unread_messages !== 0 ? (
-            <div className="new_msg">{room.unread_messages}</div>
-          ) : null}
-        </div>
-        <div className="inbox-right">
-          <Link
-            to={`/chat/${room.chatroom_id}`}
-            src={room.image1}
-            className="picture-buttons"
-            alt="none"
-          >
-            <h3 className="match-name-preview">{room.name}</h3>
-          </Link>
-        </div>
-      </div>
-    ));
+    return this.props.chatrooms.map(
+      (room, i) => (
+          <div key={i} className="inbox">
+            <div className="inbox-left">
+                <Link to={`/profile/${room.swiped_id}`}><img className="inbox-left" src={room.image1} alt='none'/></Link>
+              <Link 
+              onClick={()=>this.markAsRead(room.chatroom_id)}
+              to={`/chat/${room.chatroom_id}`}>
+              <div className="new_msg">{room.unread_messages} new messages</div>
+              </Link>
+            </div>
+            <div className="inbox-right">
+              <Link
+                to={`/chat/${room.chatroom_id}`}
+                src={room.image1}
+                className="picture-buttons"
+                alt="none"
+              >
+                <h3 className="match-name-preview">{room.name}View Messages</h3>
+              </Link>
+            </div>
+          </div>
+      )
+    )
   }
 }
 function mapStateToProps(state) {

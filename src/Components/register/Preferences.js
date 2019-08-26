@@ -63,10 +63,10 @@ class Preferences extends Component {
   };
 
   render() {
-    let { ethnicity, religions, colors, age_min, age_max } = this.state;
+    let { ethnicity, religions, colors} = this.state;
     return (
-      <div className="register">
-        <div className="register_container">
+      <div className="register2">
+        <div className="register_container2">
           <div id="reg_text">
             <i class="fas fa-circle" id="circle" /> your preferences{" "}
             <i class="fas fa-circle" id="circle" />
