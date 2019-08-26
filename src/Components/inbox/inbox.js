@@ -8,31 +8,32 @@ import {
 } from "../../ducks/reducers/messageReducer";
 import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
-import axios from 'axios'
+import axios from "axios";
 
 class inbox extends Component {
-  constructor(){
-    super()
-    this.state={
+  constructor() {
+    super();
+    this.state = {
       rooms: []
-    }
+    };
   }
   componentDidMount() {
-   this.props.getUsersChatrooms();
+    this.props.getUsersChatrooms();
   }
 
-markAsRead = (roomid) => {
-  axios.put(`/api/read/${roomid}`).then(res=> res.data)
-  .catch(err => console.log('did not mark as read', err))
-}
- 
+  markAsRead = roomid => {
+    axios
+      .put(`/api/read/${roomid}`)
+      .then(res => res.data)
+      .catch(err => console.log("did not mark as read", err));
+  };
 
   render() {
     let refresh = async () => {
       if (!this.props.session.user.id) {
         await this.props.getUser();
         if (!this.props.session.user.id) {
-           return <Redirect to="/login" />;
+          return <Redirect to="/login" />;
         }
       }
     };
@@ -42,12 +43,12 @@ markAsRead = (roomid) => {
       (room, i) => (
           <div key={i} className="inbox">
             <div className="inbox-left">
+                <Link to={`/profile/${room.swiped_id}`}><img className="inbox-left" src={room.image1} alt='none'/></Link>
               <Link 
               onClick={()=>this.markAsRead(room.chatroom_id)}
               to={`/chat/${room.chatroom_id}`}>
-                <img className="inbox-left" src={room.image1} alt='none'/>
-              </Link>
               <div className="new_msg">{room.unread_messages} new messages</div>
+              </Link>
             </div>
             <div className="inbox-right">
               <Link
@@ -56,7 +57,7 @@ markAsRead = (roomid) => {
                 className="picture-buttons"
                 alt="none"
               >
-                <h3 className="match-name-preview">{room.name}</h3>
+                <h3 className="match-name-preview">{room.name}View Messages</h3>
               </Link>
             </div>
           </div>
@@ -69,7 +70,7 @@ function mapStateToProps(state) {
     session: state.session,
     chatrooms: state.messages.chatrooms,
     messages: state.messages.messages,
-    chatroomCount: state.messages.chatroomCount,
+    chatroomCount: state.messages.chatroomCount
   };
 }
 
