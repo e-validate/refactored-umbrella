@@ -42,12 +42,12 @@ markAsRead = (roomid) => {
       (room, i) => (
           <div key={i} className="inbox">
             <div className="inbox-left">
+                <Link to={`/profile/${room.swiped_id}`}><img className="inbox-left" src={room.image1} alt='none'/></Link>
               <Link 
               onClick={()=>this.markAsRead(room.chatroom_id)}
               to={`/chat/${room.chatroom_id}`}>
-                <img className="inbox-left" src={room.image1} alt='none'/>
-              </Link>
               <div className="new_msg">{room.unread_messages} new messages</div>
+              </Link>
             </div>
             <div className="inbox-right">
               <Link
@@ -56,7 +56,7 @@ markAsRead = (roomid) => {
                 className="picture-buttons"
                 alt="none"
               >
-                <h3 className="match-name-preview">{room.name}</h3>
+                <h3 className="match-name-preview">{room.name}View Messages</h3>
               </Link>
             </div>
           </div>
