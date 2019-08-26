@@ -14,11 +14,11 @@ export function setChatRoom() {
 }
 
 export function swipeRight(id) {
-  let data = axios.post(`/api/swipe/right/${id}`).then(res => {
-    if (!res.data[0] ) {
-      return (data = 0);
-    } else {
-      return res.data[0].chatroom_id;
+  let data = axios.post(`/api/swipe/right/${id}`).then(res => { 
+    if (!Array.isArray(res.data) || !res.data.length){
+     return data = 0
+  } else {
+     return data = res.data[0].chatroom_id
     }
   });
   return {

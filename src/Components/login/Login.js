@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { login } from "./../../ducks/reducers/sessionReducer";
+import { login, getUser } from "./../../ducks/reducers/sessionReducer";
 import "./login.css";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
@@ -72,7 +72,6 @@ class Login extends Component {
                 placeholder="email"
                 name="email"
                 value={email}
-                Ï
                 onChange={this.handleChange}
               />
               <input
@@ -109,5 +108,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { login, setChatRoom }
+  { login, setChatRoom, getUser }
 )(Login);

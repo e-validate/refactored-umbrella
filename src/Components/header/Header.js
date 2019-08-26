@@ -42,7 +42,7 @@ class Header extends React.Component {
           <div className="header-container">
             <div>
               <div className="logo_container">
-                <span><i class="fas fa-circle" id="circle"/> refactored <i class="fas fa-circle" id="circle"/> umbrella <i class="fas fa-circle" id="circle"/> </span> 
+                <span><i className="fas fa-circle" id="circle"/> refactored <i className="fas fa-circle" id="circle"/> umbrella <i className="fas fa-circle" id="circle"/> </span> 
               </div>
             </div>
           </div>

@@ -21,11 +21,6 @@ class inbox extends Component {
    this.props.getUsersChatrooms();
   }
 
-  getMatchMessages = id => {
-    this.props.getUnreadMessages(id);
-    return this.props.unreadMessages;
-  };
-
 markAsRead = (roomid) => {
   axios.put(`/api/read/${roomid}`).then(res=> res.data)
   .catch(err => console.log('did not mark as read', err))
@@ -45,13 +40,12 @@ markAsRead = (roomid) => {
 
     return this.props.chatrooms.map(
       (room, i) => (
-      
-          (<div key={room.user_id} className="inbox">
+          <div key={i} className="inbox">
             <div className="inbox-left">
               <Link 
               onClick={()=>this.markAsRead(room.chatroom_id)}
               to={`/chat/${room.chatroom_id}`}>
-                <img className="inbox-left" src={room.image1} />
+                <img className="inbox-left" src={room.image1} alt='none'/>
               </Link>
               <div className="new_msg">{room.unread_messages} new messages</div>
             </div>
@@ -65,13 +59,7 @@ markAsRead = (roomid) => {
                 <h3 className="match-name-preview">{room.name}</h3>
               </Link>
             </div>
-            <div>
-              {() => {
-                this.getMatchMessages(room.chatroom_id);
-              }}
-            </div>
           </div>
-        )
       )
     )
   }
