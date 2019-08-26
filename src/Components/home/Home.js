@@ -13,16 +13,15 @@ import MyEndCard from "./MyEndCard";
 import "./home.css";
 import Geolocation from '../geloaction/Geolocation'
 
-
 class Home extends Component {
   constructor() {
     super();
     this.state = {
       matchesWithCompatability: [],
       defaultImage:
-        "https://az-pe.com/wp-content/uploads/2018/05/kemptons-blank-profile-picture.jpg",
-        latitude: '',
-        longitude: ''
+        "https://drive.google.com/uc?export=download&id=1aFe7FYaD-R0KMKuz9OePZ6bpduDsvZYC",
+      latitude: "",
+      longitude: ""
     };
   }
 
@@ -120,15 +119,22 @@ class Home extends Component {
   };
 
   handleLocation = async () => {
-    await this.setState({latitude: this.props.coords.latitude, longitude: this.props.coords.longitude})
-    console.log('hit handlelocation', this.state.latitude, this.state.longitude)
-  }
+    await this.setState({
+      latitude: this.props.coords.latitude,
+      longitude: this.props.coords.longitude
+    });
+    console.log(
+      "hit handlelocation",
+      this.state.latitude,
+      this.state.longitude
+    );
+  };
 
   render() {
+    console.log("chatroom", this.props.chatRoom);
     if (this.props.chatRoom !== 0) {
       console.log('hit redirect',this.props.chatRoom);
       return <Redirect to={`/chat/${this.props.chatRoom}`} />;
-      
     }
     if (!this.props.user.id) {
       this.props.getUser();
@@ -139,46 +145,56 @@ class Home extends Component {
       .sort((a, b) => (a.compatability < b.compatability ? 1 : -1))
       .sort((a, b) => (a.name < b.name ? 1 : -1));
     const cardStyle = {
-      backgroundColor: "white"
+      backgroundColor: "white",
+      height: "600px",
+      width: "700px"
     };
     return (
-    
-      <div className="home_background_color">
+      <div>
         <Geolocation
         handleLocation = {this.handleLocation}
         />
-        <div className="block" />
-        <div className="cards">
-          <CardWrapper addEndCard={this.getEndCard.bind(this)}>
-            {compatable
-              .filter(prof => this.props.details[0].gender_pref === prof.gender)
-              .map(profile => {
-                return (
-                  <Card
-                    style={cardStyle}
-                    key={`swipeId-${profile.user_id}`}
-                    onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
-                    onSwipeRight={() => this.onSwipeRight(profile.user_id)}
-                    id="card"
-                  >
-                    <div className="card">
-                      <img
-                      draggable="false" ondragstart="return false;"
-                        className="home_profile_image"
-                        src={profile.image1 || this.state.defaultImage}
-                        alt="none"
-                      />
-                      <span className="home_profile_name">
-                        {profile.name},{" "}
-                      </span>
-                      <span className="home_profile_age">{profile.age} </span>
+        <CardWrapper addEndCard={this.getEndCard.bind(this)}>
+          {compatable
+            .filter(prof => this.props.details[0].gender_pref === prof.gender)
+            .map(profile => {
+              return (
+                <Card
+                  style={cardStyle}
+                  key={`swipeId-${profile.user_id}`}
+                  onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
+                  onSwipeRight={() => this.onSwipeRight(profile.user_id)}
+                  id="card"
+                >
+                  <div className="cover" />
+                  <div className="card">
+                    <img
+                      className="home_profile_image"
+                      src={profile.image1 || this.state.defaultImage}
+                      alt="none"
+                    />
+                    <div className="lower">
+                      <div>
+                        <i class="fas fa-meh fa-3x" id="meh"></i>
+                      </div>
+                      <div>
+                        <span className="home_profile_name">
+                          {profile.name},{" "}
+                        </span>
+
+                        <span className="home_profile_age">{profile.age} </span>
+                      </div>
+                      <div>
+                        <i class="fas fa-grin-hearts fa-3x" id="like"></i>
+                      </div>
                     </div>
-                  </Card>
-                );
-              })}
-          </CardWrapper>
-        </div>
+                  </div>
+                </Card>
+              );
+            })}
+        </CardWrapper>
       </div>
+      // </div>
     );
   }
 }

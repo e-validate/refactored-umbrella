@@ -3,6 +3,7 @@ import "./about.css";
 import { connect } from "react-redux";
 import { addUserAppearance } from "./../../ducks/reducers/formReducer";
 import { Link } from "react-router-dom";
+import "./about.css";
 
 class About extends Component {
   constructor() {
@@ -53,121 +54,134 @@ class About extends Component {
   render() {
     let { colors, numbers, age, image1, image2, image3, image4 } = this.state;
     return (
-      <div>
-        <h1 className="about_you_header">About You</h1>
-        <div className="form_container">
-          <label id="age" className="form_labels">
-            Age:
-            <input
-              className="form_input"
-              placeholder="Enter age"
-              name="age"
-              value={age}
-              onChange={this.handleChange}
-            />
-          </label>
+      <div className="register">
+        <div className="register_container">
+          <div id="reg_text">
+            <i class="fas fa-circle" id="circle" /> information about you{" "}
+            <i class="fas fa-circle" id="circle" />
+          </div>
+          <div className="about_form">
+            <div className="about_line">
+              <div className="about_text">Age:</div>
+              <div className="about_right">
+                <input
+                  className="form_input"
+                  placeholder="Enter Age"
+                  name="age"
+                  value={age}
+                  onChange={this.handleChange}
+                />
+              </div>
+            </div>
 
-          <div className="height_container">
-            <label id="height" className="form_labels">
-              Height:
-            </label>
 
-            <select id="height" onChange={this.handleChange} name="height_ft">
-              <option>Feet</option>
-              {numbers.map(num => (
-                <option value={num} key={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
+            <div className="about_line">
+            <div className="about_text">Height:</div>
+            <div className="about_right">
 
-            <select id="height" onChange={this.handleChange} name="height_in">
-              <option>Inches</option>
-              {numbers.map(num => (
-                <option value={num} key={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
-          </div>
+              <select id="height" onChange={this.handleChange} name="height_ft">
+                <option>Feet</option>
+                {numbers.map(num => (
+                  <option value={num} key={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
 
-          <div className="hair_color_container">
-            <label id="hair_color" className="form_labels">
-              Hair Color:
-            </label>
-            <select
-              id="hair_color"
-              name="hair_color"
-              onChange={this.handleChange}
-            >
-              <option></option>
-              {colors.map(color => (
-                <option value={color} key={color}>
-                  {color}
-                </option>
-              ))}
-            </select>
-          </div>
+              <select id="height" onChange={this.handleChange} name="height_in">
+                <option>Inches</option>
+                {numbers.map(num => (
+                  <option value={num} key={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            </div>
+            </div>
 
-          <div className="image_container">
-            <label className="form_labels" id="profile_image">
-              Profile Image:
-            </label>
-            <input
-              id="profile_image"
-              className="form_input"
-              placeholder="Enter URL"
-              name="image1"
-              value={image1}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="image_container">
-            <label className="form_labels" id="profile_image">
-              Profile Image:
-            </label>
-            <input
-              id="profile_image"
-              className="form_input"
-              placeholder="Enter URL"
-              name="image2"
-              value={image2}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="image_container">
-            <label className="form_labels" id="profile_image">
-              Profile Image:
-            </label>
-            <input
-              id="profile_image"
-              className="form_input"
-              placeholder="Enter URL"
-              name="image3"
-              value={image3}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="image_container">
-            <label className="form_labels" id="profile_image">
-              Profile Image:
-            </label>
-            <input
-              id="profile_image"
-              className="form_input"
-              placeholder="Enter URL"
-              name="image4"
-              value={image4}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form_one_button_container">
-            <Link to="/about2">
-              <button className="skip-button">Skip</button>
-              <button className="next-button" onClick={this.handleSubmit}>
-                Next
-              </button>
-            </Link>
+            <div className="about_line">
+            <div className="about_text">Hair Color:</div>
+            <div className="about_right">
+              <select
+                id="hair"
+                name="hair_color"
+                onChange={this.handleChange}
+              >
+                <option>Select Your Hair Color</option>
+                {colors.map(color => (
+                  <option value={color} key={color}>
+                    {color}
+                  </option>
+                ))}
+              </select>
+            </div>
+            </div>
+
+            <div className="about_line1">
+            <div className="about_text1">Profile Image 1:</div>
+            <div className="about_right">
+              <input
+                id="profile_image"
+                className="form_input"
+                placeholder="Enter URL"
+                name="image1"
+                value={image1}
+                onChange={this.handleChange}
+              />
+            </div>
+            </div>
+
+            <div className="about_line1">
+            <div className="about_text1">Profile Image 2:</div>
+            <div className="about_right">
+              <input
+                id="profile_image"
+                className="form_input"
+                placeholder="Enter URL"
+                name="image2"
+                value={image2}
+                onChange={this.handleChange}
+              />
+            </div>
+            </div>
+
+            <div className="about_line1">
+            <div className="about_text1">Profile Image 3:</div>
+            <div className="about_right">
+              <input
+                id="profile_image"
+                className="form_input"
+                placeholder="Enter URL"
+                name="image3"
+                value={image3}
+                onChange={this.handleChange}
+              />
+            </div>
+            </div>
+
+            <div className="about_line1">
+            <div className="about_text1">Profile Image 4:</div>
+            <div className="about_right">
+              <input
+                id="profile_image"
+                className="form_input"
+                placeholder="Enter URL"
+                name="image4"
+                value={image4}
+                onChange={this.handleChange}
+              />
+            </div>
+            </div>
+
+            <div className="reg_buttons">
+              <Link to="/about2">
+                <button className="about-button">Skip</button></Link>
+                <Link to="/about2">
+                <button className="about-button" onClick={this.handleSubmit}>
+                  Next
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
