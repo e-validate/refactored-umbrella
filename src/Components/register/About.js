@@ -174,8 +174,8 @@ class About extends Component {
             </div>
 
             <div className="reg_buttons">
-              <Link to="/about2">
-                <button className="about-button">Skip</button></Link>
+              {/* <Link to="/about2">
+                <button className="about-button">Skip</button></Link> */}
                 <Link to="/about2">
                 <button className="about-button" onClick={this.handleSubmit}>
                   Next
