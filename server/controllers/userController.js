@@ -36,8 +36,9 @@ module.exports = {
    },
    async setLocation(req, res){
      let {latitude, longitude} = req.body
+     let {id} = req.session.user
      const db = req.app.get('db')
-     let data = await db.set_location(latitude, longitude)
+     let data = await db.set_location(latitude, longitude, id)
      res.sendStatus(200)
    }
   }
