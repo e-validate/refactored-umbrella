@@ -9,7 +9,6 @@ and m.swiper_id = $1
 and junc_id in (select junc_id from chat_junc
 where user_id = $1 and chatroom_id in ( select chatroom_id from matches 
 group by chatroom_id having count(*)>1)
-)
-;
+);
 
 

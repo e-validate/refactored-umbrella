@@ -11,7 +11,7 @@ import { getDetails, getUser } from "../../ducks/reducers/sessionReducer";
 import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
 import "./home.css";
-// import Geolocation from '../geloaction/Geolocation'
+import Geolocation from '../geloaction/Geolocation'
 
 class Home extends Component {
   constructor() {

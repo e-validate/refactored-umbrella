@@ -22,6 +22,20 @@ module.exports = {
         res.send(chatrooms)
     },
 
+//     let {id} = req.session.user;
+//     const db = req.app.get('db');
+//     let projects = await db.get_art_projects(id);
+//     const favorites = await db.get_favorite_projects(id);
+//     const updatedProjectList = projects.map(val => {
+//         const isFavorite = favorites.some(item => item.project_id === val.id);
+//         return {
+//             ...val,
+//             isFavorite
+//         }
+//     });
+//     res.status(200).send(updatedProjectList);
+// },
+
    async switchToRead(req,res){
         const db = req.app.get("db");
         let {chatroom_id} = req.params
