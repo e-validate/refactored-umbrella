@@ -43,7 +43,7 @@ class inbox extends Component {
               className="inbox-left"
             >
               <Link to={`/profile/${room.swiped_id}`} ><img className="inbox-left" src={room.image1} /></Link>
-              <div className="new_msg"># new messages</div>
+              <div className="new_msg">#</div>
             </div>
             <div className="inbox-right">
               <Link
