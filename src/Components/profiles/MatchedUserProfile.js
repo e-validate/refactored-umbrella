@@ -26,7 +26,6 @@ class MatchedUserProfile extends Component {
 
   render() {
     let { profiles } = this.props;
-    console.log("prop", this.props);
     return (
       <div className="CurrentUserProfile">
         {profiles ? (

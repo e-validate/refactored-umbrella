@@ -36,9 +36,9 @@ body {
 
 .main_header {
   text-transform: uppercase;
-  margin-left: 100%;
   color: black;
-  margin-left: 5px;
+  text-align: right;
+  
 }
 
 .logo {

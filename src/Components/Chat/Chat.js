@@ -9,17 +9,19 @@ import { connect } from "react-redux";
 import "./Chat.css";
 import { Redirect } from "react-router-dom";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
+import axios from 'axios'
 
 const socket = io.connect("http://localhost:4000");
 
 class Chat extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     // state
     this.state = {
       message: "",
-      chatMessages: []
+      chatMessages: [],
+      name: ""
     };
 
     this.sendMessage = this.sendMessage.bind(this);
@@ -35,25 +37,15 @@ class Chat extends Component {
       this.setState({
         chatMessages: [...messages]
       });
-      console.log(messages);
     });
 
     this.sendMessage = this.sendMessage.bind(this);
   }
 
-  // componentDidUpdate(pp) {
-  //   if (
-  //     this.props.chatRoom === +this.props.chatroom_id ||
-  //     pp.chatRoom === this.props.chatRoom
-  //   ) {
-  //     this.props.setChatRoom();
-  //     console.log('cdm' , this.props);
-  //   }
-  // }
-
-  componentDidMount() {
-    this.props.getUser();
-    this.joinRoom();
+  async componentDidMount() {
+    await this.props.getUser();
+    await this.joinRoom();
+    this.getName()
     this.props.setChatRoom();
   }
 
@@ -91,6 +83,12 @@ class Chat extends Component {
     this.props.deleteMessage(message);
   }
 
+  getName=()=>{
+  axios.get(`api/matchname/${this.props.chatroom_id}`).then(res=>{
+    this.setState({name: res.data[0].name})})
+    .catch(err => console.log('could not get name', err))
+  }
+
   render() {
     let refresh = async () => {
       if (!this.props.session.user.id) {
@@ -104,22 +102,7 @@ class Chat extends Component {
 
     return (
       <div className="chat">
-        {/* <div className="input-button-sendmsg">
-          <textarea
-            className="input-send-message"
-            value={this.state.message}
-            onChange={e => this.setState({ message: e.target.value })}
-            onKeyDown={ev => {
-              if (ev.key === "Enter") {
-                this.sendMessage();
-                ev.preventDefault();
-              }
-            }}
-          /> */}
-        {/* <button className="send-message" onClick={() => this.sendMessage()}>
-            Send
-          </button>
-        </div> */}
+        <h3>{this.state.name}</h3>
         <div className="message-container">
           {this.state.chatMessages !== undefined ? (
             this.state.chatMessages.map(
@@ -139,8 +122,6 @@ class Chat extends Component {
                     <div className={`${message.token}-delete-info`}>
                       <div className={`${message.token}-name`}>
                         <h1>{message.name}</h1>
-
-                        {console.log(message.timestamp_sent)}
                         <h1 className="time">{message.time}</h1>
                       </div>
                       {/* <div className={`${message.token}-delete-btn-container`}>

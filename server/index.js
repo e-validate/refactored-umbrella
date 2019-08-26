@@ -75,38 +75,27 @@ app.post("/api/swipe/left/:swipedId", likeController.dislike);
 app.post("/api/swipe/right/:swipedId", likeController.like);
 
 io.on("connection", socket => {
-  // When a client connects run this function
   console.log("A connection happened", socket.id);
-  // When the client sends 'needy' and a roomid add them to the room
   socket.on("needy", async roomid => {
     const db = app.get("db")
-    let messages = await db.get_chatroom_messages([roomid])
+    let messages = await db.get_chatroom_messages(roomid)
   socketController.joinRoom(messages,roomid, socket, io)})
-  // When the client sends a message to the server send it to everyone
   socket.on('message to server', async payload =>{
     const db = app.get("db");
     const {id, chatroom_id, message } = payload;
     let messages = await db.add_message([+id, +chatroom_id ,message, socket, io] )
-      console.log('messsgaaeffg',payload);
     io.emit('new message from sever', messages );
-})
-
-
-  
+}) 
 });
 
-// io.on("message to server", async payload => {
-//   const db = app.get("db");
-//   const {id, chatroom_id, message } = payload;
-//   console.log(payload);
-//   let messages = await db.add_message([+id, chatroom_id ,message]);
-//   socketController.sendMessagesToRoom(messages, io);
-// })
-  
-  
-
-  app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
+  // app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
   app.get('/api/matches', socketController.getUsersChatrooms)
+  app.put('/api/read/:chatroom_id', socketController.switchToRead)
+  app.get('/api/matchname/:chatroom_id', async (req,res) => {
+    const {id} = req.session.user
+    const {chatroom_id} = req.params
+    const db = req.app.get("db");
+    let name = await db.get_match_name([+id, +chatroom_id])
+    res.send(name)
+  })
 
-
-// SERVER instead of APP

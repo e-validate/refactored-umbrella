@@ -1,5 +1,43 @@
-body {
-  color: #383838;
+.register {
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.register_container {
+  background: white;
+  width: 30vw;
+  /* height: 60vh; */
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+.reg {
+  width: 90%
+}
+
+#reg_text {
+  color: black;
+  font-size: 17pt;
+  letter-spacing: 1pt;
+  font-family: "Lexend Deca", sans-serif;
+  text-transform: uppercase
+}
+
+.about_form {
+  width: 85%;
+  margin-top: 20px;
+  text-align: left;
+  /* background: blue; */
 }
 
 .about_you_header {
@@ -16,15 +54,22 @@ body {
   margin-top: 20px;
 }
 
-#height,
-#hair_color,
-#gender,
-#profile_image,
-#ethnicity,
-#description,
-#religion {
-  margin-top: 20px;
-  font-family: "Lexend Deca", sans-serif;
+#height {
+  font-size: 12pt;
+  width: 42%;
+  margin-left: 10px;
+}
+
+#hair {
+  font-size: 12pt;
+  width: 89%;
+  margin-left: 10px;
+}
+
+#pref {
+  font-size: 12pt;
+  width: 100%;
+  margin-left: 10px;
 }
 
 .height_container,
@@ -39,24 +84,80 @@ body {
   font-size: 20px;
 }
 
+.about_right {
+  width: 100%;
+  /* background: tomato; */
+}
+
+.verts_text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  padding-top: 2pt;
+}
+
+.verts {
+  width: 100%;
+  /* background: blue; */
+  display: flex;
+  padding-top:5px;
+  justify-content: center;
+  padding-bottom: 7px;
+}
+
+.about_text {
+  width: 150px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14pt;
+}
+.about_text1 {
+  /* width: 150px; */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14pt;
+  padding-bottom: 5px;
+}
+
 select {
   padding: 3px;
   margin-right: 5px;
-  border: 1px solid #383838;
+  border: 1px solid #black;
   border-radius: 4px;
   width: 80px;
 }
 
 .form_input {
-  width: 80px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: #383838;
-  border: 1px solid #383838;
+  /* padding: 10px; */
+  width: 90%;
+  border: none;
+  font-size: 13pt;
+  margin-left: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  border-bottom: 1px black solid;
+}
+
+.age_input {
+  /* padding: 10px; */
+  width: 40%;
+  border: none;
+  font-size: 13pt;
+  margin-left: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  border-bottom: 1px black solid;
 }
 
 .form_input::placeholder {
-  font-size: 15px;
+  font-size: 13pt;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.about_line {
+  display: flex;
+  width: 100%;
+  padding: 10px 0px;
+}
+.about_line1 {
+  /* display: flex; */
+  width: 100%;
+  padding: 10px 0px 10px 0px;
 }
 
 #max_age {
@@ -66,9 +167,10 @@ select {
 .radio-toolbar label {
   display: inline-block;
   color: #383838;
+  background: rgb(219, 219, 219);
   padding: 5px 10px;
   font-size: 16px;
-  border: 0.5px solid #383838;
+  /* border: 0.5px solid #383838; */
   border-radius: 4px;
 }
 
@@ -79,8 +181,8 @@ select {
 }
 
 .radio-toolbar {
-  margin-top: 15px;
-  margin-left: 5px;
+  margin-top: -5px;
+  margin-left: 10px;
 }
 
 .male_label {
@@ -89,47 +191,90 @@ select {
 
 .radio-toolbar .female_label:hover,
 .radio-toolbar input[type="radio"]:checked + .female_label {
-  background-color: #d1345b;
+  background-color: #df476d;
   border-color: #383838;
   color: white;
 }
 
 .radio-toolbar .male_label:hover,
 .radio-toolbar input[type="radio"]:checked + .male_label {
-  background-color: #3b5593;
+  background-color: #2370b8;
   color: white;
   border-color: #383838;
 }
 
-.form_one_button_container {
-  width: 100vw;
+.button_container {
+  width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  /* flex-direction: row; */
+  justify-content: space-between;
   align-items: center;
-  margin-top: 50px;
+  /* background: blue */
+}
+
+.reg_buttons {
+  /* background: blue;  */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  margin: auto;
+  text-align: center;
+}
+
+.about-button {
+  padding: 10px;
+  font-size: 15px;
+  width: 75px;
+  background: #00c59a;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  border: none;
 }
 
 .skip-button,
-.next-button,
-.interests_button {
-  background: #04dbac;
-  padding: 5px 10px;
-  font-size: 16px;
-  color: #383838;
-  font-family: "Lexend Deca", sans-serif;
-  border: none;
+.next-button {
+  /* margin-top: 20px; */
+  padding: 10px;
+  font-size: 15px;
+  width: 75px;
+  background: #00c59a;
+  color: white;
+  font-weight: bold;
   border-radius: 4px;
+  border: none;
 }
 
+.interests_button {
+  padding: 10px;
+  font-size: 15px;
+  /* width: 400px; */
+  background: #00c59a;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  border: none;
+}
+
+.interests {
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: justify;
+  line-height: 18pt;
+  text-transform: capitalize
+}
+
+
 .preferences_div {
-  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 
 .skip-button:hover,
 .next-button:hover,
 .interests_button:hover {
-  background: gray;
-  color: white;
+  background: rgb(0, 163, 128)
 }
 
 .preferences_button {
@@ -143,6 +288,7 @@ select {
 .description {
   border: 0.5px solid #383838;
   border-radius: 4px;
+  width: 98.5%;
 }
 
 .description::placeholder {
@@ -161,20 +307,18 @@ select {
 
 .slider {
   -webkit-appearance: none;
-  width: 100%;
-  height: 15px;
-  border-radius: 5px;
-  background: #d3d3d3;
+  width: 250px;
+  height: 5px;
+  background: rgb(209, 209, 209);
   outline: none;
-  opacity: 0.7;
 }
 
 .slider::-webkit-slider-thumb {
   appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #383838;
+  width: 15px;
+  height: 25px;
+  border-radius: 45%;
+  background: #00C599;
   cursor: pointer;
 }
 
