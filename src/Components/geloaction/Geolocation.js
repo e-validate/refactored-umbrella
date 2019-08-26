@@ -1,21 +1,28 @@
 import React from "react";
 import { geolocated } from "react-geolocated";
 import Toastify from "toastify-js"
- 
+import { connect } from 'react-redux'
+import {setLocation} from '../../ducks/reducers/userReducer'
+
+
+
 class Geolocation extends React.Component {
-  // constructor(){
-  //   super()
-  //   this.state = {
-  //     latitude: '',
-  //     longitude: ''
-  //   }
-  // }
+  constructor(){
+    super()
+    this.state = {
+      latitude: '',
+      longitude: ''
+    }
+  }
 
 
-  // handleLocation = async () => {
-  //   await this.setState({latitude: this.props.coords.latitude, longitude: this.props.coords.longitude})
-  //   console.log('hit handlelocation', this.state.latitude, this.state.longitude)
-  // }
+  handleLocation = async () => {
+    console.log('inlocation', this.props)
+    await this.setState({latitude: this.props.coords.latitude, longitude: this.props.coords.longitude})
+    console.log('hit handlelocation', this.state.latitude, this.state.longitude)
+    this.props.setLocation(this.state.latitude, this.state.longitude)
+  }
+
 
     render() {
         return !this.props.isGeolocationAvailable ? (
@@ -43,30 +50,25 @@ class Geolocation extends React.Component {
              onClick: function() {}
                   }).showToast()
         ) : this.props.coords ? (
-          <button onClick={() => {this.props.handleLocation()
-          this.props.setLocation()
+          <button onClick={() => {this.handleLocation()
           }}>Get Location</button>
-            // <table>
-            //     <tbody>
-            //         <tr>
-            //             <td>latitude</td>
-            //             <td>{this.props.coords.latitude}</td>
-            //         </tr>
-            //         <tr>
-            //             <td>longitude</td>
-            //             <td>{this.props.coords.longitude}</td>
-            //         </tr>
-            //     </tbody>
-            // </table>
         ) : (
             <div>Getting the location data&hellip; </div>
         );
     }
 }
  
-export default geolocated({
+function mapStateToProps(state){
+  return{
+    ...state.user
+  }
+}
+
+
+
+export default connect(mapStateToProps, {setLocation})(geolocated({
     positionOptions: {
         enableHighAccuracy: false,
     },
     userDecisionTimeout: 5000,
-})(Geolocation);
+})(Geolocation));
