@@ -25,30 +25,30 @@ class Geolocation extends React.Component {
 
 
     render() {
-        return !this.props.isGeolocationAvailable ? (
-          Toastify({
-            text: "Username or Password incorrect",
-            duration: 3000,
-            transition: "bounce",
-            newWindow: true,
-            close: true,
-            position: "top-center",
-            backgroundColor: "linear-gradient(to right, #d1345b, #383838)",
-            stopOnFocus: true,
-            onClick: function() {}
-          }).showToast()
-        ) : !this.props.isGeolocationEnabled ? (
-            Toastify({
-             text: "Geolocation is no enables",
-             duration: 3000,
-             transition: "bounce",
-             newWindow: true,
-             close: true,
-             position: "top-center",
-             backgroundColor: "linear-gradient(to right, #d1345b,     #383838)",
-             stopOnFocus: true,
-             onClick: function() {}
-                  }).showToast()
+        return !this.props.isGeolocationAvailable ? (<div/>
+        //   Toastify({
+        //     text: "Username or Password incorrect",
+        //     duration: 3000,
+        //     transition: "bounce",
+        //     newWindow: true,
+        //     close: true,
+        //     position: "top-center",
+        //     backgroundColor: "linear-gradient(to right, #d1345b, #383838)",
+        //     stopOnFocus: true,
+        //     onClick: function() {}
+        //   }).showToast()
+        ) : !this.props.isGeolocationEnabled ? (<div/>
+            // Toastify({
+            //  text: "Geolocation is no enables",
+            //  duration: 3000,
+            //  transition: "bounce",
+            //  newWindow: true,
+            //  close: true,
+            //  position: "top-center",
+            //  backgroundColor: "linear-gradient(to right, #d1345b,     #383838)",
+            //  stopOnFocus: true,
+            //  onClick: function() {}
+            //       }).showToast()
         ) : this.props.coords ? (
           <button onClick={() => {this.handleLocation()
           }}>Get Location</button>
