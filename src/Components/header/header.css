@@ -16,6 +16,26 @@ body {
   justify-content: space-between;
 }
 
+.matches-container{
+  display: flex;
+}
+
+.new_msg_inbox{
+  background: #00C59B;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: relative;
+  top: 13px;
+  right: 14px;
+  color: white;
+  font-weight: bolder;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
 .header-container > div {
   width: 100%;
   /* background: green; */
