@@ -20,14 +20,10 @@
 
 .new_msg {
   background: #00C59B;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  width: 100%;
   position: relative;
-  top: -150px;
-  left: 110px;
+  top: -10px;
   color: white;
-  font-weight: bolder;
   display: flex;
   justify-content: center;
   align-items: center
@@ -44,7 +40,14 @@ img {
   height: 100%;
 }
 
-
-#heart {
-  font-size: 40px;
+@media (max-width: 414px) {
+  .inbox {
+    flex-direction: column;
+  }
+  .inbox-right {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    height: 35px;
+  }
 }
