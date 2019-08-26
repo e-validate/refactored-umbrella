@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { login } from "./../../ducks/reducers/sessionReducer";
+import { login, getUser } from "./../../ducks/reducers/sessionReducer";
 import "./login.css";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
-import {setChatRoom} from '../../ducks/reducers/swipeReducer'
-
+import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 
 class Login extends Component {
   constructor(props) {
@@ -16,7 +15,6 @@ class Login extends Component {
       password: ""
     };
   }
-
 
   handleChange = e => {
     this.setState({
@@ -45,7 +43,7 @@ class Login extends Component {
         onClick: function() {}
       }).showToast();
       this.resetInput();
-      this.props.setChatRoom()
+      this.props.setChatRoom();
     });
   };
 
@@ -59,12 +57,13 @@ class Login extends Component {
           <div className="login_left" />
           <div className="login_right">
             <div>
-            <img
-            src="https://drive.google.com/uc?export=download&id=1r3GIArXdgsXJO18a3AZaivaqb8-P4RkP"
-            alt="Green umbrella logo"
-            className="rfu"
-            />
-          <span>cause dating doesn't make much sense either</span></div>
+              <img
+                src="https://drive.google.com/uc?export=download&id=1r3GIArXdgsXJO18a3AZaivaqb8-P4RkP"
+                alt="Green umbrella logo"
+                className="rfu"
+              />
+              <span>cause dating doesn't make much sense either</span>
+            </div>
             <div>
               <input
                 className="login_inputs"
@@ -73,7 +72,6 @@ class Login extends Component {
                 placeholder="email"
                 name="email"
                 value={email}
-                Ï
                 onChange={this.handleChange}
               />
               <input
@@ -110,5 +108,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { login, setChatRoom }
+  { login, setChatRoom, getUser }
 )(Login);

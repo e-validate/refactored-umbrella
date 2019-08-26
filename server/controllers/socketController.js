@@ -4,7 +4,6 @@ module.exports = {
         io.in(+roomid).emit('login', messages);
     },
      sendMessagesToRoom(messages, payload, io, socket) {
-       console.log(messages);
         const { message } = payload;
         io.emit('new message from sever', message, messages );
     },
@@ -23,12 +22,12 @@ module.exports = {
         res.send(chatrooms)
     },
 
-    async getUnreadMessages(req, res){
+   async switchToRead(req,res){
         const db = req.app.get("db");
-        let {id} = req.session.user
         let {chatroom_id} = req.params
-        let messages = await db.read_message_check([+chatroom_id, +id])
-        res.send(messages)
+        let {id} = req.session.user
+        await db.switch_to_read([+chatroom_id, +id])
+        res.sendStatus(200)
     },
     leaveRoom() {}
 };

@@ -34,10 +34,8 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    await this.props.setChatRoom();
     let { getPotentialMatches, getDetails, getUser } = this.props;
     await getUser();
-
     if (this.props.user.id) {
       await getDetails(this.props.user.id);
       await getPotentialMatches();
@@ -135,6 +133,7 @@ class Home extends Component {
   render() {
     console.log("chatroom", this.props.chatRoom);
     if (this.props.chatRoom !== 0) {
+      console.log('hit redirect',this.props.chatRoom);
       return <Redirect to={`/chat/${this.props.chatRoom}`} />;
     }
     if (!this.props.user.id) {

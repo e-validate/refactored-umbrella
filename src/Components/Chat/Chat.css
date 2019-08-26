@@ -105,6 +105,8 @@
 }
 
 .input-box-sendmsg {
+  position: fixed;
+  bottom:1%;
   margin-top: 10px;
   background: #ccc;
   padding: 10px;
