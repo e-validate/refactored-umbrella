@@ -6,7 +6,7 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultImg1: "https://images.unsplash.com/photo-1562184647-dfdfb9c0bf3a",
+      defaultImg1: "https://drive.google.com/uc?export=download&id=1aFe7FYaD-R0KMKuz9OePZ6bpduDsvZYC",
       editing: false,
       gender: this.props.profile.gender,
       religion: this.props.profile.religion,

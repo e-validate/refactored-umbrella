@@ -65,123 +65,142 @@ class Preferences extends Component {
   render() {
     let { ethnicity, religions, colors, age_min, age_max } = this.state;
     return (
-      <div>
-        <h1 className="about_you_header">Preferences</h1>
-        <div className="preferences_div">
-          What type of person would <br /> you share an umbrella with?
-        </div>
-
-        <div>
-          <label id="age" className="form_labels">
-            Age:
-            <input
-              className="form_input"
-              name="age_min"
-              value={age_min}
-              placeholder="Min"
-              onChange={this.handleChange}
-            />
-          </label>
-          <input
-            className="form_input"
-            id="max_age"
-            name="age_max"
-            value={age_max}
-            placeholder="Max"
-            onChange={this.handleChange}
-          />
-
-          <div className="hair_color_container">
-            <label id="hair_color" className="form_labels">
-              Hair Color:
-            </label>
-            <select
-              id="hair_color"
-              name="hair_color_pref"
-              onChange={this.handleChange}
-            >
-              <option></option>
-              {colors.map(value => (
-                <option value={value} key={value}>
-                  {value}
-                </option>
-              ))}
-            </select>
+      <div className="register">
+        <div className="register_container">
+          <div id="reg_text">
+            <i class="fas fa-circle" id="circle" /> your preferences{" "}
+            <i class="fas fa-circle" id="circle" />
           </div>
 
-          <div className="gender_container">
-            <label className="form_labels" id="gender">
-              Gender:
-            </label>
+          <div className="preferences_div">
+            What type of person would <br /> you share an umbrella with?
+          </div>
 
-            <div className="radio-toolbar">
-              <input
-                type="radio"
-                name="gender_pref"
-                value="male"
-                id="male"
-                onChange={this.handleChange}
-              />
-              <label for="male" className="male_label">
-                <i className="fas fa-male"></i> Male
-              </label>
-              <input
-                type="radio"
-                name="gender_pref"
-                value="female"
-                id="female"
-                onChange={this.handleChange}
-              />
-              <label for="female" className="female_label">
-                <i type="radio" className="fas fa-female"></i> Female
-              </label>
+          <div className="about_form">
+            <div className="about_line">
+              <div className="about_text">Age Range:</div>
+              <div className="about_right">
+                <input
+                  className="age_input"
+                  name="age_min"
+                  value=""
+                  placeholder="Min Age"
+                  onChange={this.handleChange}
+                />
+                &emsp;
+                <input
+                  className="age_input"
+                  id="max_age"
+                  name="age_max"
+                  value=""
+                  placeholder="Max Age"
+                  onChange={this.handleChange}
+                />
+              </div>
+            </div>
+            {/* </div> */}
+
+            <div className="about_form">
+              <div className="about_line">
+                <div className="about_text">Hair Color:</div>
+                <div className="about_right">
+                  <select
+                    id="hair"
+                    name="hair_color_pref"
+                    onChange={this.handleChange}
+                  >
+                    <option>Hair Color Preference</option>
+                    {colors.map(value => (
+                      <option value={value} key={value}>
+                        {value}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="about_form">
+                <div className="about_line">
+                  <div className="about_text">Gender:</div>
+                  <div className="about_right">
+                    <div className="radio-toolbar">
+                      <input
+                        type="radio"
+                        name="gender_pref"
+                        value="male"
+                        id="male"
+                        onChange={this.handleChange}
+                      />
+                      <label for="male" className="male_label">
+                        <i className="fas fa-male"></i> Male
+                      </label>
+                      <input
+                        type="radio"
+                        name="gender_pref"
+                        value="female"
+                        id="female"
+                        onChange={this.handleChange}
+                      />
+                      <label for="female" className="female_label">
+                        <i type="radio" className="fas fa-female"></i> Female
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="about_form">
+                <div className="about_line">
+                  <div className="about_text">Religion:</div>
+                  <div className="about_right">
+                    <select
+                      id="pref"
+                      name="religion_pref"
+                      onChange={this.handleChange}
+                    >
+                      <option>Religion Preference</option>
+                      {religions.map(type => (
+                        <option value={type} key={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="about_form">
+                <div className="about_line">
+                  <div className="about_text">Ethnicity:</div>
+                  <div className="about_right">
+                    <select
+                      id="pref"
+                      name="ethnicity_pref"
+                      onChange={this.handleChange}
+                    >
+                      <option>Ethnicity Preference</option>
+                      {ethnicity.map(type => (
+                        <option value={type} key={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="reg_buttons">
+              <Link to="/">
+                <button className="skip-button">Skip</button>
+              </Link>
+              <Link to="/">
+                <button className="next-button" onClick={this.handleSubmit}>
+                  Next
+                </button>
+              </Link>
             </div>
           </div>
-
-          <div>
-            <label className="form_labels" id="religion">
-              Religion:{" "}
-            </label>
-            <select
-              id="religion"
-              name="religion_pref"
-              onChange={this.handleChange}
-            >
-              <option></option>
-              {religions.map(type => (
-                <option value={type} key={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="form_labels" id="ethnicity">
-              Ethnicity:{" "}
-            </label>
-            <select
-              id="ethnicity"
-              name="ethnicity_pref"
-              onChange={this.handleChange}
-            >
-              <option></option>
-              {ethnicity.map(type => (
-                <option value={type} key={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div className="form_one_button_container">
-          <Link to="/">
-            <button className="skip-button">Skip</button>
-            <button className="next-button" onClick={this.handleSubmit}>
-              Next
-            </button>
-          </Link>
         </div>
       </div>
     );
