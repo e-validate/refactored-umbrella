@@ -1,4 +1,4 @@
-describe("Logout", () => {
+describe("Swipe through photo carousel", () => {
   const userInput = "we";
   const passwordInput = "we";
   it("Should enter username", () => {
