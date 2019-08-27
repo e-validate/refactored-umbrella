@@ -148,7 +148,7 @@ export default class Profile extends Component {
                 className="slides"
                 name="profile"
                 id="radio-1"
-                checked
+                // checked
               />
               <input
                 type="radio"
