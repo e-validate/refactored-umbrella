@@ -20,7 +20,6 @@ class Login extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    console.log(this._isMounted, this.props);
   }
   componentWillUnmount() {
     this._isMounted = false;
@@ -43,9 +42,7 @@ class Login extends Component {
   login = () => {
     Promise.resolve(this.props.login(this.state.email, this.state.password))
     .then(() => {
-      console.log('hittttt');
       let data = this.props.getUsersChatrooms()
-      console.log(data);
       return data
     })
     .catch(() => {
