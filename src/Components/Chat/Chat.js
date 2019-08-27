@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import "./Chat.css";
 import { Redirect } from "react-router-dom";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
-import axios from 'axios'
+import axios from "axios";
 
 const socket = io.connect("http://localhost:4000");
 
@@ -32,20 +32,19 @@ class Chat extends Component {
       });
     });
 
-    // listen for message from server
     socket.on("new message from sever", (messages, io) => {
       this.setState({
         chatMessages: [...messages]
-      })
+      });
     });
 
     this.sendMessage = this.sendMessage.bind(this);
   }
 
   async componentDidMount() {
-    await this.props.getUser();
     await this.joinRoom();
-    this.getName()
+    await this.props.getUser();
+    this.getName();
     this.props.setChatRoom();
   }
 
@@ -79,15 +78,19 @@ class Chat extends Component {
     }
   };
 
-  deleteMessage(message) {
-    this.props.deleteMessage(message);
+  async deleteMessage(message_id) {
+    let { chatroom_id } = this.props;
+    socket.emit("delete a message", { mid: message_id, cid: chatroom_id });
   }
 
-  getName=()=>{
-  axios.get(`api/matchname/${this.props.chatroom_id}`).then(res=>{
-    this.setState({name: res.data[0].name})})
-    .catch(err => console.log('could not get name', err))
-  }
+  getName = () => {
+    axios
+      .get(`api/matchname/${this.props.chatroom_id}`)
+      .then(res => {
+        this.setState({ name: res.data[0].name });
+      })
+      .catch(err => console.log("could not get name", err));
+  };
 
   render() {
     let refresh = async () => {
@@ -99,70 +102,96 @@ class Chat extends Component {
       }
     };
     refresh();
-
     return (
       <div className="chat_container">
         <div className="chat">
-        <h3><i className="fas fa-circle" id="circle"/> Messages with {this.state.name} <i className="fas fa-circle" id="circle"/> </h3>
-        <div className="message-container">
-          {this.state.chatMessages !== undefined ? (
-            this.state.chatMessages.map(
-              (message, index) => (
-                (message.token =
-                  message.sender_id === +this.props.session.user.id
-                    ? "sender"
-                    : "receiver"),
-                (
-                  <div
-                    className={`${message.token}-messages-container`}
-                    key={index}
-                  >
-                    <div className={`${message.token}-message-box`}>
-                      {message.content}
-                    </div>
-                    <div className={`${message.token}-delete-info`}>
-                      <div className={`${message.token}-name`}>
-                        <div>{message.name}</div>&emsp;
-                        <div className="time">{message.time}</div>
+          <h3>
+            <i className="fas fa-circle" id="circle" /> Messages with{" "}
+            {this.state.name} <i className="fas fa-circle" id="circle" />{" "}
+          </h3>
+          <div className="message-container">
+            {this.state.chatMessages !== undefined ? (
+              this.state.chatMessages.map(
+                (message, index) => (
+                  (message.token =
+                    message.sender_id === +this.props.session.user.id
+                      ? "sender"
+                      : "receiver"),
+                  (
+                    <div
+                      className={`${message.token}-messages-container`}
+                      key={index}
+                    >
+                      <div className={`${message.token}-message-box`}>
+                        {message.content}
                       </div>
-                      {/* <div className={`${message.token}-delete-btn-container`}>
-                        <button
-                          className={`${message.token}-delete-btn`}
-                          onClick={() => this.deleteMessage(message.message_id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                      </div> */}
+
+                      {message.token === "sender" ? (
+                        <div className={`${message.token}-delete-info`}>
+                          <div className={`${message.token}-name`}>
+                            <div className="time">{message.time}</div>
+                            <div>{message.name}</div>
+                          </div>
+                          <div
+                            className={`${message.token}-delete-btn-container`}
+                          >
+                            <button
+                              className={`${message.token}-delete-btn`}
+                              onClick={() =>
+                                this.deleteMessage(message.messages_id)
+                              }
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={`${message.token}-delete-info`}>
+                          <button
+                            className={`${message.token}-delete-btn`}
+                            onClick={() =>
+                              this.deleteMessage(message.messages_id)
+                            }
+                          >
+                            Delete
+                          </button>
+                          <div className={`${message.token}-name`}>
+                            <div>{message.name}</div>
+                            <div className="time">{message.time}</div>
+                          </div>
+                          <div
+                            className={`${message.token}-delete-btn-container`}
+                          ></div>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))
+                  )
+                )
               )
-            
-          ) : (
-            <h1>Loading...</h1>
-          )}
-        </div>
-        <div className="input-box-sendmsg">
-          <textarea
-            // onKeyUp={this.handleKeyUp}
-            className="input-send-message"
-            value={this.state.message}
-            onChange={e => this.setState({ message: e.target.value })}
-            onKeyDown={ev => {
-              if (ev.key === "Enter") {
-                this.sendMessage();
-                ev.preventDefault();
-              }
-            }}
-          />
-          <button
-            className="send-message_button"
-            onClick={() => this.sendMessage()}
-          >
-            Send
-          </button>
-        </div>
+            ) : (
+              <h1>Loading...</h1>
+            )}
+          </div>
+          <div className="input-box-sendmsg">
+            <textarea
+              // onKeyUp={this.handleKeyUp}
+              className="input-send-message"
+              value={this.state.message}
+              onChange={e => this.setState({ message: e.target.value })}
+              onKeyDown={ev => {
+                if (ev.key === "Enter") {
+                  this.sendMessage();
+                  ev.preventDefault();
+                }
+              }}
+            />
+            <button
+              className="send-message_button"
+              onClick={() => this.sendMessage()}
+            >
+              Send
+            </button>
+          </div>
         </div>
       </div>
     );
