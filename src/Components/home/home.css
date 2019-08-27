@@ -10,10 +10,14 @@
   z-index: 2;
 }
 
-.home_profile_name, .home_profile_age {
+.home_profile_name {
   font-size: 30px;
 }
 
+.home_profile_age {
+  font-size: 18pt;
+  font-style: italic;
+}
 
 
 .home_profile_image {
@@ -25,10 +29,12 @@
 
 #like {
   color: red;
+  font-size: 30pt;
 }
 
 #meh {
-  color: gray;
+  color: rgb(67, 148, 134);
+  font-size: 30pt;  
 }
 
 .lower {

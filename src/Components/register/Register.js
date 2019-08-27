@@ -30,12 +30,12 @@ class Register extends Component {
   };
 
   register = () => {
-    this.props
-      .register(this.state.name, this.state.email, this.state.password)
-      .catch(() => {
-        alert("Email already in use.");
-        this.resetInput();
-      });
+    let { name, email, password } = this.state;
+    let { register } = this.props;
+    register(name, email, password).catch(() => {
+      alert("Email already in use.");
+      this.resetInput();
+    });
   };
 
   render() {
@@ -46,7 +46,10 @@ class Register extends Component {
       <div className="register">
         <div className="register_container">
           <div className="reg">
-              <div id="reg_text"><i class="fas fa-circle" id="circle"/> new user registration <i class="fas fa-circle" id="circle"/></div>
+            <div id="reg_text">
+              <i class="fas fa-circle" id="circle" /> new user registration{" "}
+              <i class="fas fa-circle" id="circle" />
+            </div>
             <input
               className="login_inputs"
               type="text"
