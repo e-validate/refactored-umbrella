@@ -41,7 +41,7 @@ class Home extends Component {
       await getDetails(this.props.user.id);
       await getPotentialMatches();
     }
-    this.setCompatability(this.props.potentialMatches);
+    await this.setCompatability(this.props.potentialMatches);
   }
 
   setLatAndLon = (arr) => {
@@ -199,7 +199,7 @@ class Home extends Component {
                     />
                     <div className="lower">
                       <div>
-                        <i className="fas fa-meh fa-3x" id="meh"></i>
+                      <span class="icon-heart-broken" id="meh"></span>
                       </div>
                       <div>
                         <span className="home_profile_name">
@@ -209,15 +209,11 @@ class Home extends Component {
                         <span className="home_profile_age">{profile.age} </span>
                       </div>
                       <div>
-                        <i className="fas fa-grin-hearts fa-3x" id="like"></i>
+                      <span class="icon-heart" id="like"></span>
                       </div>
                     </div>
                   </div>
-                <div>{profile.latitude ? (
-                  (Math.round(this.distance(+this.props.details[0].latitude, +this.props.details[0].longitude, +profile.latitude, +profile.longitude)*4)/4).toFixed(2) + ' miles away'
-                ) : (
-                  null
-                )}</div>
+                <div>{(Math.round(this.distance(+this.props.details[0].latitude, +this.props.details[0].longitude, +profile.latitude, +profile.longitude)*4)/4).toFixed(2)} miles away</div>
                 </Card>
               );
             })}
