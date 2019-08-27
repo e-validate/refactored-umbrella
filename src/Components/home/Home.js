@@ -173,6 +173,7 @@ class Home extends Component {
     };
     return (
       <div>
+        
         <Geolocation
         handleLocation = {this.handleLocation}
          />

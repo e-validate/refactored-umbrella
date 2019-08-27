@@ -82,7 +82,6 @@ io.on("connection", socket => {
   socket.on('message to server', async payload =>{
     const db = app.get("db");
     const {id, chatroom_id, message } = payload;
-    console.log('payloaddddd',payload);
     let messages = await db.add_message([+id, +chatroom_id ,message, socket, io] )
     io.to(`${chatroom_id}`).emit('new message from sever', messages)
     .emit('message to user', messages);

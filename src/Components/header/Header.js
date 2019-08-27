@@ -6,34 +6,46 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout, getUser } from "./../../ducks/reducers/sessionReducer";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
-import { getUsersChatrooms } from "../../ducks/reducers/messageReducer";
+import { getUsersChatrooms, getChatroomMessages } from "../../ducks/reducers/messageReducer";
+import axios from 'axios'
 const socket = io.connect("http://localhost:4000");
 
 
 class Header extends React.Component {
+  _isMounted = false
   constructor(props) {
     super(props);
     this.state = {
       menuOpen: false,
       countUnread: 0,
+      ranSum: false,
       notification: false,
       messages:[]
     };
 
   
     socket.on('message to user', messages =>{
-      this.setState({notification: true, messages:messages})
-      console.log('new message in header' , this.state.notification);
-      console.log('header messsages', this.state.messages);
+      this.setState({messages: messages})
+      console.log('hit with mnessage', this.state.notification);
     })
   }
 
-  async componentDidUpdate(pp){
-    if(pp.chatrooms === this.props.chatrooms){
-      // await this.props.getUser()
-      this.render()
-    }
+
+
+  componentDidMount() {
+    this._isMounted = true;
   }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  
+  // async componentDidUpdate(pp){
+  //   if(pp.chatrooms === this.props.chatrooms){
+  //     // await this.props.getUser()
+  //     this.render()
+  //   }
+  // }
 
   flipMenu=()=>{
     this.setState({menuOpen: !this.state.menuOpen})
@@ -46,43 +58,54 @@ class Header extends React.Component {
   setNotificationFalse = () => {
     this.setState({notification: false})
   }
+  setNotificationF = () => {
+    this.setState({notification: 'f'})
+  }
 
   openMenu = () => {
+    if (this._isMounted) {
     this.setState({
       menuOpen: true
     });
+  }
   };
 
   closeMenu = () => {
+    if (this._isMounted) {
     this.setState({
       menuOpen: !this.state.menuOpen
     });
+  }
   };
 
   redirect = () => {
     return <Redirect />;
   };
 
-  getSumUnread = async () => {
-    console.log("hit summmmmm");
-
-   await this.props.getUsersChatrooms();
-    let sum = this.props.chatrooms.reduce((acc, v) => {
-      const value = v.unread_messages;
-      return +acc + +value;
-    }, []);
-    this.setState({ countUnread: sum });
-    console.log(this.state, sum);
-  };
+  // getSumUnread = () => {
+  //   this.setState({ ranSum: true });
+  //   if(!this.props.chatrooms){
+  //     this.props.getUsersChatrooms();
+  //   }
+   
+  //   this.setState({ countUnread: sum });
+    
+  // };
 
 
 
   render() {
-    // let countUnread =  this.checkForChatrooms()
-    
-      // console.log('sttttattttttettttt',countUnread);
+    if(this.props.chatrooms && window.location.hash !== '#/login' ) {
+      if(this.state.notification === false){
+        this.setState({notification:true})
+      }
+      var sum = this.props.chatrooms.reduce((acc, v) => {
+      let value = v.unread_messages;
+      return +acc + +value;
+    }, 0);
+      }
+    console.log(sum);
     console.log(this.props);
-    console.log(this.state);
     let { menuOpen } = this.state;
     return (
       <div className="header">
@@ -101,15 +124,17 @@ class Header extends React.Component {
         ) : (
           <div className="loggedin-header">
             <div className="ham-note">
-              {this.state.notification === true 
-              && this.state.messages[this.state.messages.length-1].sender_id !== this.props.session.user.id ? (
+              {sum > 0 && this.props.chatrooms
+              && this.state.notification 
+              && this.state.notification !== 'f'
+              ? (
                 <div className="notification">!</div>
               ) : null}
             <i
               id="hamburger"
               className="fas fa-bars"
             onClick={()=> {
-              this.setNotificationFalse()
+              this.setNotificationF()
               this.flipMenu()}}
             />
             </div>
@@ -138,6 +163,7 @@ class Header extends React.Component {
                   onClick={() => {
                     this.closeMenu();
                     this.logout();
+                    this.setNotificationFalse()
                   }}
                   to="/login"
                 >
@@ -172,5 +198,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { logout, setChatRoom, getUsersChatrooms, getUser }
+  { logout, setChatRoom, getUsersChatrooms, getUser,  }
 )(Header);
