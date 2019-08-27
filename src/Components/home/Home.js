@@ -11,7 +11,7 @@ import { getDetails, getUser } from "../../ducks/reducers/sessionReducer";
 import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
 import "./home.css";
-import Geolocation from '../geloaction/Geolocation'
+import Geolocation from "../geloaction/Geolocation";
 
 class Home extends Component {
   constructor() {
@@ -21,7 +21,7 @@ class Home extends Component {
       defaultImage:
         "https://drive.google.com/uc?export=download&id=1aFe7FYaD-R0KMKuz9OePZ6bpduDsvZYC",
       latitude: "",
-      longitude: ""
+      longitude: "",
     };
   }
 
@@ -33,6 +33,7 @@ class Home extends Component {
     }
   }
 
+  
   async componentDidMount() {
     let { getPotentialMatches, getDetails, getUser } = this.props;
     await getUser();
@@ -43,6 +44,10 @@ class Home extends Component {
     this.setCompatability(this.props.potentialMatches);
   }
 
+  setLatAndLon = (arr) => {
+    this.setState({currentCardLat: arr.latitude, currentCardLong: arr.longitude})
+  }
+  
   setCompatability = arr => {
     for (let i = 0; i < arr.length; i++) {
       let user1 = this.props.details[0];
@@ -118,22 +123,39 @@ class Home extends Component {
     swipeRight(id);
   };
 
+
+  distance = (lat1, lon1, lat2, lon2, unit) => {
+    if ((lat1 == lat2) && (lon1 == lon2)) {
+      return 0;
+    }
+    else {
+      var radlat1 = Math.PI * lat1/180;
+      var radlat2 = Math.PI * lat2/180;
+      var theta = lon1-lon2;
+      var radtheta = Math.PI * theta/180;
+      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      dist = Math.acos(dist);
+      dist = dist * 180/Math.PI;
+      dist = dist * 60 * 1.1515;
+      if (unit=="K") { dist = dist * 1.609344 }
+      if (unit=="N") { dist = dist * 0.8684 }
+      return dist;
+    }
+  }
+
+
   handleLocation = async () => {
     await this.setState({
       latitude: this.props.coords.latitude,
       longitude: this.props.coords.longitude
     });
-    console.log(
-      "hit handlelocation",
-      this.state.latitude,
-      this.state.longitude
-    );
   };
 
   render() {
-    console.log("chatroom", this.props.chatRoom);
     if (this.props.chatRoom !== 0) {
-      console.log('hit redirect',this.props.chatRoom);
       return <Redirect to={`/chat/${this.props.chatRoom}`} />;
     }
     if (!this.props.user.id) {
@@ -153,19 +175,20 @@ class Home extends Component {
       <div>
         <Geolocation
         handleLocation = {this.handleLocation}
-        />
+         />
         <CardWrapper addEndCard={this.getEndCard.bind(this)}>
           {compatable
             .filter(prof => this.props.details[0].gender_pref === prof.gender)
             .map(profile => {
               return (
                 <Card
-                  style={cardStyle}
-                  key={`swipeId-${profile.user_id}`}
-                  onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
-                  onSwipeRight={() => this.onSwipeRight(profile.user_id)}
-                  id="card"
+                style={cardStyle}
+                key={`swipeId-${profile.user_id}`}
+                onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
+                onSwipeRight={() => this.onSwipeRight(profile.user_id)}
+                id="card"
                 >
+                {/* {this.setLatAndLon(profile)} */}
                   <div className="cover" />
                   <div className="card">
                     <img
@@ -189,6 +212,7 @@ class Home extends Component {
                       </div>
                     </div>
                   </div>
+                <div>{(Math.round(this.distance(+this.props.details[0].latitude, +this.props.details[0].longitude, +profile.latitude, +profile.longitude)*4)/4).toFixed(2)} Miles away</div>
                 </Card>
               );
             })}

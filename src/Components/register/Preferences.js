@@ -65,8 +65,8 @@ class Preferences extends Component {
   render() {
     let { ethnicity, religions, colors, age_min, age_max } = this.state;
     return (
-      <div className="register">
-        <div className="register_container">
+      <div className="register2">
+        <div className="register_container2">
           <div id="reg_text">
             <i class="fas fa-circle" id="circle" /> your preferences{" "}
             <i class="fas fa-circle" id="circle" />
@@ -83,7 +83,7 @@ class Preferences extends Component {
                 <input
                   className="age_input"
                   name="age_min"
-                  value=""
+                  value={age_min}
                   placeholder="Min Age"
                   onChange={this.handleChange}
                 />
@@ -92,7 +92,7 @@ class Preferences extends Component {
                   className="age_input"
                   id="max_age"
                   name="age_max"
-                  value=""
+                  value={age_max}
                   placeholder="Max Age"
                   onChange={this.handleChange}
                 />
@@ -191,9 +191,9 @@ class Preferences extends Component {
             </div>
 
             <div className="reg_buttons">
-              <Link to="/">
+              {/* <Link to="/">
                 <button className="skip-button">Skip</button>
-              </Link>
+              </Link> */}
               <Link to="/">
                 <button className="next-button" onClick={this.handleSubmit}>
                   Next

@@ -188,7 +188,7 @@ class About2 extends Component {
     } = this.state;
     return (
       <div className="register">
-        <div className="register_container">
+        <div className="register_container3">
           <div id="reg_text">
             <i class="fas fa-circle" id="circle" /> information about you{" "}
             <i class="fas fa-circle" id="circle" />
@@ -325,8 +325,8 @@ class About2 extends Component {
               />
 
               <div className="reg_buttons">
-                <Link to="/preferences">
-                  <button className="skip-button">Skip</button></Link>
+                {/* <Link to="/preferences">
+                  <button className="skip-button">Skip</button></Link> */}
                   <Link to="/preferences"><button className="next-button" onClick={this.handleSubmit}>
                     Next
                   </button>

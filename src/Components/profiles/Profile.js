@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./Profiles.css";
-// import { Carousel } from "react-responsive-carousel";
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultImg1: "https://drive.google.com/uc?export=download&id=1aFe7FYaD-R0KMKuz9OePZ6bpduDsvZYC",
+      defaultImg1:
+        "https://drive.google.com/uc?export=download&id=1aFe7FYaD-R0KMKuz9OePZ6bpduDsvZYC",
       editing: false,
       gender: this.props.profile.gender,
       religion: this.props.profile.religion,
@@ -72,22 +72,109 @@ export default class Profile extends Component {
   render() {
     let { profile } = this.props;
     let { defaultImg1, editing, races, religions } = this.state;
+    let ints = [
+      profile.sports,
+      profile.arts,
+      profile.music,
+      profile.books,
+      profile.movies,
+      profile.outdoors,
+      profile.food,
+      profile.pets,
+      profile.netflix,
+      profile.traveling,
+      profile.tech,
+      profile.fashion,
+      profile.fitness,
+      profile.gaming,
+      profile.politics
+    ];
+    let interests = [];
+    if (ints[0] === true) {
+      interests.push("sports");
+    }
+    if (ints[1] === true) {
+      interests.push("arts");
+    }
+    if (ints[2] === true) {
+      interests.push("music");
+    }
+    if (ints[3] === true) {
+      interests.push("books");
+    }
+    if (ints[4] === true) {
+      interests.push("movies");
+    }
+    if (ints[5] === true) {
+      interests.push("outdoors");
+    }
+    if (ints[6] === true) {
+      interests.push("food");
+    }
+    if (ints[7] === true) {
+      interests.push("pets");
+    }
+    if (ints[8] === true) {
+      interests.push("books");
+    }
+    if (ints[9] === true) {
+      interests.push("netflix");
+    }
+    if (ints[10] === true) {
+      interests.push("traveling");
+    }
+    if (ints[11] === true) {
+      interests.push("tech");
+    }
+    if (ints[12] === true) {
+      interests.push("fashion");
+    }
+    if (ints[13] === true) {
+      interests.push("fitness");
+    }
+    if (ints[14] === true) {
+      interests.push("gaming");
+    }
+    if (ints[15] === true) {
+      interests.push("politics");
+    }
     return (
       <div className="profile_box">
         <div>
           <div>
             <div className="carrousel">
-              <input type="radio" className="slides" id="radio-1" onChange={this.handleChange} checked />
-              <input type="radio" className="slides" id="radio-2" />
-              <input type="radio" className="slides" id="radio-3" />
-              <input type="radio" className="slides" id="radio-4" />
+              <input
+                type="radio"
+                className="slides"
+                name="profile"
+                id="radio-1"
+                checked
+              />
+              <input
+                type="radio"
+                className="slides"
+                name="profile"
+                id="radio-2"
+              />
+              <input
+                type="radio"
+                className="slides"
+                name="profile"
+                id="radio-3"
+              />
+              <input
+                type="radio"
+                className="slides"
+                name="profile"
+                id="radio-4"
+              />
               <ul className="slides">
                 <li className="slide">
                   <p>
                     <img
                       src={profile.image1 || defaultImg1}
                       className="profileImg"
-                      alt='none'
+                      alt="none"
                     />
                   </p>
                 </li>
@@ -96,7 +183,7 @@ export default class Profile extends Component {
                     <img
                       src={profile.image2 || defaultImg1}
                       className="profileImg"
-                      alt='none'
+                      alt="none"
                     />
                   </p>
                 </li>
@@ -105,7 +192,7 @@ export default class Profile extends Component {
                     <img
                       src={profile.image3 || defaultImg1}
                       className="profileImg"
-                      alt='none'
+                      alt="none"
                     />
                   </p>
                 </li>
@@ -114,7 +201,7 @@ export default class Profile extends Component {
                     <img
                       src={profile.image4 || defaultImg1}
                       className="profileImg"
-                      alt='none'
+                      alt="none"
                     />
                   </p>
                 </li>
@@ -256,6 +343,15 @@ export default class Profile extends Component {
               <div>Religion: {profile.religion}</div>
               <div>Ethnicity: {profile.ethnicity}</div>
               <div>Gender: {profile.gender}</div>
+            </div>
+            <p />
+            <div className="Profile_User">{profile.name}'s Interests</div>
+            <div className="Profile_Info_Short">
+              <div>
+                {interests.map(interest => {
+                  return <span>{interest}, </span>;
+                })}
+              </div>
             </div>
             {this.props.loggedIn ? (
               <div>
