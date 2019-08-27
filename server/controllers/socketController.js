@@ -1,11 +1,13 @@
 module.exports = {
     joinRoom(messages,roomid, socket, io) {
-        socket.join(+roomid);
-        io.in(+roomid).emit('login', messages);
+        socket.join(roomid);
+        io.in(roomid).emit('login', messages);
     },
      sendMessagesToRoom(messages, payload, io, socket) {
         const { message } = payload;
         io.emit('new message from sever', message, messages );
+        io.in(`${this.props.chatroom_id}`).emit('message to user', 'you got a new message');
+
     },
 
     async getChatroomMessages(req,res){
@@ -16,9 +18,11 @@ module.exports = {
     },
     
     async getUsersChatrooms(req, res){
+        console.log('hit controller');
         const db = req.app.get("db");
         let {id} = req.session.user
         let chatrooms = await db.get_users_chatrooms(+id)
+        console.log('XTRL CHATRRROOMS',chatrooms);
         res.send(chatrooms)
     },
 
