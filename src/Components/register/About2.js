@@ -325,8 +325,8 @@ class About2 extends Component {
               />
 
               <div className="reg_buttons">
-                <Link to="/preferences">
-                  <button className="skip-button">Skip</button></Link>
+                {/* <Link to="/preferences">
+                  <button className="skip-button">Skip</button></Link> */}
                   <Link to="/preferences"><button className="next-button" onClick={this.handleSubmit}>
                     Next
                   </button>

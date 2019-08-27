@@ -17,9 +17,9 @@ class Geolocation extends React.Component {
 
 
   handleLocation = async () => {
-    console.log('inlocation', this.props)
+    // console.log('inlocation', this.props)
     await this.setState({latitude: this.props.coords.latitude, longitude: this.props.coords.longitude})
-    console.log('hit handlelocation', this.state.latitude, this.state.longitude)
+    // console.log('hit handlelocation', this.state.latitude, this.state.longitude)
     this.props.setLocation(this.state.latitude, this.state.longitude)
   }
 

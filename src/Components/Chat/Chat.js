@@ -26,17 +26,17 @@ class Chat extends Component {
 
     this.sendMessage = this.sendMessage.bind(this);
 
-    socket.on("login", (messages, messageFromServer) => {
+    socket.on("login", messages => {
       this.setState({
         chatMessages: [...messages]
       });
     });
 
     // listen for message from server
-    socket.on("new message from sever", messages => {
+    socket.on("new message from sever", (messages, io) => {
       this.setState({
         chatMessages: [...messages]
-      });
+      })
     });
 
     this.sendMessage = this.sendMessage.bind(this);
