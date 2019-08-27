@@ -1,5 +1,5 @@
 import React from "react";
-import "./Header.css";
+import "./header.css";
 import io from "socket.io-client";
 import CheeseburgerMenu from "cheeseburger-menu";
 import { Link, Redirect } from "react-router-dom";
@@ -149,11 +149,11 @@ class Header extends React.Component {
                   <div className="hamburger-links">Home</div>
                 </Link>
                 <Link to="/current" onClick={this.closeMenu}>
-                  <div className="hamburger-links">Profile</div>
+                  <div className="hamburger-links" id='profile'>Profile</div>
                 </Link>
                 <Link to="/matches" onClick={this.closeMenu}>
                   <div className="matches-container">
-                    <div className="hamburger-links">Messaging</div>
+                    <div className="hamburger-links" id='messaging'>Messaging</div>
                     {this.state.countUnread !== 0 ? (
                       <div className="new_msg_inbox">{this.state.countUnread}</div>
                     ) : null}
