@@ -91,7 +91,7 @@ class Header extends React.Component {
                   <div className="hamburger-links">Home</div>
                 </Link>
                 <Link to="/current" onClick={this.closeMenu}>
-                  <div className="hamburger-links">Profile</div>
+                  <div className="hamburger-links" id="profile">Profile</div>
                 </Link>
                 <Link to="/matches" onClick={this.closeMenu}>
                   <div className="matches-container">
@@ -108,7 +108,7 @@ class Header extends React.Component {
                   }}
                   to="/login"
                 >
-                  <div className="hamburger-links">Logout</div>
+                  <div className="hamburger-links" id="logout">Logout</div>
                 </Link>
               </div>
             </CheeseburgerMenu>

@@ -68,7 +68,7 @@
 }
 
 .reg {
-  width: 90%
+  width: 90%;
 }
 
 #reg_text {
@@ -76,7 +76,7 @@
   font-size: 17pt;
   letter-spacing: 1pt;
   font-family: "Lexend Deca", sans-serif;
-  text-transform: uppercase
+  text-transform: uppercase;
 }
 
 .about_form {
@@ -142,7 +142,7 @@
 .verts {
   width: 100%;
   display: flex;
-  padding-top:5px;
+  padding-top: 5px;
   justify-content: center;
   padding-bottom: 7px;
 }
@@ -167,7 +167,6 @@ select {
 }
 
 .form_input {
-
   width: 90%;
   border: none;
   font-size: 13pt;
@@ -187,7 +186,7 @@ select {
 
 .form_input::placeholder {
   font-size: 13pt;
-  font-family: Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .about_line {
@@ -196,7 +195,6 @@ select {
   padding: 10px 0px;
 }
 .about_line1 {
-
   width: 100%;
   padding: 10px 0px 10px 0px;
 }
@@ -253,10 +251,8 @@ select {
 .reg_buttons {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center; 
-  margin: auto;
-  text-align: center;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .about-button {
@@ -297,9 +293,8 @@ select {
   font-family: Arial, Helvetica, sans-serif;
   text-align: justify;
   line-height: 18pt;
-  text-transform: capitalize
+  text-transform: capitalize;
 }
-
 
 .preferences_div {
   margin-top: 5px;
@@ -309,7 +304,7 @@ select {
 .skip-button:hover,
 .next-button:hover,
 .interests_button:hover {
-  background: rgb(0, 163, 128)
+  background: rgb(0, 163, 128);
 }
 
 .preferences_button {
@@ -353,7 +348,7 @@ select {
   width: 15px;
   height: 25px;
   border-radius: 45%;
-  background: #00C599;
+  background: #00c599;
   cursor: pointer;
 }
 
@@ -371,20 +366,22 @@ select {
     width: 100vw;
     margin: auto;
   }
-  .register_container, .register_container1, .register_container2 {
+  .register_container,
+  .register_container1,
+  .register_container2 {
     width: 75vw;
   }
-.register_container {
-  margin-top: 75px;
+  .register_container {
+    margin-top: 75px;
     margin-bottom: 50px;
-}
+  }
 
-  .register_container2  {
+  .register_container2 {
     margin-top: 10px;
     margin-bottom: 10px;
   }
 
-  .register_container3  {
+  .register_container3 {
     width: 75vw;
     margin-top: 250px;
     margin-bottom: 50px;
@@ -392,17 +389,20 @@ select {
 
   #reg_text {
     font-size: 16pt;
-    color: #01C59A;
-    letter-spacing: -.5pt;
+    color: #01c59a;
+    letter-spacing: -0.5pt;
   }
   #circle {
     display: none;
   }
-  .about_text, .about_text1 {
+  .about_text,
+  .about_text1 {
     width: 120px;
     font-size: 12pt;
   }
-  #height, #hair, #pref {
+  #height,
+  #hair,
+  #pref {
     font-size: 11pt;
   }
   .slider {

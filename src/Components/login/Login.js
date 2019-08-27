@@ -82,6 +82,7 @@ class Login extends Component {
                   }
                 }}
                 className="login_inputs"
+                id="password"
                 type="password"
                 placeholder="password"
                 name="password"

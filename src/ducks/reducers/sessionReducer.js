@@ -31,7 +31,7 @@ export const getDetails = (id) => {
 export const register = (name, email, password) => {
     let data = axios
     .post('/api/register', {name, email, password})
-    .then(res => res.data);
+    .then(res => res.data)
     return {
         type: REGISTER,
         payload: data
