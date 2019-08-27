@@ -14,6 +14,7 @@ module.exports = {
                 id: existingUser.user_id,
                 loggedIn: true
             };
+            console.log('created the sessionnnnn====================' ,req.session.user);
             res.send(req.session.user)
         } else res.status(401).send('Records not found')
     },

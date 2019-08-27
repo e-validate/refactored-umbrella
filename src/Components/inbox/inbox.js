@@ -27,7 +27,8 @@ class inbox extends Component {
   markAsRead = roomid => {
     axios
       .put(`/api/read/${roomid}`)
-      .then(res => res.data)
+      .then(res => {console.log(res.data)
+      return res.data})
       .catch(err => console.log("did not mark as read", err));
   };
 
@@ -51,6 +52,7 @@ class inbox extends Component {
         }
       }
     };
+    console.log(this.props);
     refresh();
     return this.props.chatrooms.map((room, i) => (
       <div key={i} className="inbox">
