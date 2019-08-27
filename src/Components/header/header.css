@@ -36,6 +36,30 @@ body {
   align-items: center
 }
 
+.ham-note{
+  position: relative;
+  width:300px;
+  height: 100% ;
+}
+
+.notification{
+  background: #00C59B;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 11px;
+
+  margin-left: 49px;
+  position: absolute;
+  top: 4px;
+  color: white;
+  font-weight: bolder;
+  font-size: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
 .header-container > div {
   width: 100%;
   /* background: green; */
@@ -68,7 +92,10 @@ body {
 }
 
 #hamburger {
+  position: relative;
+  top:23px;
   margin-left: 25px;
+  float:left;
   font-size: 30px;
   color: #00c59a;
 }

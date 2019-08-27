@@ -10,7 +10,7 @@ import {
 import { getDetails, getUser } from "../../ducks/reducers/sessionReducer";
 import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
-import "./Home.css";
+import "./home.css";
 import Geolocation from '../geloaction/Geolocation'
 
 class Home extends Component {
@@ -175,7 +175,7 @@ class Home extends Component {
                     />
                     <div className="lower">
                       <div>
-                        <i class="fas fa-meh fa-3x" id="meh"></i>
+                        <i className="fas fa-meh fa-3x" id="meh"></i>
                       </div>
                       <div>
                         <span className="home_profile_name">
@@ -185,7 +185,7 @@ class Home extends Component {
                         <span className="home_profile_age">{profile.age} </span>
                       </div>
                       <div>
-                        <i class="fas fa-grin-hearts fa-3x" id="like"></i>
+                        <i className="fas fa-grin-hearts fa-3x" id="like"></i>
                       </div>
                     </div>
                   </div>

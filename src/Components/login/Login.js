@@ -6,6 +6,7 @@ import "./login.css";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
+import {getUsersChatrooms} from '../../ducks/reducers/messageReducer'
 
 class Login extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class Login extends Component {
       this.resetInput();
       this.props.setChatRoom();
     });
+    this.props.getUsersChatrooms()
   };
 
   render() {
@@ -108,5 +110,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { login, setChatRoom, getUser }
+  { login, setChatRoom, getUser, getUsersChatrooms }
 )(Login);

@@ -45,6 +45,7 @@ export const getUnreadMessages = chatroom_id => {
 };
 
 export const getUsersChatrooms = () => {
+  console.log('hit reducer');
   let data = axios.get(`/api/matches`).then(res => res.data);
   return {
     type: GET_USERS_CHATROOMS,
