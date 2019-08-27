@@ -138,7 +138,7 @@ a {
   text-decoration: none;
 }
 
-.hamburger-links:hover {
+.hamburger-links:hover, .matches-container:hover {
   background: #efefefe0;
   color: black;
 }
