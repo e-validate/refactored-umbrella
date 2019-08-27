@@ -26,29 +26,31 @@ class Geolocation extends React.Component {
 
     render() {
         return !this.props.isGeolocationAvailable ? (
-          Toastify({
-            text: "Username or Password incorrect",
-            duration: 3000,
-            transition: "bounce",
-            newWindow: true,
-            close: true,
-            position: "top-center",
-            backgroundColor: "linear-gradient(to right, #d1345b, #383838)",
-            stopOnFocus: true,
-            onClick: function() {}
-          }).showToast()
+          // Toastify({
+          //   text: "Username or Password incorrect",
+          //   duration: 3000,
+          //   transition: "bounce",
+          //   newWindow: true,
+          //   close: true,
+          //   position: "top-center",
+          //   backgroundColor: "linear-gradient(to right, #d1345b, #383838)",
+          //   stopOnFocus: true,
+          //   onClick: function() {}
+          // }).showToast()
+          alert("No location available")
         ) : !this.props.isGeolocationEnabled ? (
-            Toastify({
-             text: "Geolocation is no enables",
-             duration: 3000,
-             transition: "bounce",
-             newWindow: true,
-             close: true,
-             position: "top-center",
-             backgroundColor: "linear-gradient(to right, #d1345b,     #383838)",
-             stopOnFocus: true,
-             onClick: function() {}
-                  }).showToast()
+            // Toastify({
+            //  text: "Geolocation is no enables",
+            //  duration: 3000,
+            //  transition: "bounce",
+            //  newWindow: true,
+            //  close: true,
+            //  position: "top-center",
+            //  backgroundColor: "linear-gradient(to right, #d1345b,     #383838)",
+            //  stopOnFocus: true,
+            //  onClick: function() {}
+                  // }).showToast()
+                  alert("Location not enabled")
         ) : this.props.coords ? (
           <button onClick={() => {this.handleLocation()
           }}>Get Location</button>
