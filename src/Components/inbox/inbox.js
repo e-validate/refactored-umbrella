@@ -38,12 +38,13 @@ class inbox extends Component {
         }
       }
     };
-    console.log(this.props);
+    console.log("inChatRoom", this.props);
     refresh();
 
     return this.props.chatrooms.map(
       (room, i) => (
           <div key={i} className="inbox">
+            {console.log("rooms", room)}
             <div className="inbox-left">
                 <Link to={`/profile/${room.swiped_id}`}><img className="inbox-left" src={room.image1} alt='none'/></Link>
               <Link 
