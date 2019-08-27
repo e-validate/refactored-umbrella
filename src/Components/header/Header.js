@@ -6,13 +6,15 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout, getUser } from "./../../ducks/reducers/sessionReducer";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
-import { getUsersChatrooms, getChatroomMessages } from "../../ducks/reducers/messageReducer";
-import axios from 'axios'
+import {
+  getUsersChatrooms,
+  getChatroomMessages
+} from "../../ducks/reducers/messageReducer";
+import axios from "axios";
 const socket = io.connect("http://localhost:4000");
 
-
 class Header extends React.Component {
-  _isMounted = false
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -20,17 +22,14 @@ class Header extends React.Component {
       countUnread: 0,
       ranSum: false,
       notification: false,
-      messages:[]
+      messages: []
     };
 
-  
-    socket.on('message to user', messages =>{
-      this.setState({messages: messages})
-      console.log('hit with mnessage', this.state.notification);
-    })
+    socket.on("message to user", messages => {
+      this.setState({ messages: messages });
+      console.log("hit with mnessage", this.state.notification);
+    });
   }
-
-
 
   componentDidMount() {
     this._isMounted = true;
@@ -39,7 +38,6 @@ class Header extends React.Component {
     this._isMounted = false;
   }
 
-  
   // async componentDidUpdate(pp){
   //   if(pp.chatrooms === this.props.chatrooms){
   //     // await this.props.getUser()
@@ -47,35 +45,35 @@ class Header extends React.Component {
   //   }
   // }
 
-  flipMenu=()=>{
-    this.setState({menuOpen: !this.state.menuOpen})
-  }
+  flipMenu = () => {
+    this.setState({ menuOpen: !this.state.menuOpen });
+  };
 
   logout = () => {
     this.props.logout();
   };
 
   setNotificationFalse = () => {
-    this.setState({notification: false})
-  }
+    this.setState({ notification: false });
+  };
   setNotificationF = () => {
-    this.setState({notification: 'f'})
-  }
+    this.setState({ notification: "f" });
+  };
 
   openMenu = () => {
     if (this._isMounted) {
-    this.setState({
-      menuOpen: true
-    });
-  }
+      this.setState({
+        menuOpen: true
+      });
+    }
   };
 
   closeMenu = () => {
     if (this._isMounted) {
-    this.setState({
-      menuOpen: !this.state.menuOpen
-    });
-  }
+      this.setState({
+        menuOpen: !this.state.menuOpen
+      });
+    }
   };
 
   redirect = () => {
@@ -87,23 +85,21 @@ class Header extends React.Component {
   //   if(!this.props.chatrooms){
   //     this.props.getUsersChatrooms();
   //   }
-   
+
   //   this.setState({ countUnread: sum });
-    
+
   // };
 
-
-
   render() {
-    if(this.props.chatrooms && window.location.hash !== '#/login' ) {
-      if(this.state.notification === false){
-        this.setState({notification:true})
+    if (this.props.chatrooms && window.location.hash !== "#/login") {
+      if (this.state.notification === false) {
+        this.setState({ notification: true });
       }
       var sum = this.props.chatrooms.reduce((acc, v) => {
-      let value = v.unread_messages;
-      return +acc + +value;
-    }, 0);
-      }
+        let value = v.unread_messages;
+        return +acc + +value;
+      }, 0);
+    }
     console.log(sum);
     console.log(this.props);
     let { menuOpen } = this.state;
@@ -124,23 +120,23 @@ class Header extends React.Component {
         ) : (
           <div className="loggedin-header">
             <div className="ham-note">
-              {sum > 0 && this.props.chatrooms
-              && this.state.notification 
-              && this.state.notification !== 'f'
-              ? (
+              {sum > 0 &&
+              this.props.chatrooms &&
+              this.state.notification &&
+              this.state.notification !== "f" ? (
                 <div className="notification">!</div>
               ) : null}
-            <i
-              id="hamburger"
-              className="fas fa-bars"
-            onClick={()=> {
-              this.setNotificationF()
-              this.flipMenu()}}
-            />
+              <i
+                id="hamburger"
+                className="fas fa-bars"
+                onClick={() => {
+                  this.setNotificationF();
+                  this.flipMenu();
+                }}
+              />
             </div>
             <CheeseburgerMenu
               isOpen={menuOpen}
-              
               closeCallback={this.closeMenu}
               width={250}
             >
@@ -149,13 +145,17 @@ class Header extends React.Component {
                   <div className="hamburger-links">Home</div>
                 </Link>
                 <Link to="/current" onClick={this.closeMenu}>
-                  <div className="hamburger-links" id="profile">Profile</div>
+                  <div className="hamburger-links" id="profile">
+                    Profile
+                  </div>
                 </Link>
                 <Link to="/matches" onClick={this.closeMenu}>
                   <div className="matches-container">
                     <div className="hamburger-links">Messaging</div>
                     {this.state.countUnread !== 0 ? (
-                      <div className="new_msg_inbox">{this.state.countUnread}</div>
+                      <div className="new_msg_inbox">
+                        {this.state.countUnread}
+                      </div>
                     ) : null}
                   </div>
                 </Link>
@@ -163,15 +163,17 @@ class Header extends React.Component {
                   onClick={() => {
                     this.closeMenu();
                     this.logout();
-                    this.setNotificationFalse()
+                    this.setNotificationFalse();
                   }}
                   to="/login"
                 >
-                  <div className="hamburger-links" id="logout">Logout</div>
+                  <div className="hamburger-links" id="logout">
+                    Logout
+                  </div>
                 </Link>
               </div>
             </CheeseburgerMenu>
-            
+
             <div className="logo_container">
               <header className="main_header">
                 Refactored <br /> Umbrella
@@ -198,5 +200,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { logout, setChatRoom, getUsersChatrooms, getUser,  }
+  { logout, setChatRoom, getUsersChatrooms, getUser }
 )(Header);
