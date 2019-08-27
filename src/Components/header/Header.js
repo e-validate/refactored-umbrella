@@ -1,5 +1,5 @@
 import React from "react";
-import "./Header.css";
+import "./header.css";
 import io from "socket.io-client";
 import CheeseburgerMenu from "cheeseburger-menu";
 import { Link, Redirect } from "react-router-dom";
