@@ -41,21 +41,18 @@ class inbox extends Component {
         }
       }
     };
-    console.log(this.props);
+    console.log("inChatRoom", this.props);
     refresh();
 
-    return this.props.chatrooms.map((room, i) => (
-      <div key={i} className="inbox">
-        <div className="inbox-left">
-          <Link to={`/profile/${room.swiped_id}`}>
-            <img className="inbox-left" src={room.image1} alt="Potential Match"/>
-          </Link>
-          <Link
-            onClick={() => this.markAsRead(room.chatroom_id)}
-            className="match-name-preview"
-            to={`/chat/${room.chatroom_id}`}
-          >
-            {room.unread_messages !== 0 ? (
+    return this.props.chatrooms.map(
+      (room, i) => (
+          <div key={i} className="inbox">
+            {console.log("rooms", room)}
+            <div className="inbox-left">
+                <Link to={`/profile/${room.swiped_id}`}><img className="inbox-left" src={room.image1} alt='none'/></Link>
+              <Link 
+              
+              to={`/chat/${room.chatroom_id}`}>
               <div className="new_msg">{room.unread_messages} new messages</div>
             ) : null}
           </Link>

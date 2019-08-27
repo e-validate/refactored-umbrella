@@ -148,7 +148,7 @@ export default class Profile extends Component {
                 className="slides"
                 name="profile"
                 id="radio-1"
-                checked
+                // checked
               />
               <input
                 type="radio"
@@ -327,7 +327,7 @@ export default class Profile extends Component {
               <div className="Border" />
               <div className="Edit_Btns">
                 <button onClick={this.handleSubmit}>Save Changes</button>
-                <button onClick={this.flipEdit}>Cancel</button>
+                <button onClick={this.flipEdit} id="cancel_btn">Cancel</button>
               </div>
             </div>
           </div>
@@ -356,7 +356,7 @@ export default class Profile extends Component {
             {this.props.loggedIn ? (
               <div>
                 <div className="Border" />
-                <button onClick={this.flipEdit}>edit profile</button>
+                <button onClick={this.flipEdit} id="edit_btn">edit profile</button>
               </div>
             ) : (
               <div />
