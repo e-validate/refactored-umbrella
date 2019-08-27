@@ -125,7 +125,7 @@ class Home extends Component {
 
 
   distance = (lat1, lon1, lat2, lon2, unit) => {
-    if ((lat1 == lat2) && (lon1 == lon2)) {
+    if ((lat1 === lat2) && (lon1 === lon2)) {
       return 0;
     }
     else {
@@ -140,8 +140,8 @@ class Home extends Component {
       dist = Math.acos(dist);
       dist = dist * 180/Math.PI;
       dist = dist * 60 * 1.1515;
-      if (unit=="K") { dist = dist * 1.609344 }
-      if (unit=="N") { dist = dist * 0.8684 }
+      if (unit==="K") { dist = dist * 1.609344 }
+      if (unit==="N") { dist = dist * 0.8684 }
       return dist;
     }
   }
@@ -213,7 +213,11 @@ class Home extends Component {
                       </div>
                     </div>
                   </div>
-                <div>{(Math.round(this.distance(+this.props.details[0].latitude, +this.props.details[0].longitude, +profile.latitude, +profile.longitude)*4)/4).toFixed(2)} Miles away</div>
+                <div>{profile.latitude ? (
+                  (Math.round(this.distance(+this.props.details[0].latitude, +this.props.details[0].longitude, +profile.latitude, +profile.longitude)*4)/4).toFixed(2) + ' miles away'
+                ) : (
+                  null
+                )}</div>
                 </Card>
               );
             })}
