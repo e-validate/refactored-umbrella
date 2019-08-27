@@ -6,8 +6,10 @@ import "./login.css";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
+import {getUsersChatrooms} from '../../ducks/reducers/messageReducer'
 
 class Login extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +17,15 @@ class Login extends Component {
       password: ""
     };
   }
+
+  componentDidMount() {
+    this._isMounted = true;
+    console.log(this._isMounted, this.props);
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  
 
   handleChange = e => {
     this.setState({
@@ -30,7 +41,14 @@ class Login extends Component {
   };
 
   login = () => {
-    this.props.login(this.state.email, this.state.password).catch(() => {
+    Promise.resolve(this.props.login(this.state.email, this.state.password))
+    .then(() => {
+      console.log('hittttt');
+      let data = this.props.getUsersChatrooms()
+      console.log(data);
+      return data
+    })
+    .catch(() => {
       Toastify({
         text: "Username or Password incorrect",
         duration: 3000,
@@ -45,6 +63,7 @@ class Login extends Component {
       this.resetInput();
       this.props.setChatRoom();
     });
+
   };
 
   render() {
@@ -52,6 +71,7 @@ class Login extends Component {
     let { user } = this.props;
     if (user.id) return <Redirect to="/" />;
     return (
+
       <div className="login">
         <div className="login_container">
           <div className="login_left" />
@@ -89,7 +109,7 @@ class Login extends Component {
                 value={password}
                 onChange={this.handleChange}
               />
-              <button className="login_button" onClick={this.login}>
+              <button className="login_button" onClick={()=>this.login()}>
                 Login
               </button>
               <Link to="/register" className="link_to_register">
@@ -109,5 +129,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { login, setChatRoom, getUser }
+  { login, setChatRoom, getUser, getUsersChatrooms }
 )(Login);

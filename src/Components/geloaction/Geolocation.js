@@ -17,27 +17,28 @@ class Geolocation extends React.Component {
 
 
   handleLocation = async () => {
-    console.log('inlocation', this.props)
+    // console.log('inlocation', this.props)
     await this.setState({latitude: this.props.coords.latitude, longitude: this.props.coords.longitude})
-    console.log('hit handlelocation', this.state.latitude, this.state.longitude)
+    // console.log('hit handlelocation', this.state.latitude, this.state.longitude)
     this.props.setLocation(this.state.latitude, this.state.longitude)
   }
 
 
     render() {
-        return !this.props.isGeolocationAvailable ? (<div/>
-        //   Toastify({
-        //     text: "Username or Password incorrect",
-        //     duration: 3000,
-        //     transition: "bounce",
-        //     newWindow: true,
-        //     close: true,
-        //     position: "top-center",
-        //     backgroundColor: "linear-gradient(to right, #d1345b, #383838)",
-        //     stopOnFocus: true,
-        //     onClick: function() {}
-        //   }).showToast()
-        ) : !this.props.isGeolocationEnabled ? (<div/>
+        return !this.props.isGeolocationAvailable ? (
+          // Toastify({
+          //   text: "Username or Password incorrect",
+          //   duration: 3000,
+          //   transition: "bounce",
+          //   newWindow: true,
+          //   close: true,
+          //   position: "top-center",
+          //   backgroundColor: "linear-gradient(to right, #d1345b, #383838)",
+          //   stopOnFocus: true,
+          //   onClick: function() {}
+          // }).showToast()
+          alert("No location available")
+        ) : !this.props.isGeolocationEnabled ? (
             // Toastify({
             //  text: "Geolocation is no enables",
             //  duration: 3000,
@@ -48,7 +49,8 @@ class Geolocation extends React.Component {
             //  backgroundColor: "linear-gradient(to right, #d1345b,     #383838)",
             //  stopOnFocus: true,
             //  onClick: function() {}
-            //       }).showToast()
+                  // }).showToast()
+                  alert("Location not enabled")
         ) : this.props.coords ? (
           <button onClick={() => {this.handleLocation()
           }}>Get Location</button>
