@@ -61,8 +61,9 @@ export const deleteFavorite = (swiped_id) => {
   return {
     type: DELETE_FAVORITE,
     payload: data
-  };
-};
+  }
+}
+
 
 export const addFavorite = (swiped_id) => {
   let data = axios.post(`/api/addFavorite/${swiped_id}`)

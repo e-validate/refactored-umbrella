@@ -11,6 +11,7 @@ import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
 import axios from "axios";
 
+
 class inbox extends Component {
   constructor() {
     super();
@@ -32,16 +33,12 @@ class inbox extends Component {
 
   deleteFavorite = (swiped_id) => {
       this.props.deleteFavorite(swiped_id)
-      this.setState({
-        isFavorite: false
-      })
+      this.setState({isFavorite: false})
   }
 
   addFavorite = (swiped_id) => {
       this.props.addFavorite(swiped_id)
-      this.setState({
-        isFavorite: true
-      })
+      this.setState({isFavorite: true})
     }
 
   render() {
@@ -75,13 +72,13 @@ class inbox extends Component {
             className="picture-buttons"
             alt="none"
           >
-            <h3 className="match-name-preview"></h3>
+            <h3 className="match-name-preview">Inbox</h3>
             {console.log(room)}
           </Link>
-            {
-              isFavorite ? <i className="fas fa-heart" id='favorite-button' onClick={() => this.addFavorite(room.swiped_id)} style={{cursor: 'pointer', color: 'black'}}></i> :
-              <i className="fas fa-heart" id='favorite-button' onClick={() => this.deleteFavorite(room.swiped_id)} style={{cursor: 'pointer', color: 'red'}}></i>
-            }
+          {
+            !isFavorite ? <i className="fas fa-heart" id='favorite-button' onClick={() => this.addFavorite(room.swiped_id)} style={{cursor: 'pointer', color: 'black'}}></i> :
+            <i className="fas fa-heart" id='favorite-button' onClick={() => this.deleteFavorite(room.swiped_id)} style={{cursor: 'pointer', color: 'red'}}></i>
+          }
           </div>
       </div>
     ));
