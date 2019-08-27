@@ -54,7 +54,6 @@ class About extends Component {
 
   render() {
     let { colors, numbers, age, image1, image2, image3, image4 } = this.state;
-    console.log('props', this.props)
     return (
       <div className="register">
         <div className="register_container">

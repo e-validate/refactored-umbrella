@@ -28,7 +28,6 @@ export const saveMessage = (chatroom_id, content) => {
 
 export const getChatroomMessages = chatroom_id => {
   let data = axios.get(`/api/messages/${chatroom_id}`).then(res => {
-    console.log('results from controller axios call getting messages',res.data);
     return res.data});
   return {
     type: GET_CHATROOM_MESSAGES,
@@ -47,9 +46,7 @@ export const getUnreadMessages = chatroom_id => {
 };
 
 export const getUsersChatrooms = () => {
-  console.log('hittt guc');
   let data = axios.get(`/api/matches`).then(res => {
-    console.log('results from controller axios call getting chatrooms',res.data);
     return res.data});
   return {
     type: GET_USERS_CHATROOMS,

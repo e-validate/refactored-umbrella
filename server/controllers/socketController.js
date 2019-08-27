@@ -30,7 +30,6 @@ module.exports = {
     const db = req.app.get("db");
     let { chatroom_id } = req.params;
     let { id } = req.session.user;
-    console.log('reqssss',req.params, req.session);
     await db.switch_to_read([+chatroom_id, +id]);
 
     res.sendStatus(200);

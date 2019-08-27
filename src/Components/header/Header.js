@@ -27,7 +27,6 @@ class Header extends React.Component {
 
     socket.on("message to user", messages => {
       this.setState({ messages: messages });
-      console.log("hit with mnessage", this.state.notification);
     });
   }
 
@@ -100,8 +99,6 @@ class Header extends React.Component {
         return +acc + +value;
       }, 0);
     }
-    console.log(sum);
-    console.log(this.props);
     let { menuOpen } = this.state;
     return (
       <div className="header">
