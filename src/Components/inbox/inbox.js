@@ -4,7 +4,8 @@ import { getUser } from "../../ducks/reducers/sessionReducer";
 import {
   getUsersChatrooms,
   getChatroomMessages,
-  getUnreadMessages
+  getUnreadMessages,
+  deleteChatroom
 } from "../../ducks/reducers/messageReducer";
 import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
@@ -24,8 +25,10 @@ class inbox extends Component {
   markAsRead = roomid => {
     axios
       .put(`/api/read/${roomid}`)
-      .then(res => {console.log(res.data)
-      return res.data})
+      .then(res => {
+        console.log(res.data);
+        return res.data;
+      })
       .catch(err => console.log("did not mark as read", err));
   };
 
@@ -49,22 +52,27 @@ class inbox extends Component {
               
               to={`/chat/${room.chatroom_id}`}>
               <div className="new_msg">{room.unread_messages} new messages</div>
-              </Link>
-            </div>
-            <div className="inbox-right">
-              <Link
-              
-                to={`/chat/${room.chatroom_id}`}
-                src={room.image1}
-                className="picture-buttons"
-                alt="none"
-              >
-                <h3 onClick={()=>this.markAsRead(room.chatroom_id)} className="match-name-preview">{room.name}View Messages</h3>
-              </Link>
-            </div>
-          </div>
-      )
-    )
+            ) : null}
+          </Link>
+        </div>
+        <div className="inbox-right">
+          <Link
+            to={`/chat/${room.chatroom_id}`}
+            src={room.image1}
+            className="picture-buttons"
+            alt="none"
+          >
+            <h3
+              onClick={() => this.markAsRead(room.chatroom_id)}
+              className="match-name-preview"
+            >
+              {room.name}View Messages
+            </h3>
+          </Link>
+        </div>
+          <button onClick={()=>this.props.deleteChatroom(room.chatroom_id)}>Remove Match</button>
+      </div>
+    ));
   }
 }
 function mapStateToProps(state) {
@@ -78,5 +86,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getUser, getUsersChatrooms, getChatroomMessages, getUnreadMessages }
+  { getUser, getUsersChatrooms, getChatroomMessages, getUnreadMessages, deleteChatroom }
 )(inbox);

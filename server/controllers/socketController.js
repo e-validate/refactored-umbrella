@@ -26,6 +26,14 @@ module.exports = {
     res.send(chatrooms);
   },
 
+  async deleteChatroom(req, res){
+    const db = req.app.get("db");
+    let {chatroom_id} = req.params 
+    await db.delete_chatroom([+chatroom_id])
+    let chatrooms = await db.get_users_chatrooms([req.session.user.id])
+    res.send(chatrooms);
+  },
+
   async switchToRead(req, res) {
     const db = req.app.get("db");
     let { chatroom_id } = req.params;
@@ -34,5 +42,10 @@ module.exports = {
 
     res.sendStatus(200);
   },
+
+  deleteMessage(messages, roomid, io){
+    io.in(roomid).emit("login", messages);
+  },
+
   leaveRoom() {}
 };
