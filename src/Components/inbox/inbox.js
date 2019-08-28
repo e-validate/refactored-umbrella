@@ -51,8 +51,9 @@ class inbox extends Component {
               <Link 
               
               to={`/chat/${room.chatroom_id}`}>
+                {room.unread_messages !== 0 ?
               <div className="new_msg">{room.unread_messages} new messages</div>
-            ) : null}
+             : null}
           </Link>
         </div>
         <div className="inbox-right">
