@@ -5,8 +5,8 @@ import {
   getUsersChatrooms,
   getChatroomMessages,
   getUnreadMessages,
-  addFavorite,
-  deleteFavorite} from "../../ducks/reducers/messageReducer";
+  deleteChatroom
+} from "../../ducks/reducers/messageReducer";
 import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
 import axios from "axios";
@@ -27,8 +27,10 @@ class inbox extends Component {
   markAsRead = roomid => {
     axios
       .put(`/api/read/${roomid}`)
-      .then(res => {console.log(res.data)
-      return res.data})
+      .then(res => {
+        console.log(res.data);
+        return res.data;
+      })
       .catch(err => console.log("did not mark as read", err));
   };
 
@@ -52,7 +54,6 @@ class inbox extends Component {
         }
       }
     };
-    console.log(this.props);
     refresh();
     return this.props.chatrooms.map((room, i) => (
       <div key={i} className="inbox">
@@ -74,14 +75,15 @@ class inbox extends Component {
             className="picture-buttons"
             alt="none"
           >
-            <h3 className="match-name-preview">Inbox</h3>
-            {console.log(room)}
+            <h3
+              onClick={() => this.markAsRead(room.chatroom_id)}
+              className="match-name-preview"
+            >
+              {room.name}View Messages
+            </h3>
           </Link>
-          {
-            !isFavorite ? <i className="fas fa-heart" id='favorite-button' onClick={() => this.addFavorite(room.swiped_id)} style={{cursor: 'pointer', color: 'black'}}></i> :
-            <i className="fas fa-heart" id='favorite-button' onClick={() => this.deleteFavorite(room.swiped_id)} style={{cursor: 'pointer', color: 'red'}}></i>
-          }
-          </div>
+        </div>
+          <button onClick={()=>this.props.deleteChatroom(room.chatroom_id)}>Remove Match</button>
       </div>
     ));
   }
@@ -98,5 +100,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getUser, getUsersChatrooms, getChatroomMessages, getUnreadMessages, addFavorite, deleteFavorite }
+  { getUser, getUsersChatrooms, getChatroomMessages, getUnreadMessages, deleteChatroom }
 )(inbox);

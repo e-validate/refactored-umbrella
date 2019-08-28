@@ -25,10 +25,10 @@ class Header extends React.Component {
       messages: []
     };
 
-    socket.on("message to user", messages => {
-      this.setState({ messages: messages });
-      console.log("hit with mnessage", this.state.notification);
-    });
+  
+    socket.on('message to user', messages =>{
+      this.setState({messages: messages})
+    })
   }
 
   componentDidMount() {
@@ -38,16 +38,9 @@ class Header extends React.Component {
     this._isMounted = false;
   }
 
-  // async componentDidUpdate(pp){
-  //   if(pp.chatrooms === this.props.chatrooms){
-  //     // await this.props.getUser()
-  //     this.render()
-  //   }
-  // }
-
-  flipMenu = () => {
-    this.setState({ menuOpen: !this.state.menuOpen });
-  };
+  flipMenu=()=>{
+    this.setState({menuOpen: !this.state.menuOpen})
+  }
 
   logout = () => {
     this.props.logout();
@@ -80,28 +73,16 @@ class Header extends React.Component {
     return <Redirect />;
   };
 
-  // getSumUnread = () => {
-  //   this.setState({ ranSum: true });
-  //   if(!this.props.chatrooms){
-  //     this.props.getUsersChatrooms();
-  //   }
-
-  //   this.setState({ countUnread: sum });
-
-  // };
-
   render() {
     if (this.props.chatrooms && window.location.hash !== "#/login") {
       if (this.state.notification === false) {
         this.setState({ notification: true });
       }
       var sum = this.props.chatrooms.reduce((acc, v) => {
-        let value = v.unread_messages;
-        return +acc + +value;
-      }, 0);
-    }
-    console.log(sum);
-    console.log(this.props);
+      let value = v.unread_messages;
+      return +acc + +value;
+    }, 0);
+      }
     let { menuOpen } = this.state;
     return (
       <div className="header">
@@ -151,11 +132,9 @@ class Header extends React.Component {
                 </Link>
                 <Link to="/matches" onClick={this.closeMenu}>
                   <div className="matches-container">
-                    <div className="hamburger-links" id='messaging'>Messaging</div>
-                    {this.state.countUnread !== 0 ? (
-                      <div className="new_msg_inbox">
-                        {this.state.countUnread}
-                      </div>
+                    <div className="hamburger-links">Messaging</div>
+                    {sum !== 0 ? (
+                      <div className="new_msg_inbox">{sum}</div>
                     ) : null}
                   </div>
                 </Link>
