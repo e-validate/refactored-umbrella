@@ -38,11 +38,7 @@ app.use(
 app.use(bodyParser());
 app.use(initSession);
 
-app.use( express.static( `${__dirname}/../build` ) )
 
-app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
 
 massive(CONNECTION_STRING)
   .then(db => {
@@ -128,5 +124,12 @@ app.get("/api/matchname/:chatroom_id", async (req, res) => {
   const db = req.app.get("db");
   let name = await db.get_match_name([+id, +chatroom_id]);
   res.send(name);
+});
+
+
+app.use( express.static( `${__dirname}/../build` ) )
+
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
