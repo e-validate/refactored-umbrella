@@ -23,6 +23,5 @@ const rootReducer = combineReducers({
 // export for redux dev tools, comment back out before hosting
 export default createStore(
   rootReducer,
-
     applyMiddleware(promiseMiddleware)
 );
