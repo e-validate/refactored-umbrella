@@ -79,11 +79,11 @@ class inbox extends Component {
               onClick={() => this.markAsRead(room.chatroom_id)}
               className="match-name-preview"
             >
-              {room.name}View Messages
+              View Messages
             </h3>
           </Link>
         </div>
-          <button onClick={()=>this.props.deleteChatroom(room.chatroom_id)}>Remove Match</button>
+          <button onClick={()=>this.props.deleteChatroom(room.chatroom_id)} id="remove">Remove Match</button>
       </div>
     ));
   }
