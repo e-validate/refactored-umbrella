@@ -131,6 +131,13 @@ user_appearance_counter int,
 user_details_counter int 
 );
 
+--favorites table
+
+CREATE TABLE user_favorite_chatrooms (
+user_favorite_chatrooms_id SERIAL PRIMARY KEY,
+user_id INT REFERENCES users(user_id),
+swiped_id INT REFERENCES users(user_id)
+); 
 
 
 

@@ -91,6 +91,10 @@
   color: #04dbac;
 }
 
+textarea {
+  font-size: 17pt;
+}
+
 .form_container {
   width: 100vw;
   display: flex;

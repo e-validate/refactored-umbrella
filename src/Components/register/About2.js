@@ -317,7 +317,7 @@ class About2 extends Component {
                 onChange={this.handleChange}
                 className="description"
                 // cols="67"
-                rows="10"
+                rows="7"
                 placeholder="Tell us about yourself"
                 name="description"
                 value={description}
