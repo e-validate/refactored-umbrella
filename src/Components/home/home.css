@@ -1,7 +1,6 @@
 .home_background_color {
   background: gray;
 }
-
 .block {
   position: absolute;
   height: 65vh;
@@ -18,7 +17,6 @@
   font-size: 14pt;
   font-style: italic;
 }
-
 .home_profile_image {
   margin-top: 20px;
   border-radius: 4px;
