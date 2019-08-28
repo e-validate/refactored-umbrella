@@ -1,7 +1,6 @@
 /* .home_background_color {
   background: gray;
 }
-
 .block {
   position: absolute;
   height: 65vh;
@@ -9,24 +8,19 @@
   top: 18%;
   z-index: 2;
 }
-
 .home_profile_name {
   font-size: 30px;
 }
-
 .home_profile_age {
   font-size: 18pt;
   font-style: italic;
 }
-
-
 .home_profile_image {
   margin-top: 20px;
   border-radius: 4px;
   height: 80%;
   width: 90%;
 } */
-
 
 .home_background_color {
   background: gray;
@@ -49,7 +43,6 @@
   font-style: italic;
 }
 
-
 .home_profile_image {
   margin-top: 20px;
   border-radius: 4px;
@@ -64,7 +57,7 @@
 
 #meh {
   color: rgb(67, 148, 134);
-  font-size: 30pt;  
+  font-size: 30pt;
 }
 
 .lower {
@@ -77,5 +70,5 @@
 .cover {
   position: absolute;
   width: 100%;
-  height: 100%
+  height: 100%;
 }
