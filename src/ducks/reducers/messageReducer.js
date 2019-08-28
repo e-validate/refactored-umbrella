@@ -87,14 +87,6 @@ export default function messageReducer(state = initialState, action) {
       return { ...state, chatrooms: payload };
     case GET_USERS_CHATROOMS + "_REJECTED":
       return { ...state, error: payload };
-    case ADD_FAVORITE + '_FULFILLED': 
-    return {...state, favorites: payload, error: false};
-    case ADD_FAVORITE + '_REJECTED': 
-    return {...state, error: payload};
-    case DELETE_FAVORITE + '_FULFILLED': 
-    return {...state, favorites: payload, error: false};
-    case DELETE_FAVORITE + '_REJECTED': 
-    return {...state, error: payload};
     default:
       return state;
   }
