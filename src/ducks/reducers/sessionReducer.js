@@ -18,6 +18,7 @@ export const login = (email, password) => {
     };
 };
 
+
 export const getDetails = (id) => {
     let data = axios
     .get(`/api/user/details/${id}`)

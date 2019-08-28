@@ -173,10 +173,9 @@ class Home extends Component {
     };
     return (
       <div>
-        
-        <Geolocation
+        {/* <Geolocation
         handleLocation = {this.handleLocation}
-         />
+        /> */}
         <CardWrapper addEndCard={this.getEndCard.bind(this)}>
           {compatable
             .filter(prof => this.props.details[0].gender_pref === prof.gender)
