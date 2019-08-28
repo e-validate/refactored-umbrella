@@ -3,7 +3,6 @@ module.exports = {
         const db = req.app.get('db')
         let {age, height_ft, height_in, hair_color, image1, image2, image3, image4 } = req.body
         let {id} = req.session.user
-        console.log('controller', id)
         let data = await db.users.add_user_appearance([age, height_ft, height_in, hair_color, image1, image2, image3 , image4, +id ])
         res.status(200).send(data);
     },

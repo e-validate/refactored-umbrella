@@ -199,7 +199,7 @@ class Home extends Component {
                     />
                     <div className="lower">
                       <div>
-                      <span class="icon-heart-broken" id="meh"></span>
+                      <span className="icon-heart-broken" id="meh"></span>
                       </div>
                       <div>
                         <span className="home_profile_name">
@@ -209,7 +209,7 @@ class Home extends Component {
                         <span className="home_profile_age">{profile.age} </span>
                       </div>
                       <div>
-                      <span class="icon-heart" id="like"></span>
+                      <span className="icon-heart" id="like"></span>
                       </div>
                     </div>
                   </div>
