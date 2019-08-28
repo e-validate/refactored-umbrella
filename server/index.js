@@ -4,9 +4,10 @@ const session = require("express-session");
 const massive = require("massive");
 const userController = require("./controllers/userController");
 const sessionController = require("./controllers/sessionController");
+const formController = require("./controllers/formController");
+const favoriteController = require('./controllers/favoritesController');
 const profileController = require("./controllers/profileController");
 const likeController = require("./controllers/likeController");
-const formController = require("./controllers/formController");
 const authmw = require("./middleware/authCheck");
 const initSession = require("./middleware/initSession");
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
@@ -59,16 +60,20 @@ app.post("/api/register", sessionController.register);
 app.delete("/api/logout", sessionController.logout);
 app.get("/api/user", authmw, sessionController.getUser);
 app.get("/api/user/details/:id", sessionController.getUserDetails);
+app.get('/api/username/:id', sessionController.getUserName);
 
-//form endpoints
-app.post("/api/addUserAppearance", formController.addUserAppearance);
-app.post(
-  "/api/addUserDetailsAndInterests",
-  formController.addUserDetailsAndInterests
-);
-app.post("/api/addPref", formController.addUserPreferences);
+//form endpoints 
+app.post('/api/addUserAppearance', formController.addUserAppearance);
+app.post('/api/addUserDetailsAndInterests', formController.addUserDetailsAndInterests);
+app.post('/api/addPref', formController.addUserPreferences);
+
 //edits profile
 app.put("/api/editUserProfile", formController.editUserProfile);
+
+//favorites
+app.delete('/api/deleteFavorite/:swipedId', favoriteController.deleteFavorite);
+app.post('/api/addFavorite/:swipedId', favoriteController.addFavorite);
+app.get('/api/favorites', favoriteController.getFavoriteChatrooms);
 
 // Like endPoints
 app.post("/api/swipe/left/:swipedId", likeController.dislike);

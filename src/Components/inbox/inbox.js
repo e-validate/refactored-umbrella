@@ -11,11 +11,13 @@ import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
 import axios from "axios";
 
+
 class inbox extends Component {
   constructor() {
     super();
     this.state = {
-      rooms: []
+      rooms: [],
+      isFavorite: false
     };
   }
   componentDidMount() {
@@ -32,7 +34,18 @@ class inbox extends Component {
       .catch(err => console.log("did not mark as read", err));
   };
 
+  deleteFavorite = (swiped_id) => {
+      this.props.deleteFavorite(swiped_id)
+      this.setState({isFavorite: false})
+  }
+
+  addFavorite = (swiped_id) => {
+      this.props.addFavorite(swiped_id)
+      this.setState({isFavorite: true})
+    }
+
   render() {
+    let {isFavorite} = this.state
     let refresh = async () => {
       if (!this.props.session.user.id) {
         await this.props.getUser();
@@ -42,18 +55,18 @@ class inbox extends Component {
       }
     };
     refresh();
-
-    return this.props.chatrooms.map(
-      (room, i) => (
-          <div key={i} className="inbox">
-            <div className="inbox-left">
-                <Link to={`/profile/${room.swiped_id}`}><img className="inbox-left" src={room.image1} alt='none'/></Link>
-              <Link 
-              
-              to={`/chat/${room.chatroom_id}`}>
-              <div className="new_msg">{room.unread_messages} new messages</div>
-            ) : null}
+    return this.props.chatrooms.map((room, i) => (
+      <div key={i} className="inbox">
+        <div className="inbox-left">
+        <Link to={`/profile/${room.swiped_id}`}><img className="inbox-left" src={room.image1} alt='none'/></Link>
+          <Link
+            onClick={() => this.markAsRead(room.chatroom_id)}
+            to={`/chat/${room.chatroom_id}`}
+          >
           </Link>
+          {room.unread_messages !== 0 ? (
+            <div className="new_msg">{room.unread_messages}</div>
+          ) : null}
         </div>
         <div className="inbox-right">
           <Link
@@ -66,11 +79,11 @@ class inbox extends Component {
               onClick={() => this.markAsRead(room.chatroom_id)}
               className="match-name-preview"
             >
-              {room.name}View Messages
+              View Messages
             </h3>
           </Link>
         </div>
-          <button onClick={()=>this.props.deleteChatroom(room.chatroom_id)}>Remove Match</button>
+          <button onClick={()=>this.props.deleteChatroom(room.chatroom_id)} id="remove">Remove Match</button>
       </div>
     ));
   }
@@ -80,7 +93,8 @@ function mapStateToProps(state) {
     session: state.session,
     chatrooms: state.messages.chatrooms,
     messages: state.messages.messages,
-    chatroomCount: state.messages.chatroomCount
+    chatroomCount: state.messages.chatroomCount,
+    favorites: state.messages.favorites
   };
 }
 

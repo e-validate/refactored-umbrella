@@ -41,5 +41,11 @@ module.exports = {
         const db = req.app.get('db')
         let data = await db.get_all_data_for_user(+id)
         res.send(data)
+    },
+    async getUserName(req, res) {
+        let {id} = req.params
+        const db = req.app.get('db')
+        let data = await db.users.get_user_name(+id)
+        res.status(200).send(data) 
     }
 }

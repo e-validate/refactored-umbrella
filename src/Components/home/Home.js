@@ -21,7 +21,7 @@ class Home extends Component {
       defaultImage:
         "https://drive.google.com/uc?export=download&id=1aFe7FYaD-R0KMKuz9OePZ6bpduDsvZYC",
       latitude: "",
-      longitude: "",
+      longitude: ""
     };
   }
 
@@ -33,7 +33,6 @@ class Home extends Component {
     }
   }
 
-  
   async componentDidMount() {
     let { getPotentialMatches, getDetails, getUser } = this.props;
     await getUser();
@@ -44,10 +43,13 @@ class Home extends Component {
     await this.setCompatability(this.props.potentialMatches);
   }
 
-  setLatAndLon = (arr) => {
-    this.setState({currentCardLat: arr.latitude, currentCardLong: arr.longitude})
-  }
-  
+  setLatAndLon = arr => {
+    this.setState({
+      currentCardLat: arr.latitude,
+      currentCardLong: arr.longitude
+    });
+  };
+
   setCompatability = arr => {
     for (let i = 0; i < arr.length; i++) {
       let user1 = this.props.details[0];
@@ -123,29 +125,32 @@ class Home extends Component {
     swipeRight(id);
   };
 
-
   distance = (lat1, lon1, lat2, lon2, unit) => {
-    if ((lat1 === lat2) && (lon1 === lon2)) {
+    if (lat1 === lat2 && lon1 === lon2) {
       return 0;
-    }
-    else {
-      var radlat1 = Math.PI * lat1/180;
-      var radlat2 = Math.PI * lat2/180;
-      var theta = lon1-lon2;
-      var radtheta = Math.PI * theta/180;
-      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    } else {
+      var radlat1 = (Math.PI * lat1) / 180;
+      var radlat2 = (Math.PI * lat2) / 180;
+      var theta = lon1 - lon2;
+      var radtheta = (Math.PI * theta) / 180;
+      var dist =
+        Math.sin(radlat1) * Math.sin(radlat2) +
+        Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
       if (dist > 1) {
         dist = 1;
       }
       dist = Math.acos(dist);
-      dist = dist * 180/Math.PI;
+      dist = (dist * 180) / Math.PI;
       dist = dist * 60 * 1.1515;
-      if (unit==="K") { dist = dist * 1.609344 }
-      if (unit==="N") { dist = dist * 0.8684 }
+      if (unit === "K") {
+        dist = dist * 1.609344;
+      }
+      if (unit === "N") {
+        dist = dist * 0.8684;
+      }
       return dist;
     }
-  }
-
+  };
 
   handleLocation = async () => {
     await this.setState({
@@ -173,23 +178,22 @@ class Home extends Component {
     };
     return (
       <div>
-        
-        <Geolocation
-        handleLocation = {this.handleLocation}
-         />
+        <Geolocation handleLocation={this.handleLocation} />
         <CardWrapper addEndCard={this.getEndCard.bind(this)}>
           {compatable
             .filter(prof => this.props.details[0].gender_pref === prof.gender)
             .map(profile => {
               return (
                 <Card
-                style={cardStyle}
-                key={`swipeId-${profile.user_id}`}
-                onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
-                onSwipeRight={() => this.onSwipeRight(profile.user_id)}
-                id="card"
+                  style={cardStyle}
+                  key={`swipeId-${profile.user_id}`}
+                  onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
+                  onSwipeRight={() => this.onSwipeRight(profile.user_id)}
+                  id="card"
                 >
-                {/* {this.setLatAndLon(profile)} */}
+                  {/* {this.setLatAndLon(profile)} */}
+                  <div className="cover" />
+                  <div className="cover" />
                   <div className="cover" />
                   <div className="card">
                     <img
@@ -199,7 +203,11 @@ class Home extends Component {
                     />
                     <div className="lower">
                       <div>
+<<<<<<< HEAD
                       <span className="icon-heart-broken" id="meh"></span>
+=======
+                        <i class="fas fa-heart-broken" id="meh"></i>
+>>>>>>> c9e077ea6115877bf82e8a0e1dc74b748e052912
                       </div>
                       <div>
                         <span className="home_profile_name">
@@ -209,11 +217,27 @@ class Home extends Component {
                         <span className="home_profile_age">{profile.age} </span>
                       </div>
                       <div>
+<<<<<<< HEAD
                       <span className="icon-heart" id="like"></span>
+=======
+                        <i class="fas fa-heart" id="like"></i>
+>>>>>>> c9e077ea6115877bf82e8a0e1dc74b748e052912
                       </div>
                     </div>
                   </div>
-                <div>{(Math.round(this.distance(+this.props.details[0].latitude, +this.props.details[0].longitude, +profile.latitude, +profile.longitude)*4)/4).toFixed(2)} miles away</div>
+                  <div>
+                    {(
+                      Math.round(
+                        this.distance(
+                          +this.props.details[0].latitude,
+                          +this.props.details[0].longitude,
+                          +profile.latitude,
+                          +profile.longitude
+                        ) * 4
+                      ) / 4
+                    ).toFixed(2)}{" "}
+                    miles away
+                  </div>
                 </Card>
               );
             })}
