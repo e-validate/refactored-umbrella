@@ -22,6 +22,9 @@
   margin-top: 20px;
 }
 
+textarea {
+  font-size: 17pt;
+}
 .profile_image {
   width: 70%;
   padding: 4px;
@@ -37,7 +40,7 @@
 .Profile_Info_Short {
   line-height: 20pt;
   text-transform: capitalize;
-  letter-spacing: .5pt;
+  letter-spacing: 0.5pt;
 }
 
 .Profile_User:nth-child(2) {
@@ -52,10 +55,10 @@
 
 .Profile_User {
   font-weight: bold;
-  font-family: 'Lexend Deca', sans-serif;
+  font-family: "Lexend Deca", sans-serif;
   font-size: 20pt;
   text-transform: uppercase;
- color: #00C59C; 
+  color: #00c59c;
 }
 
 .Border {
@@ -70,19 +73,19 @@
   text-align: justify;
   padding-top: 10px;
   line-height: 20pt;
-  letter-spacing: .5pt;
+  letter-spacing: 0.5pt;
 }
 
 .edit_input {
-    padding-bottom: 5px;
-    margin: 10px;
-    width: 50%;
-    border-bottom: 1px black solid;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    font-size: 12pt;
-    background: white;
+  padding-bottom: 5px;
+  margin: 10px;
+  width: 50%;
+  border-bottom: 1px black solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: 12pt;
+  background: white;
 }
 
 .edit_dropdown {
@@ -109,7 +112,7 @@
   font-size: 15pt;
   font-weight: bolder;
   text-transform: capitalize;
-  color: #00C59A
+  color: #00c59a;
 }
 
 .Edit_Btns {
@@ -124,16 +127,15 @@ button {
   margin-top: 20px;
   padding: 10px;
   font-size: 15px;
-  background: #00C59A;
+  background: #00c59a;
   color: white;
   font-weight: bold;
   border-radius: 4px;
   border: none;
 }
 
-
 @media (min-width: 400px) {
-  .carrousel{
+  .carrousel {
     height: 500px;
   }
   .Profile-Container {
@@ -141,29 +143,31 @@ button {
   }
   .profileImg {
     width: auto;
-  height: 300px;
-  position: relative;
-  top: -100px;
+    height: 300px;
+    position: relative;
+    top: -100px;
   }
 }
 
 @media (max-width: 600px) {
-  #profile_image_two, #profile_image_three, #profile_image_four {
+  #profile_image_two,
+  #profile_image_three,
+  #profile_image_four {
     display: none;
   }
 }
 
 @media (min-width: 600px) {
   .profile_image {
-      width: 33vw;
-      height: 32vh;
+    width: 33vw;
+    height: 32vh;
   }
 }
 
 body {
-  font-family: Helvetica; 
+  font-family: Helvetica;
   font-weight: 400;
-  background: #EFEFEF;
+  background: #efefef;
 }
 
 .profile_box {
@@ -205,29 +209,29 @@ body {
   list-style: none;
   position: relative;
 
-  -webkit-transition: transform .5s;
-  -moz-transition: transform .5s;
-  -o-transition: transform .5s;
-  transition: transform .5s;
+  -webkit-transition: transform 0.5s;
+  -moz-transition: transform 0.5s;
+  -o-transition: transform 0.5s;
+  transition: transform 0.5s;
 }
 .carrousel .slides li {
   width: 25%;
   position: relative;
   float: left;
 }
-.carrousel li p{
-  margin-top: 0;  
+.carrousel li p {
+  margin-top: 0;
 }
 .carrousel .slidesNavigation {
   display: block;
   list-style: none;
   text-align: center;
   bottom: 1em;
-  position: absolute; 
-    width: 104px; /*This width  is the addition of the width of all the navigations dots - So in this case is   104 because the navigation dots are 26px (width:10px and 6px marginleft + 6 px marginright) and there are 4 dots so 4x26=104 */
-    left: 50%; 
-    margin-left: -52px; 
-  }
+  position: absolute;
+  width: 104px; /*This width  is the addition of the width of all the navigations dots - So in this case is   104 because the navigation dots are 26px (width:10px and 6px marginleft + 6 px marginright) and there are 4 dots so 4x26=104 */
+  left: 50%;
+  margin-left: -52px;
+}
 .carrousel input {
   display: none;
 }
@@ -239,7 +243,7 @@ body {
   width: 13px;
   -webkit-border-radius: 50%;
   border-radius: 50%;
-  border: solid 2px #00C59C;
+  border: solid 2px #00c59c;
   font-size: 0;
 }
 
@@ -256,30 +260,29 @@ body {
   transform: translateX(-75%);
 }
 
-
 .carrousel .slidesNavigation label:hover {
-   cursor: pointer;
+  cursor: pointer;
 }
 /* You have to repeat this with each slide/dot */
 .carrousel #radio-1:checked ~ .slidesNavigation label#dotForRadio-1,
 .carrousel #radio-2:checked ~ .slidesNavigation label#dotForRadio-2,
 .carrousel #radio-3:checked ~ .slidesNavigation label#dotForRadio-3,
 .carrousel #radio-4:checked ~ .slidesNavigation label#dotForRadio-4 {
-  background: #00C59C;
+  background: #00c59c;
 }
 
-@media  (max-width: 796px) {
-  .carrousel{
+@media (max-width: 796px) {
+  .carrousel {
     height: 300px;
   }
 }
-@media  (max-width: 480px) {
+@media (max-width: 480px) {
   .carrousel li p {
     padding-left: 0.5em;
     padding-right: 0.5em;
   }
   .carrousel li q {
-      font-size: 1em;
+    font-size: 1em;
   }
   .carrousel li img {
     width: 100%;

@@ -47,13 +47,13 @@ class Login extends Component {
     })
     .catch(() => {
       Toastify({
-        text: "Username or Password incorrect",
+        text: "Incorrect Email or Password ",
         duration: 3000,
         transition: "bounce",
         newWindow: true,
         close: true,
         position: "top-center",
-        backgroundColor: "linear-gradient(to right, #d1345b, #383838)",
+        backgroundColor: "#de1616",
         stopOnFocus: true,
         onClick: function() {}
       }).showToast();
