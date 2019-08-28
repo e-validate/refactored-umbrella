@@ -11,6 +11,7 @@ const likeController = require("./controllers/likeController");
 const authmw = require("./middleware/authCheck");
 const initSession = require("./middleware/initSession");
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
+const path = require('path');
 
 const app = express();
 
@@ -36,6 +37,12 @@ app.use(
 
 app.use(bodyParser());
 app.use(initSession);
+
+app.use( express.static( `${__dirname}/../build` ) )
+
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 massive(CONNECTION_STRING)
   .then(db => {
