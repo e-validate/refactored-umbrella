@@ -54,15 +54,18 @@ massive(CONNECTION_STRING)
           socketController.joinRoom(messages, id, socket, io);
         });
         socket.on("delete a message", async payload => {
+          console.log('hit delete a message ', payload)
           let {mid, cid} = payload
           const db = app.get("db");
           let messages = await db.delete_message([
             +mid,
             +cid
           ]);
+          console.log('about to hit emit new message from server', {cid}, {messages})
           io.to(`${cid}`).emit("new message from sever", messages);
         });
         socket.on("message to server", async payload => {
+          console.log('hit a message hitting sever , adding message to dbs', payload);
           const db = app.get("db");
           const { id, chatroom_id, message } = payload;
           let messages = await db.add_message([
@@ -72,6 +75,7 @@ massive(CONNECTION_STRING)
             socket,
             io
           ]);
+          console.log('about to emit and send back updated messages after adding a message', {messages});
           io.to(`${chatroom_id}`)
             .emit("new message from sever", messages)
             .emit("message to user", messages);
