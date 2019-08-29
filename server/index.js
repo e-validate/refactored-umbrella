@@ -21,7 +21,9 @@ const bodyParser = require("body-parser");
 
 // socket modules
 const server = require("http").Server(app);
-const io = require("socket.io")(server);
+const socket = require('socket.io')
+
+// const io = require("socket.io")(server);
 const socketController = require("./controllers/socketController");
 
 app.use(
@@ -42,14 +44,45 @@ app.use(initSession);
 
 massive(CONNECTION_STRING)
   .then(db => {
-    app.listen(SERVER_PORT, () =>
-      console.log(`Server listening on ${SERVER_PORT}`)
-    );
+    const io = socket(app.listen(SERVER_PORT, () =>
+      console.log(`Server listening on ${SERVER_PORT}`)));
+      io.on("connection", socket => {
+        console.log("A connection happened", socket.id);
+        socket.on("needy", async id => {
+          const db = app.get("db");
+          let messages = await db.get_chatroom_messages(id);
+          socketController.joinRoom(messages, id, socket, io);
+        });
+        socket.on("delete a message", async payload => {
+          let {mid, cid} = payload
+          const db = app.get("db");
+          let messages = await db.delete_message([
+            +mid,
+            +cid
+          ]);
+          io.to(`${cid}`).emit("new message from sever", messages);
+        });
+        socket.on("message to server", async payload => {
+          const db = app.get("db");
+          const { id, chatroom_id, message } = payload;
+          let messages = await db.add_message([
+            +id,
+            +chatroom_id,
+            message,
+            socket,
+            io
+          ]);
+          io.to(`${chatroom_id}`)
+            .emit("new message from sever", messages)
+            .emit("message to user", messages);
+          });
+        });
+      
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.json());
     app.set("db", db);
     app.use(express.static(`${__dirname}/../build`));
-    server.listen(4000, () => console.log("Sockets are cool"));
+
   })
   .catch(err => console.log("err", err));
 
@@ -82,37 +115,37 @@ app.get('/api/favorites', favoriteController.getFavoriteChatrooms);
 app.post("/api/swipe/left/:swipedId", likeController.dislike);
 app.post("/api/swipe/right/:swipedId", likeController.like);
 
-io.on("connection", socket => {
-  console.log("A connection happened", socket.id);
-  socket.on("needy", async id => {
-    const db = app.get("db");
-    let messages = await db.get_chatroom_messages(id);
-    socketController.joinRoom(messages, id, socket, io);
-  });
-  socket.on("delete a message", async payload => {
-    let {mid, cid} = payload
-    const db = app.get("db");
-    let messages = await db.delete_message([
-      +mid,
-      +cid
-    ]);
-    io.to(`${cid}`).emit("new message from sever", messages);
-  });
-  socket.on("message to server", async payload => {
-    const db = app.get("db");
-    const { id, chatroom_id, message } = payload;
-    let messages = await db.add_message([
-      +id,
-      +chatroom_id,
-      message,
-      socket,
-      io
-    ]);
-    io.to(`${chatroom_id}`)
-      .emit("new message from sever", messages)
-      .emit("message to user", messages);
-    });
-  });
+// io.on("connection", socket => {
+//   console.log("A connection happened", socket.id);
+//   socket.on("needy", async id => {
+//     const db = app.get("db");
+//     let messages = await db.get_chatroom_messages(id);
+//     socketController.joinRoom(messages, id, socket, io);
+//   });
+//   socket.on("delete a message", async payload => {
+//     let {mid, cid} = payload
+//     const db = app.get("db");
+//     let messages = await db.delete_message([
+//       +mid,
+//       +cid
+//     ]);
+//     io.to(`${cid}`).emit("new message from sever", messages);
+//   });
+//   socket.on("message to server", async payload => {
+//     const db = app.get("db");
+//     const { id, chatroom_id, message } = payload;
+//     let messages = await db.add_message([
+//       +id,
+//       +chatroom_id,
+//       message,
+//       socket,
+//       io
+//     ]);
+//     io.to(`${chatroom_id}`)
+//       .emit("new message from sever", messages)
+//       .emit("message to user", messages);
+//     });
+//   });
 
 // app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
 app.delete('/api/delete/chatroom/:chatroom_id', socketController.deleteChatroom)
