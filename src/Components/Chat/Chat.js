@@ -11,7 +11,8 @@ import { Redirect } from "react-router-dom";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 import axios from "axios";
 
-const socket = io.connect("http://localhost:4000");
+// const socket = io.connect('http://localhost:5430');
+const socket = io.connect("/");
 
 class Chat extends Component {
   constructor() {

@@ -41,7 +41,7 @@ class Login extends Component {
 
   login = () => {
     Promise.resolve(this.props.login(this.state.email, this.state.password))
-    .then(() => {
+    .then( () => {
       let data = this.props.getUsersChatrooms()
       return data
     })
@@ -122,6 +122,7 @@ class Login extends Component {
 
 function mapStateToProps(state) {
   return state.session;
+  
 }
 
 export default connect(
