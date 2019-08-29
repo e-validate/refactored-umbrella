@@ -1,3 +1,4 @@
+//Aaron's tests
 describe('App initialization', () => {
     beforeEach(() => {
         cy.visit('/')
