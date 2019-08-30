@@ -20,7 +20,6 @@ const app = express();
 const bodyParser = require("body-parser");
 
 // socket modules
-const server = require("http").Server(app);
 const socket = require('socket.io')
 
 // const io = require("socket.io")(server);

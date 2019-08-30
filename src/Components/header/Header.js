@@ -26,20 +26,25 @@ class Header extends React.Component {
     });
   }
 
-  componentDidUpdate(pp) {
-    if (pp === this.props) {
-      this.props.getUsersChatrooms();
-      this.render();
-    } else {
-      return;
-    }
-  }
+  // componentDidUpdate(pp) {
+  //   if (pp === this.props && window.location !== '#/login') {
+  //     console.log('hit cdu');
+  //     this.props.getUsersChatrooms();
+  //     this.render();
+  //   } else {
+  //     return;
+  //   }
+  // }
+
   async componentDidMount() {
     this._isMounted = true;
     // await this.props.getUsersChatrooms();
     if (this.props.chatrooms && window.location.hash !== "#/login") {
       if (this.state.notification === false) {
         this.setState({ notification: true });
+      }
+      if(this.props.user){
+        await this.props.getUsersChatrooms();
       }
       var sum = this.props.chatrooms.reduce((acc, v) => {
         let value = v.unread_messages;
@@ -95,16 +100,18 @@ class Header extends React.Component {
   };
 
   render() {
-    if (this.props.chatrooms && window.location.hash !== "#/login") {
+    if (this.props.chatrooms && window.location.hash !== "#/login" && !this.state.notification) {
       if (this.state.notification === false) {
         this.setState({ notification: true });
+      }}
+      if(this.props.chatrooms){
+        var sum = this.props.chatrooms.reduce((acc, v) => {
+          let value = v.unread_messages;
+          return +acc + +value;
+        }, 0);
       }
-      var sum = this.props.chatrooms.reduce((acc, v) => {
-        let value = v.unread_messages;
-        return +acc + +value;
-      }, 0);
       console.log(sum);
-    }
+    
     let { menuOpen } = this.state;
     return (
       <div className="header">
@@ -163,18 +170,18 @@ class Header extends React.Component {
                 <Link to="/matches" onClick={this.closeMenu}>
                   <div className="matches-container">
                     <div className="hamburger-links">Messaging</div>
-                    {sum !== 0 ? (
+                    {sum > 0 ? (
                       <div className="new_msg_inbox">{sum}</div>
                     ) : null}
                   </div>
                 </Link>
                 <Link
-                  onClick={async () => {
-                    this.closeMenu();
-                    await this.logout();
-                    this.setNotificationFalse();
-                  }}
                   to="/login"
+                  onClick={() => {
+                    this.closeMenu();
+                    this.setNotificationFalse();
+                    this.logout();
+                  }}
                 >
                   <div className="hamburger-links" id="logout">
                     Logout
