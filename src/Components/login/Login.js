@@ -7,7 +7,7 @@ import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 import { getUsersChatrooms } from "../../ducks/reducers/messageReducer";
-import Header from "../header/Header";
+import LoginHeader from "../header/LoginHeader";
 
 class Login extends Component {
   _isMounted = false;
@@ -78,7 +78,7 @@ class Login extends Component {
 
     return (
       <div>
-        <Header />
+        <LoginHeader />
         <div className="login">
           <div className="login_container">
             <div className="login_left" />
