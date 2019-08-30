@@ -326,8 +326,12 @@ export default class Profile extends Component {
 
               <div className="Border" />
               <div className="Edit_Btns">
-                <button onClick={this.handleSubmit}>Save Changes</button>
-                <button onClick={this.flipEdit} id="cancel_btn">Cancel</button>
+                <button 
+                className='edit-p'
+                onClick={this.handleSubmit}>Save Changes</button>
+                <button 
+                className='edit-p'
+                onClick={this.flipEdit} id="cancel_btn">Cancel</button>
               </div>
             </div>
           </div>
@@ -356,7 +360,7 @@ export default class Profile extends Component {
             {this.props.loggedIn ? (
               <div>
                 <div className="Border" />
-                <button onClick={this.flipEdit} id="edit_btn">edit profile</button>
+                <button  className='edit-p' onClick={this.flipEdit} id="edit_btn">edit profile</button>
               </div>
             ) : (
               <div />

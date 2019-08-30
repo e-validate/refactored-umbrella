@@ -52,7 +52,9 @@ class Geolocation extends React.Component {
                   // }).showToast()
                   alert("Location not enabled")
         ) : this.props.coords ? (
-          <button onClick={() => {this.handleLocation()
+          <button 
+          className='edit-p'
+          onClick={() => {this.handleLocation()
           }}>Get Location</button>
         ) : (
             <div>Getting the location data&hellip; </div>

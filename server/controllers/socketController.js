@@ -3,6 +3,7 @@ module.exports = {
     socket.join(roomid);
     io.in(roomid).emit("login", messages);
   },
+
   sendMessagesToRoom(messages, payload, io, socket) {
     const { message } = payload;
     io.emit("new message from sever", message, messages);
@@ -22,8 +23,12 @@ module.exports = {
   async getUsersChatrooms(req, res) {
     const db = req.app.get("db");
     let { id } = req.session.user;
-    let chatrooms = await db.get_users_chatrooms(+id);
-    res.send(chatrooms);
+    if(req.session.user){
+      let chatrooms = await db.get_users_chatrooms(+id)
+      res.send(chatrooms);
+    }else {
+       res.status(401).send('no user logged in')
+    }
   },
 
   async deleteChatroom(req, res){

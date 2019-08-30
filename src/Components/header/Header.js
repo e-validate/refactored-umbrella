@@ -6,12 +6,7 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout, getUser } from "./../../ducks/reducers/sessionReducer";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
-import {
-  getUsersChatrooms,
-  getChatroomMessages
-} from "../../ducks/reducers/messageReducer";
-import axios from "axios";
-// const socket = io.connect("http://localhost:5430");
+import { getUsersChatrooms } from "../../ducks/reducers/messageReducer";
 const socket = io.connect("/");
 
 class Header extends React.Component {
@@ -26,22 +21,40 @@ class Header extends React.Component {
       messages: []
     };
 
-  
-    socket.on('message to user', messages =>{
-      this.setState({messages: messages})
-    })
+    socket.on("message to user", messages => {
+      this.setState({ messages: messages });
+    });
   }
 
-  componentDidMount() {
+  componentDidUpdate(pp) {
+    if (pp === this.props) {
+      this.props.getUsersChatrooms();
+      this.render();
+    } else {
+      return;
+    }
+  }
+  async componentDidMount() {
     this._isMounted = true;
+    // await this.props.getUsersChatrooms();
+    if (this.props.chatrooms && window.location.hash !== "#/login") {
+      if (this.state.notification === false) {
+        this.setState({ notification: true });
+      }
+      var sum = this.props.chatrooms.reduce((acc, v) => {
+        let value = v.unread_messages;
+        return +acc + +value;
+      }, 0);
+      this.setState({ countUnread: sum });
+    }
   }
   componentWillUnmount() {
     this._isMounted = false;
   }
 
-  flipMenu=()=>{
-    this.setState({menuOpen: !this.state.menuOpen})
-  }
+  flipMenu = () => {
+    this.setState({ menuOpen: !this.state.menuOpen });
+  };
 
   logout = () => {
     this.props.logout();
@@ -74,16 +87,24 @@ class Header extends React.Component {
     return <Redirect />;
   };
 
+  pathCheck = () => {
+    let { hash } = window.location;
+    if (hash.includes("chat") || hash.includes("matches")) {
+      this.setState({ notification: true });
+    }
+  };
+
   render() {
     if (this.props.chatrooms && window.location.hash !== "#/login") {
       if (this.state.notification === false) {
         this.setState({ notification: true });
       }
       var sum = this.props.chatrooms.reduce((acc, v) => {
-      let value = v.unread_messages;
-      return +acc + +value;
-    }, 0);
-      }
+        let value = v.unread_messages;
+        return +acc + +value;
+      }, 0);
+      console.log(sum);
+    }
     let { menuOpen } = this.state;
     return (
       <div className="header">
@@ -123,8 +144,16 @@ class Header extends React.Component {
               width={250}
             >
               <div className="menu">
-                <Link to="/" onClick={this.closeMenu}>
-                  <div className="hamburger-links">Home</div>
+                <Link className="linkhome" to="/home">
+                  <div
+                    className="links-hamburger"
+                    onClick={async () => {
+                      await this.pathCheck();
+                      this.closeMenu();
+                    }}
+                  >
+                    Home
+                  </div>
                 </Link>
                 <Link to="/current" onClick={this.closeMenu}>
                   <div className="hamburger-links" id="profile">
@@ -140,9 +169,9 @@ class Header extends React.Component {
                   </div>
                 </Link>
                 <Link
-                  onClick={() => {
+                  onClick={async () => {
                     this.closeMenu();
-                    this.logout();
+                    await this.logout();
                     this.setNotificationFalse();
                   }}
                   to="/login"

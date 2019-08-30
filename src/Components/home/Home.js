@@ -12,6 +12,7 @@ import { Card, CardWrapper } from "react-swipeable-cards";
 import MyEndCard from "./MyEndCard";
 import "./home.css";
 import Geolocation from "../geloaction/Geolocation";
+import Header from "../header/Header";
 
 class Home extends Component {
   constructor() {
@@ -178,64 +179,66 @@ class Home extends Component {
     };
     return (
       <div>
-        <Geolocation handleLocation={this.handleLocation} />
-        <CardWrapper addEndCard={this.getEndCard.bind(this)}>
-          {compatable
-            .filter(prof => this.props.details[0].gender_pref === prof.gender)
-            .map(profile => {
-              return (
-                <Card
-                  style={cardStyle}
-                  key={`swipeId-${profile.user_id}`}
-                  onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
-                  onSwipeRight={() => this.onSwipeRight(profile.user_id)}
-                  id="card"
-                >
-                  {/* {this.setLatAndLon(profile)} */}
-                  <div className="cover" />
-                  <div className="cover" />
-                  <div className="cover" />
-                  <div className="card">
-                    <img
-                      className="home_profile_image"
-                      src={profile.image1 || this.state.defaultImage}
-                      alt="none"
-                    />
-                    <div className="lower">
-                      <div>
-                        <i class="fas fa-heart-broken" id="meh"></i>
-                      </div>
-                      <div>
+        <Header />
+        <div>
+          <Geolocation handleLocation={this.handleLocation} />
+          <CardWrapper addEndCard={this.getEndCard.bind(this)}>
+            {compatable
+              .filter(prof => this.props.details[0].gender_pref === prof.gender)
+              .map(profile => {
+                return (
+                  <Card
+                    style={{
+                      cardStyle,
+                      "background-image": `url(${profile.image1 ||
+                        this.state.defaultImage})`,
+                      "background-repeat": "no-repeat",
+                      "background-size": "370px 76%",
+                      "background-position": "50% 20px",
+                      " background-margin": "5px"
+                    }}
+                    key={`swipeId-${profile.user_id}`}
+                    onSwipeLeft={() => this.onSwipeLeft(profile.user_id)}
+                    onSwipeRight={() => this.onSwipeRight(profile.user_id)}
+                    id="card"
+                  >
+                    <div className="card">
+                      <div className="name-age">
                         <span className="home_profile_name">
                           {profile.name},{" "}
                         </span>
-
                         <span className="home_profile_age">{profile.age} </span>
                       </div>
-                      <div>
-                        <i class="fas fa-heart" id="like"></i>
+                      <div className="heartbtns">
+                        <div>
+                          <i className="fas fa-heart-broken" id="meh"></i>
+                        </div>
+                        <div />
+                        <div className="distance">
+                          {(
+                            Math.round(
+                              this.distance(
+                                +this.props.details[0].latitude,
+                                +this.props.details[0].longitude,
+                                +profile.latitude,
+                                +profile.longitude
+                              ) * 4
+                            ) / 4
+                          ).toFixed(2)}{" "}
+                          miles away
+                        </div>
+                        <div />
+                        <div>
+                          <i className="fas fa-heart" id="like"></i>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div>
-                    {(
-                      Math.round(
-                        this.distance(
-                          +this.props.details[0].latitude,
-                          +this.props.details[0].longitude,
-                          +profile.latitude,
-                          +profile.longitude
-                        ) * 4
-                      ) / 4
-                    ).toFixed(2)}{" "}
-                    miles away
-                  </div>
-                </Card>
-              );
-            })}
-        </CardWrapper>
+                  </Card>
+                );
+              })}
+          </CardWrapper>
+        </div>
       </div>
-      // </div>
     );
   }
 }
