@@ -167,7 +167,7 @@ textarea {
 body {
   font-family: Helvetica;
   font-weight: 400;
-  background: #efefef;
+  background: rgb(187, 187, 187);
 }
 
 .profile_box {
