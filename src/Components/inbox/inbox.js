@@ -10,7 +10,7 @@ import {
 import { Link, Redirect } from "react-router-dom";
 import "./inbox.css";
 import axios from "axios";
-
+import Header from "../header/Header";
 
 class inbox extends Component {
   constructor() {
@@ -27,25 +27,22 @@ class inbox extends Component {
   markAsRead = roomid => {
     axios
       .put(`/api/read/${roomid}`)
-      .then(res => {
-        console.log(res.data);
-        return res.data;
-      })
+      .then(res => res.data)
       .catch(err => console.log("did not mark as read", err));
   };
 
-  deleteFavorite = (swiped_id) => {
-      this.props.deleteFavorite(swiped_id)
-      this.setState({isFavorite: false})
-  }
+  deleteFavorite = swiped_id => {
+    this.props.deleteFavorite(swiped_id);
+    this.setState({ isFavorite: false });
+  };
 
-  addFavorite = (swiped_id) => {
-      this.props.addFavorite(swiped_id)
-      this.setState({isFavorite: true})
-    }
+  addFavorite = swiped_id => {
+    this.props.addFavorite(swiped_id);
+    this.setState({ isFavorite: true });
+  };
 
   render() {
-    let {isFavorite} = this.state
+    let { isFavorite } = this.state;
     let refresh = async () => {
       if (!this.props.session.user.id) {
         await this.props.getUser();
@@ -55,37 +52,51 @@ class inbox extends Component {
       }
     };
     refresh();
-    return this.props.chatrooms.map((room, i) => (
-      <div key={i} className="inbox">
-        <div className="inbox-left">
-        <Link to={`/profile/${room.swiped_id}`}><img className="inbox-left" src={room.image1} alt='none'/></Link>
-          <Link
-            onClick={() => this.markAsRead(room.chatroom_id)}
-            to={`/chat/${room.chatroom_id}`}
-          >
-          </Link>
-          {room.unread_messages !== 0 ? (
-            <div className="new_msg">{room.unread_messages}</div>
-          ) : null}
-        </div>
-        <div className="inbox-right">
-          <Link
-            to={`/chat/${room.chatroom_id}`}
-            src={room.image1}
-            className="picture-buttons"
-            alt="none"
-          >
-            <h3
-              onClick={() => this.markAsRead(room.chatroom_id)}
-              className="match-name-preview"
-            >
-              View Messages
-            </h3>
-          </Link>
-        </div>
-          <button onClick={()=>this.props.deleteChatroom(room.chatroom_id)} id="remove">Remove Match</button>
+    return (
+      <div>
+        <Header markAsRead={() => this.markAsRead()} />
+        {this.props.chatrooms.map((room, i) => (
+          <div key={i} className="inbox-all">
+            <div className="inbox">
+              <div className="inbox-left">
+                {room.unread_messages !== 0 ? (
+                  <div className="unread-messages">{room.unread_messages}</div>
+                ) : null}
+                <Link to={`/profile/${room.swiped_id}`}>
+                  <img className="inbox-left" src={room.image1} alt="none" />
+                </Link>
+                <Link
+                  onClick={() => this.markAsRead(room.chatroom_id)}
+                  to={`/chat/${room.chatroom_id}`}
+                ></Link>
+              <button
+                className="delete-btn"
+                onClick={() => this.props.deleteChatroom(room.chatroom_id)}
+              >
+                Block User
+              </button>
+              </div>
+
+              <div className="inbox-right">
+                <Link
+                  to={`/chat/${room.chatroom_id}`}
+                  src={room.image1}
+                  className="picture-buttons"
+                  alt="none"
+                >
+                  <h3
+                    onClick={() => this.markAsRead(room.chatroom_id)}
+                    className="match-name-preview"
+                  >
+                    View Messages
+                  </h3>
+                </Link>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-    ));
+    );
   }
 }
 function mapStateToProps(state) {
@@ -100,5 +111,11 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getUser, getUsersChatrooms, getChatroomMessages, getUnreadMessages, deleteChatroom }
+  {
+    getUser,
+    getUsersChatrooms,
+    getChatroomMessages,
+    getUnreadMessages,
+    deleteChatroom
+  }
 )(inbox);

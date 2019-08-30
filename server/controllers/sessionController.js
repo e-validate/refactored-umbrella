@@ -14,7 +14,6 @@ module.exports = {
                 id: existingUser.user_id,
                 loggedIn: true
             };
-            console.log('created the sessionnnnn====================' ,req.session.user);
             res.send(req.session.user)
         } else res.status(401).send('Records not found')
     },
@@ -29,12 +28,14 @@ module.exports = {
         req.session.user = {name: user.name, id: user.user_id, loggedIn: true};
         res.send(req.session.user);
     },
-    logout(req, res) {
-        req.session.destroy();
+    async logout(req, res) {
+        await req.session.destroy();
         res.sendStatus(200);
     },
     getUser(req, res) {
-        res.send(req.session.user);
+        if(req.session.user){
+            res.send(req.session.user);
+        }else res.status(401).send('no user logged in')
     },
     async getUserDetails(req, res) {
         let {id} = req.params

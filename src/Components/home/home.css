@@ -1,27 +1,35 @@
 .home_background_color {
   background: gray;
 }
-.block {
+
+.name-age {
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
   position: absolute;
-  height: 65vh;
-  width: 100vw;
-  top: 18%;
-  z-index: 2;
-}
-
-.home_profile_name {
+  top: 84%;
+  /* left:28%; */
   font-size: 20pt;
+  pointer-events: none; 
 }
 
-.home_profile_age {
-  font-size: 14pt;
-  font-style: italic;
+#card{
+  position:absolute;
 }
-.home_profile_image {
-  margin-top: 20px;
-  border-radius: 4px;
-  height: 490px;
-  width: 90%;
+
+.cards_container{
+  position: relative;
+  bottom: 70px;
+}
+
+
+
+.card-container{
+  position: absolute;
+  bottom: 200px;
+  z-index: 2;
+  background: white;
 }
 
 #like {
@@ -34,15 +42,14 @@
   font-size: 25pt;
 }
 
-.lower {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.cover {
-  position: absolute;
+.heartbtns{
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 6%;
+  pointer-events: none; 
 }

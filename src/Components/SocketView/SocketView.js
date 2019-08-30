@@ -91,7 +91,9 @@ export default class SocketView extends Component {
                                 this.setState({ name: e.target.value })
                             }
                         />
-                        <button onClick={() => this.connect(name)}>
+                        <button 
+                        className='edit-p'
+                        onClick={() => this.connect(name)}>
                             Connect
                         </button>
                     </>
@@ -107,7 +109,9 @@ export default class SocketView extends Component {
                                 this.setState({ newMessage: e.target.value })
                             }
                         />
-                        <button onClick={this.sendMessage}>Send</button>
+                        <button 
+                        className='edit-p'
+                        onClick={this.sendMessage}>Send</button>
                         <div className='socket-view-chat'>
                             <div className='messages'>{allMessages}</div>
                             <div className='users'>{allUsers}</div>

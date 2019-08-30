@@ -10,6 +10,7 @@ import "./Chat.css";
 import { Redirect } from "react-router-dom";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 import axios from "axios";
+import Header from "../header/Header";
 
 // const socket = io.connect('http://localhost:5430');
 const socket = io.connect("/");
@@ -104,38 +105,52 @@ class Chat extends Component {
     };
     refresh();
     return (
-      <div className="chat_container">
-        <div className="chat">
-          <h3>
-            <i className="fas fa-circle" id="circle" /> Messages with{" "}
-            {this.state.name} <i className="fas fa-circle" id="circle" />{" "}
-          </h3>
-          <div className="message-container">
-            {this.state.chatMessages !== undefined ? (
-              this.state.chatMessages.map(
-                (message, index) => (
-                  (message.token =
-                    message.sender_id === +this.props.session.user.id
-                      ? "sender"
-                      : "receiver"),
-                  (
-                    <div
-                      className={`${message.token}-messages-container`}
-                      key={index}
-                    >
-                      <div className={`${message.token}-message-box`}>
-                        {message.content}
-                      </div>
+      <div>
+        <Header />
+        <div className="chat_container">
+          <div className="chat">
+            <h3>
+              <i className="fas fa-circle" id="circle" /> Messages with{" "}
+              {this.state.name} <i className="fas fa-circle" id="circle" />{" "}
+            </h3>
+            <div className="message-container">
+              {this.state.chatMessages !== undefined ? (
+                this.state.chatMessages.map(
+                  (message, index) => (
+                    (message.token =
+                      message.sender_id === +this.props.session.user.id
+                        ? "sender"
+                        : "receiver"),
+                    (
+                      <div
+                        className={`${message.token}-messages-container`}
+                        key={index}
+                      >
+                        <div className={`${message.token}-message-box`}>
+                          {message.content}
+                        </div>
 
-                      {message.token === "sender" ? (
-                        <div className={`${message.token}-delete-info`}>
-                          <div className={`${message.token}-name`}>
-                            <div className="time">{message.time}</div>
-                            <div>{message.name}</div>
+                        {message.token === "sender" ? (
+                          <div className={`${message.token}-delete-info`}>
+                            <div className={`${message.token}-name`}>
+                              <div className="time">{message.time}</div>
+                              <div>{message.name}</div>
+                            </div>
+                            <div
+                              className={`${message.token}-delete-btn-container`}
+                            >
+                              <button
+                                className={`${message.token}-delete-btn`}
+                                onClick={() =>
+                                  this.deleteMessage(message.messages_id)
+                                }
+                              >
+                                Delete
+                              </button>
+                            </div>
                           </div>
-                          <div
-                            className={`${message.token}-delete-btn-container`}
-                          >
+                        ) : (
+                          <div className={`${message.token}-delete-info`}>
                             <button
                               className={`${message.token}-delete-btn`}
                               onClick={() =>
@@ -144,54 +159,43 @@ class Chat extends Component {
                             >
                               Delete
                             </button>
+                            <div className={`${message.token}-name`}>
+                              <div>{message.name}</div>
+                              <div className="time">{message.time}</div>
+                            </div>
+                            <div
+                              className={`${message.token}-delete-btn-container`}
+                            ></div>
                           </div>
-                        </div>
-                      ) : (
-                        <div className={`${message.token}-delete-info`}>
-                          <button
-                            className={`${message.token}-delete-btn`}
-                            onClick={() =>
-                              this.deleteMessage(message.messages_id)
-                            }
-                          >
-                            Delete
-                          </button>
-                          <div className={`${message.token}-name`}>
-                            <div>{message.name}</div>
-                            <div className="time">{message.time}</div>
-                          </div>
-                          <div
-                            className={`${message.token}-delete-btn-container`}
-                          ></div>
-                        </div>
-                      )}
-                    </div>
+                        )}
+                      </div>
+                    )
                   )
                 )
-              )
-            ) : (
-              <h1>Loading...</h1>
-            )}
-          </div>
-          <div className="input-box-sendmsg">
-            <textarea
-              // onKeyUp={this.handleKeyUp}
-              className="input-send-message"
-              value={this.state.message}
-              onChange={e => this.setState({ message: e.target.value })}
-              onKeyDown={ev => {
-                if (ev.key === "Enter") {
-                  this.sendMessage();
-                  ev.preventDefault();
-                }
-              }}
-            />
-            <button
-              className="send-message_button"
-              onClick={() => this.sendMessage()}
-            >
-              Send
-            </button>
+              ) : (
+                <h1>Loading...</h1>
+              )}
+            </div>
+            <div className="input-box-sendmsg">
+              <textarea
+                // onKeyUp={this.handleKeyUp}
+                className="input-send-message"
+                value={this.state.message}
+                onChange={e => this.setState({ message: e.target.value })}
+                onKeyDown={ev => {
+                  if (ev.key === "Enter") {
+                    this.sendMessage();
+                    ev.preventDefault();
+                  }
+                }}
+              />
+              <button
+                className='edit-p'
+                onClick={() => this.sendMessage()}
+              >
+                Send
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,16 @@
+.inbox-all{
+  background: transparent;
+  width: 100VW;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
 .inbox {
   background: white;
-  width: 40vw;
+  width: 35%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,6 +26,10 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  display:flex;
+  flex-direction: column;
+  justify-self: center;
+  position: relative;
 }
 
 .new_msg {
@@ -33,6 +47,42 @@
   width: 50%;
   text-align: left;
   margin-left: 30px;
+}
+
+.unread-messages{
+  background: #00C59B;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+  top: 5%;
+  left:79%;
+  color: white;
+  font-weight: bolder;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.delete-btn{
+  width:100%;
+  border: none;
+  background: transparent;
+  color: rgb(214, 253, 238);
+  position: relative;
+  /* top: 90px;
+  right: 400px; */
+  font-size: 10px;
+  /* margin-left: 10px; */
+  /* margin-right: 10px */
+}
+
+.delete-btn:hover{
+  border: none;
+  background: transparent;
+  color: #28c7a4;
 }
 
 img {
@@ -57,5 +107,22 @@ img {
     text-align: center;
     margin: auto;
     height: 35px;
+  }
+
+  .delete-btn{
+    border: none;
+    background: transparent;
+    color: rgb(214, 253, 238);
+    position: relative;
+    top: 25px;
+    font-size: 10px;
+    margin-left: 10px;
+    margin-right: 10px
+  }
+  
+  .delete-btn:hover{
+    border: none;
+    background: transparent;
+    color: #28c7a4;
   }
 }

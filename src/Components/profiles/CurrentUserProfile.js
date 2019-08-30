@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getCurrentUser } from "./../../ducks/reducers/profileReducer";
 import { getUser } from "./../../ducks/reducers/sessionReducer";
 import { editUserProfile } from "./../../ducks/reducers/formReducer";
-
+import Header from '../header/Header'
 import Profile from "./Profile";
 
 class CurrentUserProfile extends Component {
@@ -18,6 +18,8 @@ class CurrentUserProfile extends Component {
   render() {
     let { profiles, editUserProfile, getCurrentUser, getUser } = this.props;
     return (
+      <div>
+<Header/>
       <div className="CurrentUserProfile">
         {profiles ? (
           <div className="Profile-Container">
@@ -39,6 +41,7 @@ class CurrentUserProfile extends Component {
             <p />
           </div>
         )}
+      </div>
       </div>
     );
   }
