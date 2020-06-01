@@ -25,6 +25,12 @@ const socket = require('socket.io')
 // const io = require("socket.io")(server);
 const socketController = require("./controllers/socketController");
 
+app.use( express.static( `${__dirname}/../build` ) )
+
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
+
 app.use(
   session({
     secret: SESSION_SECRET,
@@ -163,9 +169,5 @@ app.get("/api/matchname/:chatroom_id", async (req, res) => {
 });
 
 
-app.use( express.static( `${__dirname}/../build` ) )
 
-app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
 
