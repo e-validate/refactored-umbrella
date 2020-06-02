@@ -22,6 +22,7 @@ const bodyParser = require("body-parser");
 const socket = require('socket.io')
 const socketController = require("./controllers/socketController");
 
+
 app.use( express.static( `${__dirname}/../build` ) );
 
 app.use(
@@ -127,7 +128,6 @@ app.get("/api/matchname/:chatroom_id", async (req, res) => {
   let name = await db.get_match_name([+id, +chatroom_id]);
   res.send(name);
 });
-
 
 app.get('*', (req, res)=>{
   res.sendFile(path.join(__dirname, '../build/index.html'));
