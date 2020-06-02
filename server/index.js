@@ -12,7 +12,6 @@ const authmw = require("./middleware/authCheck");
 const initSession = require("./middleware/initSession");
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const path = require('path');
-
 const app = express();
 
 //Socket
@@ -21,15 +20,10 @@ const bodyParser = require("body-parser");
 
 // socket modules
 const socket = require('socket.io')
-
-// const io = require("socket.io")(server);
 const socketController = require("./controllers/socketController");
 
-app.use( express.static( `${__dirname}/../build` ) )
 
-app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
+app.use( express.static( `${__dirname}/../build` ) );
 
 app.use(
   session({
@@ -124,39 +118,6 @@ app.get('/api/favorites', favoriteController.getFavoriteChatrooms);
 app.post("/api/swipe/left/:swipedId", likeController.dislike);
 app.post("/api/swipe/right/:swipedId", likeController.like);
 
-// io.on("connection", socket => {
-//   console.log("A connection happened", socket.id);
-//   socket.on("needy", async id => {
-//     const db = app.get("db");
-//     let messages = await db.get_chatroom_messages(id);
-//     socketController.joinRoom(messages, id, socket, io);
-//   });
-//   socket.on("delete a message", async payload => {
-//     let {mid, cid} = payload
-//     const db = app.get("db");
-//     let messages = await db.delete_message([
-//       +mid,
-//       +cid
-//     ]);
-//     io.to(`${cid}`).emit("new message from sever", messages);
-//   });
-//   socket.on("message to server", async payload => {
-//     const db = app.get("db");
-//     const { id, chatroom_id, message } = payload;
-//     let messages = await db.add_message([
-//       +id,
-//       +chatroom_id,
-//       message,
-//       socket,
-//       io
-//     ]);
-//     io.to(`${chatroom_id}`)
-//       .emit("new message from sever", messages)
-//       .emit("message to user", messages);
-//     });
-//   });
-
-// app.get('/api/messages/:chatroom_id', socketController.getChatroomMessages)
 app.delete('/api/delete/chatroom/:chatroom_id', socketController.deleteChatroom)
 app.get("/api/matches", socketController.getUsersChatrooms);
 app.put("/api/read/:chatroom_id", socketController.switchToRead);
@@ -168,6 +129,6 @@ app.get("/api/matchname/:chatroom_id", async (req, res) => {
   res.send(name);
 });
 
-
-
-
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});

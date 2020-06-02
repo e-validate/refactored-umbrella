@@ -12,8 +12,8 @@ import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 import axios from "axios";
 import Header from "../header/Header";
 
-// const socket = io.connect('http://localhost:5430');
-const socket = io.connect("/");
+
+const socket = io.connect();
 
 class Chat extends Component {
   constructor() {
