@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { logout, getUser } from "./../../ducks/reducers/sessionReducer";
 import { setChatRoom } from "../../ducks/reducers/swipeReducer";
 import { getUsersChatrooms } from "../../ducks/reducers/messageReducer";
-const socket = io.connect("/");
+const socket = io.connect();
 
 class Header extends React.Component {
   _isMounted = false;
