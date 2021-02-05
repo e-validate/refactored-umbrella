@@ -23,7 +23,7 @@ const socket = require('socket.io')
 const socketController = require("./controllers/socketController");
 
 
-app.use( express.static( `${__dirname}/../build` ) );
+app.use(express.static(`${__dirname}/../build`));
 
 app.use(
   session({
@@ -41,46 +41,49 @@ app.use(initSession);
 
 
 
-massive(CONNECTION_STRING)
+massive({
+  connectionString: CONNECTION_STRING,
+  ssl: { rejectUnauthorized: false }
+})
   .then(db => {
     const io = socket(app.listen(SERVER_PORT, () =>
       console.log(`Server listening on ${SERVER_PORT}`)));
-      io.on("connection", socket => {
-        console.log("A connection happened", socket.id);
-        socket.on("needy", async id => {
-          const db = app.get("db");
-          let messages = await db.get_chatroom_messages(id);
-          socketController.joinRoom(messages, id, socket, io);
-        });
-        socket.on("delete a message", async payload => {
-          console.log('hit delete a message ', payload)
-          let {mid, cid} = payload
-          const db = app.get("db");
-          let messages = await db.delete_message([
-            +mid,
-            +cid
-          ]);
-          console.log('about to hit emit new message from server', {cid}, {messages})
-          io.to(`${cid}`).emit("new message from sever", messages);
-        });
-        socket.on("message to server", async payload => {
-          console.log('hit a message hitting sever , adding message to dbs', payload);
-          const db = app.get("db");
-          const { id, chatroom_id, message } = payload;
-          let messages = await db.add_message([
-            +id,
-            +chatroom_id,
-            message,
-            socket,
-            io
-          ]);
-          console.log('about to emit and send back updated messages after adding a message', {messages});
-          io.to(`${chatroom_id}`)
-            .emit("new message from sever", messages)
-            .emit("message to user", messages);
-          });
-        });
-      
+    io.on("connection", socket => {
+      console.log("A connection happened", socket.id);
+      socket.on("needy", async id => {
+        const db = app.get("db");
+        let messages = await db.get_chatroom_messages(id);
+        socketController.joinRoom(messages, id, socket, io);
+      });
+      socket.on("delete a message", async payload => {
+        console.log('hit delete a message ', payload)
+        let { mid, cid } = payload
+        const db = app.get("db");
+        let messages = await db.delete_message([
+          +mid,
+          +cid
+        ]);
+        console.log('about to hit emit new message from server', { cid }, { messages })
+        io.to(`${cid}`).emit("new message from sever", messages);
+      });
+      socket.on("message to server", async payload => {
+        console.log('hit a message hitting sever , adding message to dbs', payload);
+        const db = app.get("db");
+        const { id, chatroom_id, message } = payload;
+        let messages = await db.add_message([
+          +id,
+          +chatroom_id,
+          message,
+          socket,
+          io
+        ]);
+        console.log('about to emit and send back updated messages after adding a message', { messages });
+        io.to(`${chatroom_id}`)
+          .emit("new message from sever", messages)
+          .emit("message to user", messages);
+      });
+    });
+
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.json());
     app.set("db", db);
@@ -129,6 +132,6 @@ app.get("/api/matchname/:chatroom_id", async (req, res) => {
   res.send(name);
 });
 
-app.get('*', (req, res)=>{
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));
 });
