@@ -14,6 +14,7 @@ import Header from "../header/Header";
 
 
 const socket = io.connect();
+const testin = 'testing'
 
 class Chat extends Component {
   constructor() {
